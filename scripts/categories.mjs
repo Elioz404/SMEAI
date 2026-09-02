@@ -7,6 +7,11 @@ export const CATEGORIES = {
   rebalancing: {
     label: 'Rebalancing',
     blurb: 'Manages LP ranges, resets positions automatically',
+    // Terminos para la busqueda por palabra clave, que alcanza una poblacion
+    // distinta de la semantica: agentes que no declaran protocolo A2A/MCP o que
+    // caen por debajo del top-300 por score. Medido: sin esta red se nos
+    // escapaban 142 agentes, mas que todo el catalogo que teniamos.
+    terms: ['rebalance', 'concentrated liquidity', 'LP range', 'reposition'],
     queries: [
       'concentrated liquidity range rebalancer PancakeSwap V3',
       'automatically rebalance LP position when price leaves range',
@@ -18,6 +23,7 @@ export const CATEGORIES = {
   grid: {
     label: 'Grid Trading',
     blurb: 'Places and manages automated grid orders',
+    terms: ['grid trading', 'grid bot', 'ladder', 'DCA'],
     queries: [
       'grid trading bot places buy and sell orders in a bounded range',
       'automated grid strategy PancakeSwap pair levels',
@@ -29,6 +35,7 @@ export const CATEGORIES = {
   yield: {
     label: 'Yield Optimisation',
     blurb: 'Routes liquidity to the highest available APR',
+    terms: ['yield', 'APR', 'auto-compound', 'harvest', 'farming'],
     queries: [
       'yield optimiser routes capital to highest APR pool',
       'auto compound harvest restake Venus PancakeSwap Beefy',
@@ -40,6 +47,7 @@ export const CATEGORIES = {
   health: {
     label: 'Health Factor Monitoring',
     blurb: 'Protects lending positions from liquidation',
+    terms: ['health factor', 'liquidation', 'collateral', 'venus', 'borrow', 'lending'],
     queries: [
       'health factor monitor lending position liquidation protection Venus',
       'loan risk monitoring auto top up collateral Aave V3 BNB',

@@ -187,13 +187,30 @@ function Stats() {
           <p className="t-label mt-2">{it.source}</p>
         </div>
       ))}
-      <p className="col-span-full bg-raised px-5 pb-4 text-[12px] leading-relaxed text-t3">
-        The last two numbers are the point. {snapshot.totals.live} agents serve a
-        valid card, but only {snapshot.totals.hireable} have a working A2A
-        service behind it. Checking the card alone would have told you{" "}
-        {snapshot.totals.live}, and {snapshot.totals.live - snapshot.totals.hireable}{" "}
-        of those cannot be hired by anyone.
-      </p>
+      <div className="col-span-full flex flex-col gap-2 bg-raised px-5 pb-4">
+        <p className="text-[12px] leading-relaxed text-t3">
+          The last two numbers are the point. {snapshot.totals.live} agents serve
+          a valid card, but only {snapshot.totals.hireable} have a working A2A
+          service behind it. Checking the card alone would have told you{" "}
+          {snapshot.totals.live}, and{" "}
+          {snapshot.totals.live - snapshot.totals.hireable} of those cannot be
+          hired by anyone.
+        </p>
+        {snapshot.totals.cloned > 0 && (
+          <p className="text-[12px] leading-relaxed text-t3">
+            A registration is not an identity either.{" "}
+            <span className="text-t2">
+              {snapshot.totals.cloned} of the listings here are one operator
+              wearing several hats
+            </span>{" "}
+            — same owner, same backend, {snapshot.totals.clusters} cluster
+            {snapshot.totals.clusters === 1 ? "" : "s"} in total. Unpenalised
+            they scored 100 and filled this page. They are still listed, scored
+            down and labelled, because deleting them would hide how much of the
+            registry works this way.
+          </p>
+        )}
+      </div>
     </section>
   );
 }

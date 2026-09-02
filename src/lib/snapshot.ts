@@ -9,6 +9,7 @@
 // servidor encendido, la app no puede caerse durante la ventana de judging.
 
 import raw from "../../data/snapshot.json";
+import { recentMarks } from "./history";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
@@ -56,6 +57,10 @@ export type Snapshot = {
     quotes: number;
     endpoints_probed: number;
     endpoints_blocked: number;
+    /** Listados que comparten dueño y backend con otro. */
+    cloned: number;
+    /** Cuántos grupos distintos de identidades clonadas hay. */
+    clusters: number;
   };
   per_category: Record<
     CategoryKey,
@@ -114,6 +119,7 @@ export function toListItem(a: Agent): AgentListItem {
     currency: a.service?.quote?.currency ?? null,
     etaSeconds: a.service?.quote?.eta_seconds ?? null,
     clusterSize: a.cluster?.size,
+    history: recentMarks(a.agent_id),
   };
 }
 

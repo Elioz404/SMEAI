@@ -7,19 +7,33 @@
 // Uso:  node scripts/check-api-tier.mjs           (anonimo)
 //       SCAN_API_KEY=xxx node scripts/check-api-tier.mjs   (con tu key)
 
-const KEY = process.env.SCAN_API_KEY || '';
+// Lee la key del entorno o de .env.local, y nunca la imprime: solo dice en que
+// tier estas. Una key en un historial de terminal o en un log es una key
+// filtrada, aunque sea de solo lectura.
+async function readKey() {
+  if (process.env.SCAN_API_KEY) return process.env.SCAN_API_KEY.trim();
+  const { readFile } = await import('node:fs/promises');
+  const text = await readFile('.env.local', 'utf8').catch(() => '');
+  return (text.match(/^SCAN_API_KEY=(.+)$/m)?.[1] ?? '').trim();
+}
+
+const KEY = await readKey();
 const res = await fetch(
   'https://api.8004scan.io/api/v1/agents?chain_id=97&limit=1',
   { headers: KEY ? { 'X-API-Key': KEY } : {} },
 );
 
-const limit = Number(res.headers.get('x-ratelimit-limit') ?? 0);
-const left = res.headers.get('x-ratelimit-remaining');
+// Las cabeceras reales son -day y -minute, no la generica. Buscar la generica
+// hacia que el comprobador dijera "no se puede determinar" con el dato delante.
+const limit = Number(res.headers.get('x-ratelimit-limit-day') ?? 0);
+const perMin = res.headers.get('x-ratelimit-limit-minute');
+const left = res.headers.get('x-ratelimit-remaining-day');
 const reset = res.headers.get('x-ratelimit-reset');
 
-console.log(KEY ? 'con API key' : 'anonimo (sin key)');
+console.log(KEY ? `con API key (…${KEY.slice(-4)})` : 'anonimo (sin key)');
 console.log('  http      :', res.status);
 console.log('  limite/dia:', limit || '(no informado)');
+console.log('  limite/min:', perMin ?? '?');
 console.log('  restantes :', left ?? '?');
 console.log('  reset en  :', reset ? reset + 's' : '?');
 

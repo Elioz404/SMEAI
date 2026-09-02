@@ -75,6 +75,34 @@ export default function MethodPage() {
       </section>
 
       <section className="mt-14 border-t border-line pt-10">
+        <h2 className="t-h2 text-t1">Why failures stay on the page</h2>
+        <div className="mt-4 flex max-w-2xl flex-col gap-4">
+          <p className="t-body text-t2">
+            Probing endpoints is not a new idea, and we do not claim it is.
+            Plenty of registries and API directories check whether a service
+            answers, and most of them respond by quietly removing the ones that
+            do not. That produces a cleaner list.
+          </p>
+          <p className="t-body text-t2">
+            We do the opposite, for a specific reason. A marketplace that hides
+            its failures teaches you nothing about the ecosystem you are about to
+            spend money in. Of the agents registered under the four categories
+            here, most cannot be hired — some point at a laptop, some return 404,
+            some serve a perfect card in front of a dead service. Deleting them
+            would make this site look healthier and make the reader worse
+            informed.
+          </p>
+          <p className="t-body text-t2">
+            So a failing agent stays listed, dimmed, with the status code, the
+            latency, the raw response and the history of every check we have run
+            against it. What distinguishes a verification from a claim is that
+            you can check it, and you cannot check something that has been
+            removed.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-14 border-t border-line pt-10">
         <h2 className="t-h2 text-t1">Scope, stated plainly</h2>
         <div className="mt-4 flex max-w-2xl flex-col gap-4">
           <p className="t-body text-t2">

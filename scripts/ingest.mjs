@@ -176,6 +176,29 @@ async function collect(chain) {
     }
   }
 
+  // (d) Busqueda por PALABRA CLAVE. Alcanza una poblacion distinta de la
+  //     semantica: agentes sin protocolo declarado, o por debajo del top-300
+  //     por score, que las otras tres redes no ven.
+  //
+  //     No estaba, y era un agujero grande: al anadirla aparecieron 142
+  //     agentes que no listabamos, mas que todo el catalogo que teniamos. Que
+  //     tres redes coincidieran en no encontrarlos no significaba que no
+  //     existieran, solo que las tres miraban donde mismo.
+  for (const [key, cat] of Object.entries(CATEGORIES)) {
+    for (const term of cat.terms ?? []) {
+      for (const offset of [0, 100]) {
+        const r = await scan('/agents', {
+          chain_id: chain.id,
+          search: term,
+          limit: 100,
+          offset,
+        });
+        add(r?.items, 'keyword:' + key);
+        if (!r?.items?.length) break;
+      }
+    }
+  }
+
   log('  chain ' + chain.id + ': ' + seen.size + ' candidatos brutos');
   return [...seen.values()];
 }

@@ -3,6 +3,8 @@ import {
   CATEGORY_META,
   type AgentListItem,
   type CategoryKey,
+  MARK_META,
+  type Mark,
   formatEta,
   formatPrice,
   since,
@@ -145,8 +147,43 @@ export function AgentRow({
         </span>
       </span>
 
+      {/* Historial en la propia fila. Un agente que parpadea se ve aqui sin
+          abrir su ficha, que es donde un comprador decide a quien mirar. */}
+      {agent.history && agent.history.length > 1 && (
+        <MiniHistory marks={agent.history} />
+      )}
+
       <ScoreMeter score={agent.score} live={isLive} />
     </Link>
+  );
+}
+
+/** Tira compacta de disponibilidad: una marca por comprobacion. */
+function MiniHistory({ marks }: { marks: string }) {
+  const flapped = new Set(marks.replace(/-/g, "")).size > 1;
+  return (
+    <span
+      className="hidden shrink-0 items-end gap-px pt-1 sm:flex"
+      title={
+        flapped
+          ? "Availability has changed across checks — open the agent for the full history"
+          : "Availability across recent checks"
+      }
+      aria-hidden
+    >
+      {marks.split("").map((m, i) => (
+        <span
+          key={i}
+          className="h-3.5 w-[3px] rounded-[1px]"
+          style={{
+            background: MARK_META[m as Mark]?.color ?? "var(--line)",
+            opacity: m === "-" ? 0.4 : 1,
+            transform: m === "-" ? "scaleY(0.35)" : undefined,
+            transformOrigin: "bottom",
+          }}
+        />
+      ))}
+    </span>
   );
 }
 

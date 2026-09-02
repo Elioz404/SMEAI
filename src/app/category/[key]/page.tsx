@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { AgentList } from "@/components/AgentList";
+import { SupplyFunnel } from "@/components/SupplyFunnel";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
@@ -61,7 +62,9 @@ export default async function CategoryPage({
         </dl>
       </header>
 
-      <div className="mt-8">
+      <SupplyFunnel agents={agents} />
+
+      <div className="mt-12">
         <AgentList agents={items} />
       </div>
     </div>

@@ -10,13 +10,13 @@ Live at **[smeai-dev.vercel.app](https://smeai-dev.vercel.app)**
 
 The BSC agent registry doesn't have a discovery problem. It has a trust problem.
 
-Measured 2 September 2026 — the live site always shows current figures:
+Measured 3 September 2026 — the live site always shows current figures:
 
 | | |
 |---|---|
-| Agents in the ERC-8004 identity registry on BSC mainnet | **298,473** |
+| Agents in the ERC-8004 identity registry on BSC mainnet | **300,039** |
 | Of those, marked by 8004scan as having a verified endpoint | **5** |
-| Agents on BSC testnet, where most Agent Studio builders register | 2,016 |
+| Agents on BSC testnet, where most Agent Studio builders register | 2,020 |
 | Of those, verified | **0** |
 
 A marketplace that lists everything buries the user in registration spam. One
@@ -34,11 +34,11 @@ run does both:
 
 | | Measured 2 Sep 2026 |
 |---|---|
-| Classified into the four categories | 113 |
-| Serve a valid agent card | 41 |
-| **Whose service actually answers — hireable** | **27** |
+| Classified into the four categories | 260 |
+| Serve a valid agent card | 78 |
+| **Whose service actually answers — hireable** | **57** |
 
-Fourteen agents would have been listed as working by a card-only check. The word
+21 agents would have been listed as working by a card-only check. The word
 on the card is *hireable*, not *responding*, because they are not the same thing.
 
 ## What it does
@@ -57,10 +57,10 @@ on the card is *hireable*, not *responding*, because they are not the same thing
    request a real quote — the same read-only step a buyer takes before hiring.
    The price, delivery estimate and signed negotiation hash shown on an agent's
    page are what that agent returned, not our estimate.
-5. **Detects cloned identities.** Thirteen agents named `BORT …` shared one
-   owner and one backend. One backend with thirteen registered identities is not
-   thirteen agents; unpenalised they scored 100 and filled the front page. They
-   are scored down and labelled, not hidden.
+5. **Detects cloned identities.** 47 agents named `BORT …` share one
+   owner and one backend. One backend with 47 registered identities is
+   not 47 agents; unpenalised they scored 100 and filled the front
+   page. They are scored down and labelled, not hidden.
 6. **Commits** each run, so the verification history is versioned and auditable
    instead of being a claim in a pitch.
 
@@ -199,7 +199,7 @@ whose endpoint is `localhost` was never hireable by anyone, so it is shown as
 
 ## Scope, stated plainly
 
-We verify the agents we list, not all 298,473 registry entries. Probing a third
+We verify the agents we list, not all 300,039 registry entries. Probing a third
 of a million endpoints is not something free infrastructure can honestly claim
 to do, so we don't claim it.
 

@@ -4,8 +4,9 @@
 // navegador entero. Los componentes reciben ya la serie de un solo agente.
 
 import raw from "../../data/history.json";
+import { MARK_META, type Mark } from "./taxonomy";
 
-export type Mark = "h" | "c" | "d" | "b" | "-";
+export { MARK_META, type Mark };
 
 export type History = {
   /** Instante de cada comprobación, en orden. */
@@ -69,10 +70,7 @@ export function uptimeOf(agentId: string, limit = 60): Uptime {
   };
 }
 
-export const MARK_META: Record<Mark, { color: string; label: string }> = {
-  h: { color: "var(--live)", label: "hireable" },
-  c: { color: "var(--warn)", label: "card only, service down" },
-  d: { color: "var(--dead)", label: "not responding" },
-  b: { color: "var(--muted)", label: "not publicly reachable" },
-  "-": { color: "var(--line)", label: "not listed yet" },
-};
+/** Ultimas `n` marcas de un agente, para las listas. */
+export function recentMarks(agentId: string, n = 24): string {
+  return (history.agents[agentId] ?? "").slice(-n);
+}
