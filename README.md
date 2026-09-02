@@ -89,8 +89,8 @@ Real agents expose *named skills*, not a chat box:
 **Or hire on-chain, inside limits you can see.** Every agent holds its own key.
 Hiring one grants *that key* — and only that key — scoped authority over the
 treasury through [Altana](https://docs.altana.network): the four ERC-8183
-contracts a hire needs, capped at the price the agent itself quoted, expiring in
-an hour, recorded in the public Keystore. The agent then funds an ERC-8183 job in
+contracts a hire needs, capped at five times the price the agent itself quoted,
+expiring in an hour, recorded in the public Keystore. The agent then funds an ERC-8183 job in
 escrow itself, and you can revoke it in one transaction without touching any
 other agent's authority.
 
@@ -109,9 +109,16 @@ The scoping is enforced on-chain, not decorative. Three separate refusals proved
 it during development: `UnauthorizedCall` when the EvaluatorRouter was missing
 from the allowlist (naming the exact contract), `NoSpendPermissions` when the
 policy covered $U but not the native relay fee, and `ExceededSpendLimit` on a
-second same-day hire — the cap is exactly the quoted price, so the chain refuses
-the second one. None of those are bugs; they are the policy working, and the UI
-says so in plain language rather than printing a revert.
+second same-day hire. None of those are bugs; they are the policy working, and
+the UI says so in plain language rather than printing a revert.
+
+That last one changed the design. Because agent keys are deterministic, spend
+accrues *per agent* and granting a fresh session does not reset it — correct
+behaviour, since an agent should not be able to escape its cap by asking for a
+new session, but with the cap set to exactly one hire it meant the second hire
+of the day was refused. Indistinguishable from breakage to anyone trying it.
+The cap is now five times the quoted price: still derived from what the agent
+charges, still a real limit, with room to actually use it.
 
 > **If you are integrating Altana on BSC Testnet:** do not use
 > `ERC8183_ADDRESSES[97].policy` from the SDK. Funding a job with it reverts

@@ -152,7 +152,7 @@ export async function POST(req: Request) {
  */
 function explain(raw: string): string {
   if (/ExceededSpendLimit/.test(raw)) {
-    return "The session's spend cap is used up. It is set to exactly the price this agent quoted, per day, so a second hire of the same agent has to wait for the cap to reset — or be granted a new session with a wider cap. The chain refused this, not us.";
+    return "The session's daily spend cap is used up. It is derived from the price this agent quoted and covers five hires a day; the cap accrues per agent, so granting a fresh session does not reset it. The chain refused this, not us — the cap is doing its job.";
   }
   if (/UnauthorizedCall/.test(raw)) {
     return "The session tried to call a contract outside its allowlist and the chain refused it. This is the scoping working.";

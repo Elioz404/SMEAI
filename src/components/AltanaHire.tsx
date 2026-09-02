@@ -3,6 +3,15 @@
 import { useEffect, useState } from "react";
 import { formatPrice } from "@/lib/taxonomy";
 
+/** El tope mostrado debe ser el que se concede de verdad: 5x el precio. */
+function grantCap(price: string): string {
+  try {
+    return (BigInt(price) * 5n).toString();
+  } catch {
+    return price;
+  }
+}
+
 type Status =
   | { configured: false }
   | {
@@ -134,8 +143,9 @@ export function AltanaHire({
                 nothing else
               </Row>
               <Row label="may spend">
-                at most {formatPrice(price)} $U — the price this agent quoted,
-                not a number we chose — plus a small BNB cap for the relay fee
+                at most {formatPrice(grantCap(price))} $U a day — five times the{" "}
+                {formatPrice(price)} $U this agent quoted, so the cap stays tied
+                to its own price — plus a small BNB cap for the relay fee
               </Row>
               <Row label="expires">one hour after granting</Row>
               <Row label="granted to">

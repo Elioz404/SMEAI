@@ -58,6 +58,22 @@ const SESSION_TTL_SECONDS = 60 * 60;
 const NATIVE_FEE_CAP = 5_000_000_000_000_000n; // 0.005 BNB
 
 /**
+ * Cuántas contrataciones cubre el tope de gasto de una sesión.
+ *
+ * Estaba en 1 — el tope era exactamente el precio cotizado. Elegante, y
+ * equivocado en la práctica: como la clave del agente es determinista, el gasto
+ * se acumula por agente y no se reinicia al conceder una sesión nueva, así que
+ * contratar al mismo agente dos veces en un día chocaba con
+ * `ExceededSpendLimit`. Correcto por diseño, pero indistinguible de una avería
+ * para quien lo prueba por primera vez.
+ *
+ * Cinco mantiene el vínculo con lo que el agente cobra —sigue siendo un tope
+ * real y derivado de su precio, no una cifra inventada— y deja margen para
+ * probar. Subirlo más empezaría a vaciar de significado la palabra "tope".
+ */
+const HIRES_PER_SESSION = 5n;
+
+/**
  * Política de disputa admitida por el EvaluatorRouter en BSC Testnet.
  *
  * NO uses `ERC8183_ADDRESSES[97].policy` del SDK: apunta a 0x4F4678D4… y
@@ -241,8 +257,13 @@ export function sessionPolicy(budget: bigint) {
       { to: ADDRESSES.paymentToken, signature: "" }, // $U
     ],
     spend: [
-      // El precio del trabajo, en $U. Ni un token mas.
-      { limit: budget, period: "day" as const, token: ADDRESSES.paymentToken },
+      // Derivado del precio que cotizó el agente, con margen para varias
+      // contrataciones. Ver HIRES_PER_SESSION.
+      {
+        limit: budget * HIRES_PER_SESSION,
+        period: "day" as const,
+        token: ADDRESSES.paymentToken,
+      },
       // Y un tope pequeno en nativo para la comision del relay.
       //
       // Sin esta segunda entrada, contratar revierte con `NoSpendPermissions`:
@@ -264,6 +285,7 @@ export type GrantResult = {
   policy: {
     allowlist: Address[];
     capRaw: string;
+    capHires: number;
     capToken: Address;
     expiry: number;
   };
@@ -317,7 +339,8 @@ export async function grant(
         ADDRESSES.policy,
         ADDRESSES.paymentToken,
       ],
-      capRaw: budget.toString(),
+      capRaw: (budget * HIRES_PER_SESSION).toString(),
+      capHires: Number(HIRES_PER_SESSION),
       capToken: ADDRESSES.paymentToken,
       expiry,
     },
