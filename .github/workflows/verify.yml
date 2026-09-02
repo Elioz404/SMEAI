@@ -1,0 +1,62 @@
+# El "backend" de SMEAI. No hay servidor encendido ni base de datos: este job
+# vuelve a llamar a todos los agentes, escribe data/snapshot.json y lo commitea.
+#
+# Efecto secundario deliberado: el historial de verificaciones queda versionado en
+# git, asi que cualquiera puede auditar que afirmamos y cuando. Eso es lo que
+# convierte "este agente responde" en una prueba y no en una promesa.
+#
+# Coste: 0 EUR. Actions es gratis e ilimitado en repositorios publicos.
+
+name: verify agents
+
+on:
+  schedule:
+    # Cada 30 minutos = 48 ejecuciones al dia. Cada commit del snapshot dispara
+    # un deploy de Vercel, y el plan Hobby corta a 100 deploys diarios: a 15
+    # minutos serian 96 y nos quedariamos sin margen justo durante el judging.
+    # GitHub ademas retrasa los cron en horas punta; da igual, porque cada
+    # tarjeta muestra su propio timestamp de verificacion.
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - "scripts/**"
+      - ".github/workflows/verify.yml"
+
+concurrency:
+  group: verify-agents
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Probe every listed agent
+        env:
+          # Opcional. Sin key el script se autolimita a 30 req/min y tarda mas,
+          # pero funciona igual: no hay ninguna dependencia de pago.
+          SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
+        run: node scripts/ingest.mjs
+
+      - name: Commit snapshot if it changed
+        run: |
+          git config user.name "smeai-bot"
+          git config user.email "actions@github.com"
+          git add data/snapshot.json
+          if git diff --staged --quiet; then
+            echo "no change in this run"
+          else
+            git commit -m "verify: $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi

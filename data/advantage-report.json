@@ -1,0 +1,866 @@
+{
+  "generated_at": "2026-09-02T05:24:51.649Z",
+  "chain": "BSC Testnet (97) throughout: the agents are registered there and read testnet contracts, so the manual path reads the same network.",
+  "rpc": "https://bsc-testnet-rpc.publicnode.com",
+  "inputs": {
+    "tokenId": "37143",
+    "borrower": "0x0949251a1c62157c9dcC24fA8FF6b373959dea69",
+    "pool": "0xb96b19C1Bf6E8a33Bc350BB22663cAacfF4e6853"
+  },
+  "note": "machine_ms is measured. author_min is the human time the author spent building each path the first time, and is declared, not measured.",
+  "tasks": [
+    {
+      "id": "lp-range",
+      "category": "Rebalancing",
+      "title": "Is this PancakeSwap V3 position still in range, and how close is it to a boundary?",
+      "input": {
+        "tokenId": "37143"
+      },
+      "agent": {
+        "name": "RangeKeeper",
+        "slug": "rangekeeper",
+        "skill": "pancakeswap-range-management",
+        "chain": 97,
+        "token": "2017"
+      },
+      "author_min_manual": 35,
+      "author_min_agent": 2,
+      "agentInput": {
+        "tokenId": "37143"
+      },
+      "with_agent": {
+        "ok": true,
+        "machine_ms": 1525,
+        "status": 200,
+        "output": {
+          "jsonrpc": "2.0",
+          "id": "1aaf4cd5-b610-4070-900c-c2329d3d27ed",
+          "result": {
+            "task": {
+              "id": "ref-task:rangekeeper:4f80b6ce-44b9-4250-923b-f247355cbd05",
+              "status": {
+                "state": "TASK_STATE_COMPLETED",
+                "timestamp": "2026-09-02T05:24:48.638Z",
+                "message": {
+                  "role": "ROLE_AGENT",
+                  "messageId": "ref-msg:1bdd883b-10c2-4850-ac14-207170f4538f",
+                  "parts": [
+                    {
+                      "text": "RangeKeeper completed analyze_position using deterministic Spotriq protocol readers.",
+                      "mediaType": "text/plain"
+                    }
+                  ]
+                }
+              },
+              "artifacts": [
+                {
+                  "artifactId": "artifact:67583f18-698f-42dd-beb6-6a6e3fe8dc4f",
+                  "name": "rangekeeper-analyze_position",
+                  "parts": [
+                    {
+                      "data": {
+                        "capability": "rebalancing",
+                        "action": "analyze_position",
+                        "position": {
+                          "protocol": "PancakeSwap",
+                          "version": "V3",
+                          "network": "testnet",
+                          "chainId": 97,
+                          "positionManager": "0x427bf5b37357632377ecbec9de3626c71a5396c1",
+                          "tokenId": "37143",
+                          "owner": "0x391b76f22fc3a4d52e2fd7a53b61545aa550b99d",
+                          "pool": {
+                            "protocol": "PancakeSwap",
+                            "version": "V3",
+                            "network": "testnet",
+                            "chainId": 97,
+                            "poolAddress": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                            "token0": {
+                              "address": "0xae13d989dac2f0debff460ac112a837c89baa7cd",
+                              "isNative": false,
+                              "decimals": 18,
+                              "symbol": "WBNB",
+                              "name": "Wrapped BNB"
+                            },
+                            "token1": {
+                              "address": "0xee16452c84aed0cd5128578fd7e3eb4aeffae64e",
+                              "isNative": false,
+                              "decimals": 18,
+                              "symbol": "GFT",
+                              "name": "GOLDEN FORTUNE"
+                            },
+                            "feePips": 2500,
+                            "currentLpFeePips": 2500,
+                            "tickSpacing": 50,
+                            "currentTick": 115133,
+                            "sqrtPriceX96": "25051676798693205948119977632506",
+                            "liquidityRaw": "316227766016837933",
+                            "currentPriceToken0InToken1": "99980.2993296",
+                            "blockNumber": "128622627",
+                            "observedAt": "2026-09-02T05:24:48.040Z",
+                            "evidence": [
+                              {
+                                "evidenceId": "ev_fa2b6bc0-73e1-4601-af18-80e67e60c474",
+                                "subjectType": "liquidity-position",
+                                "subjectId": "V3:37143",
+                                "metric": "pancakeswap.pool.tick",
+                                "value": 115133,
+                                "unit": "tick",
+                                "provenance": "external",
+                                "sourceName": "PancakeSwap",
+                                "sourceId": "pancakeswap",
+                                "truthLayer": "PROTOCOL_STATE",
+                                "sourceRef": "https://testnet.bscscan.com/address/0x427bF5b37357632377eCbEC9de3626C71A5396c1",
+                                "observedAt": "2026-09-02T05:24:48.040Z",
+                                "confidence": "high",
+                                "methodVersion": "pancakeswap.v3-position@1.0.0",
+                                "methodInputs": [
+                                  "128622627"
+                                ],
+                                "freshnessAssessment": {
+                                  "metric": "pancakeswap.pool.tick",
+                                  "targetAgeSeconds": 30,
+                                  "warnAgeSeconds": 60,
+                                  "hardExpirySeconds": 120,
+                                  "ageSeconds": 0,
+                                  "state": "FRESH"
+                                },
+                                "availability": "AVAILABLE",
+                                "chainContext": {
+                                  "chain": "BSC",
+                                  "network": "testnet",
+                                  "chainId": 97,
+                                  "blockNumber": "128622627",
+                                  "finality": "LATEST"
+                                }
+                              },
+                              {
+                                "evidenceId": "ev_1aaa19d3-6b70-4708-9a0e-a34b7366a4eb",
+                                "subjectType": "liquidity-position",
+                                "subjectId": "V3:37143",
+                                "metric": "pancakeswap.pool.liquidity",
+                                "value": "316227766016837933",
+                                "unit": "liquidity-raw",
+                                "provenance": "external",
+                                "sourceName": "PancakeSwap",
+                                "sourceId": "pancakeswap",
+                                "truthLayer": "PROTOCOL_STATE",
+                                "sourceRef": "https://testnet.bscscan.com/address/0x427bF5b37357632377eCbEC9de3626C71A5396c1",
+                                "observedAt": "2026-09-02T05:24:48.040Z",
+                                "confidence": "high",
+                                "methodVersion": "pancakeswap.v3-position@1.0.0",
+                                "methodInputs": [
+                                  "128622627"
+                                ],
+                                "freshnessAssessment": {
+                                  "metric": "pancakeswap.pool.liquidity",
+                                  "targetAgeSeconds": 30,
+                                  "warnAgeSeconds": 60,
+                                  "hardExpirySeconds": 120,
+                                  "ageSeconds": 0,
+                                  "state": "FRESH"
+                                },
+                                "availability": "AVAILABLE",
+                                "chainContext": {
+                                  "chain": "BSC",
+                                  "network": "testnet",
+                                  "chainId": 97,
+                                  "blockNumber": "128622627",
+                                  "finality": "LATEST"
+                                }
+                              },
+                              {
+                                "evidenceId": "ev_88e8d976-6e82-4c87-8a21-d8b3f2a62a33",
+                                "subjectType": "liquidity-position",
+                                "subjectId": "V3:37143",
+                                "metric": "market.current_price",
+                                "value": "99980.2993296",
+                                "unit": "token1-per-token0",
+                                "provenance": "marketplace-derived",
+                                "sourceName": "Spotriq Derived",
+                                "sourceId": "spotriq-derived",
+                                "truthLayer": "MARKETPLACE_DERIVED",
+                                "observedAt": "2026-09-02T05:24:48.040Z",
+                                "confidence": "high",
+                                "methodVersion": "pancakeswap.cl-sqrt-price@1.0.0",
+                                "methodInputs": [
+                                  "25051676798693205948119977632506"
+                                ],
+                                "freshnessAssessment": {
+                                  "metric": "market.current_price",
+                                  "targetAgeSeconds": 30,
+                                  "warnAgeSeconds": 60,
+                                  "hardExpirySeconds": 120,
+                                  "ageSeconds": 0,
+                                  "state": "FRESH"
+                                },
+                                "availability": "AVAILABLE",
+                                "chainContext": {
+                                  "chain": "BSC",
+                                  "network": "testnet",
+                                  "chainId": 97,
+                                  "blockNumber": "128622627",
+                                  "finality": "LATEST"
+                                }
+                              }
+                            ]
+                          },
+                          "tickLower": -887250,
+                          "tickUpper": 887250,
+                          "liquidityRaw": "316227766016837933",
+                          "rangeState": "IN_RANGE",
+                          "distanceToLowerTicks": 1002383,
+                          "distanceToUpperTicks": 772117,
+                          "recordedTokensOwed0Raw": "0",
+                          "recordedTokensOwed1Raw": "0",
+                          "feeGrowthInside0LastX128": "0",
+                          "feeGrowthInside1LastX128": "0",
+                          "blockNumber": "128622627",
+                          "observedAt": "2026-09-02T05:24:48.040Z",
+                          "evidence": [
+                            {
+                              "evidenceId": "ev_440ed379-3c05-43eb-9d87-45783c4282c1",
+                              "subjectType": "liquidity-position",
+                              "subjectId": "V3:37143",
+                              "metric": "liquidity.position",
+                              "value": "316227766016837933",
+                              "unit": "liquidity-raw",
+                              "provenance": "external",
+                              "sourceName": "PancakeSwap",
+                              "sourceId": "pancakeswap",
+                              "truthLayer": "PROTOCOL_STATE",
+                              "sourceRef": "https://testnet.bscscan.com/address/0x427bF5b37357632377eCbEC9de3626C71A5396c1",
+                              "observedAt": "2026-09-02T05:24:48.040Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.v3-position@1.0.0",
+                              "methodInputs": [
+                                "0x391b76f22fc3a4d52e2fd7a53b61545aa550b99d",
+                                "37143",
+                                "128622627"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "liquidity.position",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622627",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_fa2b6bc0-73e1-4601-af18-80e67e60c474",
+                              "subjectType": "liquidity-position",
+                              "subjectId": "V3:37143",
+                              "metric": "pancakeswap.pool.tick",
+                              "value": 115133,
+                              "unit": "tick",
+                              "provenance": "external",
+                              "sourceName": "PancakeSwap",
+                              "sourceId": "pancakeswap",
+                              "truthLayer": "PROTOCOL_STATE",
+                              "sourceRef": "https://testnet.bscscan.com/address/0x427bF5b37357632377eCbEC9de3626C71A5396c1",
+                              "observedAt": "2026-09-02T05:24:48.040Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.v3-position@1.0.0",
+                              "methodInputs": [
+                                "128622627"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "pancakeswap.pool.tick",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622627",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_1aaa19d3-6b70-4708-9a0e-a34b7366a4eb",
+                              "subjectType": "liquidity-position",
+                              "subjectId": "V3:37143",
+                              "metric": "pancakeswap.pool.liquidity",
+                              "value": "316227766016837933",
+                              "unit": "liquidity-raw",
+                              "provenance": "external",
+                              "sourceName": "PancakeSwap",
+                              "sourceId": "pancakeswap",
+                              "truthLayer": "PROTOCOL_STATE",
+                              "sourceRef": "https://testnet.bscscan.com/address/0x427bF5b37357632377eCbEC9de3626C71A5396c1",
+                              "observedAt": "2026-09-02T05:24:48.040Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.v3-position@1.0.0",
+                              "methodInputs": [
+                                "128622627"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "pancakeswap.pool.liquidity",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622627",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_a8e0ea85-83ed-44d5-8b8f-cde614cf4065",
+                              "subjectType": "liquidity-position",
+                              "subjectId": "V3:37143",
+                              "metric": "liquidity.range_state",
+                              "value": "IN_RANGE",
+                              "provenance": "marketplace-derived",
+                              "sourceName": "Spotriq Derived",
+                              "sourceId": "spotriq-derived",
+                              "truthLayer": "MARKETPLACE_DERIVED",
+                              "observedAt": "2026-09-02T05:24:48.040Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.cl-range-state@1.0.0",
+                              "methodInputs": [
+                                "115133",
+                                "-887250",
+                                "887250",
+                                "316227766016837933",
+                                "50"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "liquidity.range_state",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622627",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_88e8d976-6e82-4c87-8a21-d8b3f2a62a33",
+                              "subjectType": "liquidity-position",
+                              "subjectId": "V3:37143",
+                              "metric": "market.current_price",
+                              "value": "99980.2993296",
+                              "unit": "token1-per-token0",
+                              "provenance": "marketplace-derived",
+                              "sourceName": "Spotriq Derived",
+                              "sourceId": "spotriq-derived",
+                              "truthLayer": "MARKETPLACE_DERIVED",
+                              "observedAt": "2026-09-02T05:24:48.040Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.cl-sqrt-price@1.0.0",
+                              "methodInputs": [
+                                "25051676798693205948119977632506"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "market.current_price",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622627",
+                                "finality": "LATEST"
+                              }
+                            }
+                          ],
+                          "coverage": {
+                            "ownership": "AVAILABLE",
+                            "poolState": "AVAILABLE",
+                            "tokenMetadata": "AVAILABLE",
+                            "fees": "RECORDED_ONLY",
+                            "valuation": "NOT_SUPPORTED"
+                          }
+                        },
+                        "assessment": {
+                          "rangeState": "IN_RANGE",
+                          "currentTick": 115133,
+                          "tickLower": -887250,
+                          "tickUpper": 887250,
+                          "note": "Current deterministic position state only. This is not a profit forecast or authority to rebalance."
+                        }
+                      },
+                      "mediaType": "application/json"
+                    }
+                  ]
+                }
+              ],
+              "metadata": {
+                "spotriq": {
+                  "referenceAgent": "rangekeeper",
+                  "category": "rebalancing",
+                  "action": "analyze_position",
+                  "methodVersion": "marketplace.reference-agent-runtime@1.0.0",
+                  "financialAuthorityUsed": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "without_agent": {
+        "ok": true,
+        "machine_ms": 564,
+        "rpc_calls": 3,
+        "output": {
+          "tokenId": "37143",
+          "token0": "0xae13d989daC2f0dEbFf460aC112a837C89BAa7cd",
+          "token1": "0xeE16452c84Aed0CD5128578fd7e3eB4aeFfae64e",
+          "fee": 2500,
+          "tickLower": -887250,
+          "tickUpper": 887250,
+          "currentTick": 115133,
+          "liquidity": "316227766016837933",
+          "inRange": true,
+          "ticksToBoundary": 772117,
+          "widthTicks": 1774500,
+          "verdict": "in range, comfortable"
+        }
+      }
+    },
+    {
+      "id": "venus-health",
+      "category": "Security",
+      "title": "Is this Venus borrower liquidatable right now, and what is the buffer?",
+      "input": {
+        "walletAddress": "0x0949251a1c62157c9dcC24fA8FF6b373959dea69"
+      },
+      "agent": {
+        "name": "VenusGuard",
+        "slug": "venusguard",
+        "skill": "venus-health-monitor",
+        "chain": 97,
+        "token": "2046"
+      },
+      "author_min_manual": 25,
+      "author_min_agent": 2,
+      "agent_network_mismatch": true,
+      "agentInput": {
+        "walletAddress": "0x0949251a1c62157c9dcC24fA8FF6b373959dea69"
+      },
+      "with_agent": {
+        "ok": true,
+        "machine_ms": 645,
+        "status": 200,
+        "output": {
+          "jsonrpc": "2.0",
+          "id": "13794bb7-dbf3-4fba-8caa-247ca4964cdb",
+          "result": {
+            "task": {
+              "id": "ref-task:venusguard:6ad25290-dbf0-4994-8d23-a5cb07cadb06",
+              "status": {
+                "state": "TASK_STATE_COMPLETED",
+                "timestamp": "2026-09-02T05:24:49.852Z",
+                "message": {
+                  "role": "ROLE_AGENT",
+                  "messageId": "ref-msg:4083e035-0402-44e8-a498-55836351224c",
+                  "parts": [
+                    {
+                      "text": "VenusGuard completed inspect_health using deterministic Spotriq protocol readers.",
+                      "mediaType": "text/plain"
+                    }
+                  ]
+                }
+              },
+              "artifacts": [
+                {
+                  "artifactId": "artifact:dbfdf420-b2e8-454a-a655-a20f93e54489",
+                  "name": "venusguard-inspect_health",
+                  "parts": [
+                    {
+                      "data": {
+                        "capability": "health",
+                        "action": "inspect_health",
+                        "snapshot": {
+                          "walletAddress": "0x0949251a1c62157c9dcc24fa8ff6b373959dea69",
+                          "network": "testnet",
+                          "chainId": 97,
+                          "blockNumber": "128622630",
+                          "observedAt": "2026-09-02T05:24:49.433Z",
+                          "contracts": {
+                            "network": "testnet",
+                            "protocolShareReserve": "0x25c7c7D6Bf710949fD7f03364E9BA19a1b3c10E3",
+                            "corePoolComptroller": "0x94d1820b2d1c7c7452a163983dc888cec546b77d",
+                            "poolRegistry": "0xc85491616fa949e048f3aac39fbf5b0703800667",
+                            "vBNB": "0x2e7222e51c0f6e98610a1543aa3836e092cde62c",
+                            "wBNB": "0xae13d989dac2f0debff460ac112a837c89baa7cd"
+                          },
+                          "positions": [],
+                          "coverage": {
+                            "corePool": "AVAILABLE",
+                            "isolatedPools": "AVAILABLE",
+                            "failedComptrollers": []
+                          }
+                        },
+                        "assessment": {
+                          "note": "Current protocol state with explicit partial-data semantics. No automatic protective transaction is authorized by this read."
+                        }
+                      },
+                      "mediaType": "application/json"
+                    }
+                  ]
+                }
+              ],
+              "metadata": {
+                "spotriq": {
+                  "referenceAgent": "venusguard",
+                  "category": "health",
+                  "action": "inspect_health",
+                  "methodVersion": "marketplace.reference-agent-runtime@1.0.0",
+                  "financialAuthorityUsed": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "without_agent": {
+        "ok": true,
+        "machine_ms": 333,
+        "rpc_calls": 2,
+        "output": {
+          "wallet": "0x0949251a1c62157c9dcC24fA8FF6b373959dea69",
+          "comptrollerError": 0,
+          "excessLiquidityUsd": 498.30813941594266,
+          "shortfallUsd": 0,
+          "marketsEntered": 2,
+          "markets": [
+            "0xA07c5b74C9B40447a954e1466938b865b6BBea36",
+            "0xfD5840Cd36d94D7229439859C0112a4185BC0255"
+          ],
+          "verdict": "no shortfall — position is not liquidatable at this block"
+        }
+      }
+    },
+    {
+      "id": "grid-context",
+      "category": "Trading",
+      "title": "What is the market context for running a grid on BNB/USDT, and does the step clear fees?",
+      "input": {
+        "poolAddress": "0xb96b19C1Bf6E8a33Bc350BB22663cAacfF4e6853"
+      },
+      "agent": {
+        "name": "GridPilot",
+        "slug": "gridpilot",
+        "skill": "pancakeswap-grid-context",
+        "chain": 97,
+        "token": "2043"
+      },
+      "author_min_manual": 45,
+      "author_min_agent": 2,
+      "agentInput": {
+        "poolAddress": "0xb96b19C1Bf6E8a33Bc350BB22663cAacfF4e6853"
+      },
+      "with_agent": {
+        "ok": true,
+        "machine_ms": 1150,
+        "status": 200,
+        "output": {
+          "jsonrpc": "2.0",
+          "id": "5d9339f1-f6d8-4aa1-8659-5b8069d8a50c",
+          "result": {
+            "task": {
+              "id": "ref-task:gridpilot:a52450f1-dac9-416a-97b7-de0a10bdfa80",
+              "status": {
+                "state": "TASK_STATE_COMPLETED",
+                "timestamp": "2026-09-02T05:24:51.316Z",
+                "message": {
+                  "role": "ROLE_AGENT",
+                  "messageId": "ref-msg:e6c1ee49-83b1-4cbf-a25c-fa64ceb76e40",
+                  "parts": [
+                    {
+                      "text": "GridPilot completed analyze_market using deterministic Spotriq protocol readers.",
+                      "mediaType": "text/plain"
+                    }
+                  ]
+                }
+              },
+              "artifacts": [
+                {
+                  "artifactId": "artifact:80550e63-aba8-4380-8a6b-ae8c48dd9963",
+                  "name": "gridpilot-analyze_market",
+                  "parts": [
+                    {
+                      "data": {
+                        "capability": "grid",
+                        "action": "analyze_market",
+                        "context": {
+                          "contextId": "gridctx_2a8a6e75-c673-47b8-9f80-933718cc33e7",
+                          "protocol": "PancakeSwap",
+                          "version": "V3",
+                          "network": "testnet",
+                          "chainId": 97,
+                          "poolAddress": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                          "pairLabel": "WBNB/GFT",
+                          "token0": {
+                            "address": "0xae13d989dac2f0debff460ac112a837c89baa7cd",
+                            "isNative": false,
+                            "decimals": 18,
+                            "symbol": "WBNB",
+                            "name": "Wrapped BNB"
+                          },
+                          "token1": {
+                            "address": "0xee16452c84aed0cd5128578fd7e3eb4aeffae64e",
+                            "isNative": false,
+                            "decimals": 18,
+                            "symbol": "GFT",
+                            "name": "GOLDEN FORTUNE"
+                          },
+                          "feePips": 2500,
+                          "currentTick": 115133,
+                          "currentPriceToken0InToken1": "99980.2993296",
+                          "liquidityRaw": "316227766016837933",
+                          "windows": [
+                            {
+                              "seconds": 3600,
+                              "label": "1h",
+                              "averageTick": 115133,
+                              "averagePriceToken0InToken1": "99979.8928621",
+                              "state": "AVAILABLE"
+                            },
+                            {
+                              "seconds": 21600,
+                              "label": "6h",
+                              "state": "UNAVAILABLE"
+                            },
+                            {
+                              "seconds": 86400,
+                              "label": "24h",
+                              "state": "UNAVAILABLE"
+                            }
+                          ],
+                          "twapBandLow": "99979.8928621",
+                          "twapBandHigh": "99980.2993296",
+                          "regime": "INSUFFICIENT_HISTORY",
+                          "confidence": "unavailable",
+                          "walletCompatibility": {
+                            "hasAnyCompatibleAsset": false,
+                            "positionExposure": false
+                          },
+                          "blockNumber": "128622632",
+                          "observedAt": "2026-09-02T05:24:50.500Z",
+                          "evidence": [
+                            {
+                              "evidenceId": "ev_89a8089b-39b8-4421-a960-e7d4e619481d",
+                              "subjectType": "market",
+                              "subjectId": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "metric": "pancakeswap.pool.tick",
+                              "value": 115133,
+                              "provenance": "external",
+                              "sourceName": "PancakeSwap",
+                              "sourceId": "pancakeswap",
+                              "truthLayer": "PROTOCOL_STATE",
+                              "sourceRef": "https://testnet.bscscan.com/address/0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "observedAt": "2026-09-02T05:24:50.500Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.v3-position@1.0.0",
+                              "methodInputs": [
+                                "128622632"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "pancakeswap.pool.tick",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622632",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_49e406dc-170e-4021-ad0b-95c2ce34b0a1",
+                              "subjectType": "market",
+                              "subjectId": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "metric": "pancakeswap.pool.liquidity",
+                              "value": "316227766016837933",
+                              "provenance": "external",
+                              "sourceName": "PancakeSwap",
+                              "sourceId": "pancakeswap",
+                              "truthLayer": "PROTOCOL_STATE",
+                              "sourceRef": "https://testnet.bscscan.com/address/0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "observedAt": "2026-09-02T05:24:50.500Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.v3-position@1.0.0",
+                              "methodInputs": [
+                                "128622632"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "pancakeswap.pool.liquidity",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622632",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_d1b5b640-6fb9-4e81-9f7a-891b43fd214b",
+                              "subjectType": "market",
+                              "subjectId": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "metric": "market.current_price",
+                              "value": "99980.2993296",
+                              "unit": "token1-per-token0",
+                              "provenance": "marketplace-derived",
+                              "sourceName": "Spotriq Derived",
+                              "sourceId": "spotriq-derived",
+                              "truthLayer": "MARKETPLACE_DERIVED",
+                              "observedAt": "2026-09-02T05:24:50.500Z",
+                              "confidence": "high",
+                              "methodVersion": "pancakeswap.cl-sqrt-price@1.0.0",
+                              "methodInputs": [
+                                "25051676798693205948119977632506"
+                              ],
+                              "freshnessAssessment": {
+                                "metric": "market.current_price",
+                                "targetAgeSeconds": 30,
+                                "warnAgeSeconds": 60,
+                                "hardExpirySeconds": 120,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622632",
+                                "finality": "LATEST"
+                              }
+                            },
+                            {
+                              "evidenceId": "ev_3b6c60e1-8c88-4889-b4c3-bfa358ca7857",
+                              "subjectType": "grid-market",
+                              "subjectId": "0xb96b19c1bf6e8a33bc350bb22663caacff4e6853",
+                              "metric": "grid.market_regime",
+                              "value": "INSUFFICIENT_HISTORY",
+                              "provenance": "marketplace-derived",
+                              "sourceName": "Spotriq Derived",
+                              "sourceId": "spotriq-derived",
+                              "truthLayer": "MARKETPLACE_DERIVED",
+                              "observedAt": "2026-09-02T05:24:50.500Z",
+                              "confidence": "unavailable",
+                              "methodVersion": "grid.market-regime@1.0.0",
+                              "methodInputs": [
+                                "1h:115133"
+                              ],
+                              "limitation": "TWAP dispersion is not realised volatility and this regime is not a profit forecast.",
+                              "freshnessAssessment": {
+                                "metric": "grid.market_regime",
+                                "targetAgeSeconds": 300,
+                                "warnAgeSeconds": 600,
+                                "hardExpirySeconds": 900,
+                                "ageSeconds": 0,
+                                "state": "FRESH"
+                              },
+                              "availability": "AVAILABLE",
+                              "chainContext": {
+                                "chain": "BSC",
+                                "network": "testnet",
+                                "chainId": 97,
+                                "blockNumber": "128622632",
+                                "finality": "LATEST"
+                              }
+                            }
+                          ],
+                          "coverage": {
+                            "poolState": "AVAILABLE",
+                            "oracleHistory": "INSUFFICIENT_HISTORY",
+                            "walletBalances": "NOT_REQUESTED"
+                          },
+                          "limitations": [
+                            "Onchain TWAP windows describe average price direction, not historical high/low or realised volatility.",
+                            "A range-like classification does not imply grid trading will be profitable or appropriate.",
+                            "Capital size and risk preference are not inferred from wallet history."
+                          ]
+                        },
+                        "assessment": {
+                          "regime": "INSUFFICIENT_HISTORY",
+                          "confidence": "unavailable",
+                          "note": "TWAP-based market context is descriptive, not a profit forecast or instruction to trade."
+                        }
+                      },
+                      "mediaType": "application/json"
+                    }
+                  ]
+                }
+              ],
+              "metadata": {
+                "spotriq": {
+                  "referenceAgent": "gridpilot",
+                  "category": "grid",
+                  "action": "analyze_market",
+                  "methodVersion": "marketplace.reference-agent-runtime@1.0.0",
+                  "financialAuthorityUsed": false
+                }
+              }
+            }
+          }
+        }
+      },
+      "without_agent": {
+        "ok": true,
+        "machine_ms": 650,
+        "rpc_calls": 3,
+        "output": {
+          "pool": "0xb96b19C1Bf6E8a33Bc350BB22663cAacfF4e6853",
+          "currentTick": 115133,
+          "rawPriceToken1PerToken0": 99980.29932957953,
+          "activeLiquidity": "316227766016837933",
+          "feeTierBps": 25,
+          "gridLevels": 10,
+          "stepPct": 0.4,
+          "netEdgePerRoundTripPct": -0.1,
+          "verdict": "grid step does not clear fees — negative edge"
+        }
+      }
+    }
+  ]
+}

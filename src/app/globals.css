@@ -1,0 +1,245 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   SMEAI — sistema de diseño
+
+   Regla tipográfica que gobierna todo el producto:
+     MONO  = hecho verificable por máquina (cifras, direcciones, latencias,
+             estados, identificadores). Si es mono, lo medimos nosotros.
+     SANS  = texto escrito por una persona (prosa, etiquetas, explicaciones).
+
+   No es decoración: en un producto cuya tesis es "distinguimos lo verificado de
+   lo afirmado", la tipografía tiene que codificar esa misma distinción. El
+   usuario aprende la regla sin que se la expliquemos.
+
+   Tema único y oscuro, decisión deliberada: es una herramienta de lectura de
+   datos, no un sitio de marketing.
+   ========================================================================== */
+
+:root {
+  /* Superficies. Frío y ligeramente azulado, no gris neutro: separa mejor los
+     niveles a bajas luminancias que un gris puro. */
+  --bg: #0a0c10;
+  --bg-raised: #11141a;
+  --bg-overlay: #161a21;
+  --bg-sunken: #07090c;
+
+  --line: #1c212a;
+  --line-strong: #2b3240;
+
+  /* Texto en tres niveles. Más de tres y la jerarquía deja de leerse. */
+  --text: #e6e9ee;
+  --text-2: #98a1b0;
+  --text-3: #626c7d;
+
+  --accent: #f0b90b;
+  --accent-dim: #7a5f06;
+
+  /* Semánticos de estado. Verde y rojo diferenciados también por forma y
+     posición, nunca solo por color. */
+  --live: #3ddc97;
+  --warn: #f2b544;
+  --dead: #f2645a;
+  --muted: #4d5666;
+
+  --radius: 6px;
+  --radius-lg: 10px;
+
+  --sidebar-w: 232px;
+  --sidebar-w-collapsed: 56px;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-raised: var(--bg-raised);
+  --color-overlay: var(--bg-overlay);
+  --color-sunken: var(--bg-sunken);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-t1: var(--text);
+  --color-t2: var(--text-2);
+  --color-t3: var(--text-3);
+  --color-accent: var(--accent);
+  --color-accent-dim: var(--accent-dim);
+  --color-live: var(--live);
+  --color-warn: var(--warn);
+  --color-dead: var(--dead);
+  --color-muted: var(--muted);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+
+  --radius-card: var(--radius);
+  --radius-panel: var(--radius-lg);
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-size: 13px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* --- Escala tipográfica ---------------------------------------------------
+   Seis niveles y ni uno más. Cada uno con su propio tracking: las cifras
+   grandes en mono necesitan tracking negativo para no parecer sueltas, y las
+   etiquetas pequeñas en mayúsculas necesitan tracking positivo para respirar. */
+
+/* Fluido, no fijo: a 2.5rem el titular ocupaba cinco lineas en un movil de
+   375 px y el mensaje se perdia. clamp() lo reduce sin necesitar breakpoints. */
+.t-display {
+  font-family: var(--font-mono);
+  font-size: clamp(1.6rem, 4.4vw, 2.5rem);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-stat {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 2.6vw, 1.75rem);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-h1 {
+  font-size: 1.375rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+  font-weight: 600;
+}
+
+.t-h2 {
+  font-size: 0.9375rem;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  font-weight: 600;
+}
+
+.t-body {
+  font-size: 0.8125rem;
+  line-height: 1.6;
+}
+
+/* Etiqueta de sección. Mayúsculas pequeñas: separa sin necesitar una línea. */
+.t-label {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  line-height: 1.4;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-3);
+}
+
+/* Todo dato medido. tabular-nums para que las columnas de cifras se alineen
+   verticalmente: sin esto, una lista de latencias baila y se lee peor. */
+.t-data {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.5;
+  font-variant-numeric: tabular-nums;
+}
+
+.t-mono {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+/* --- Contenedor -----------------------------------------------------------
+   Ancho máximo de lectura. Sin esto, en un monitor ancho las descripciones de
+   los agentes se estiran a más de 200 caracteres por línea y el ojo pierde el
+   renglón al volver. La barra lateral ya come espacio, así que el tope se aplica
+   al contenido, no a la ventana. */
+
+.wrap {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 1180px;
+}
+
+/* --- Estado ---------------------------------------------------------------
+   El punto late solo si el agente responde. Si está caído se queda quieto: un
+   indicador que se mueve pase lo que pase no informa de nada. */
+
+@keyframes smeai-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.4;
+    transform: scale(0.85);
+  }
+}
+
+.pulse-live {
+  animation: smeai-pulse 2.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse-live {
+    animation: none;
+  }
+  * {
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* --- Accesibilidad -------------------------------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+::selection {
+  background: var(--accent-dim);
+  color: var(--text);
+}
+
+/* --- Scrollbars ----------------------------------------------------------- */
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* --- Retícula de fondo ----------------------------------------------------
+   Una retícula técnica muy tenue tras la cabecera. Refuerza el registro de
+   instrumento sin competir con el contenido. */
+
+.grid-backdrop {
+  background-image:
+    linear-gradient(to right, var(--line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 75%);
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.5),
+    transparent 75%
+  );
+}
