@@ -24,6 +24,18 @@ const CHAINS = [
 const HACKATHON_START = '2026-08-05';
 const PROBE_TIMEOUT_MS = 8000;
 const PROBE_CONCURRENCY = 12;
+
+// Cada cuanto se refresca el DETALLE de un agente ya conocido.
+//
+// El detalle (nombre, descripcion, dueno, endpoints declarados) cambia muy poco:
+// es metadata de registro, no estado. Lo que cambia cada minuto es si el agente
+// RESPONDE, y eso lo re-sondeamos siempre, sin cache.
+//
+// Medido: 112 de las 158 llamadas por ejecucion eran detalles de agentes que ya
+// conociamos — el 71% del trafico, gastado en releer lo mismo. Con 6 horas de
+// frescura y una pasada cada 30 min, todo el catalogo se refresca en 12 pasadas
+// y cada una solo pide los que tocan.
+const DETAIL_TTL_MS = 6 * 60 * 60 * 1000;
 // Anonimo son 30 req/min; con API key, 500. El gap se ajusta solo.
 const MIN_GAP_MS = KEY ? 130 : 2100;
 
@@ -33,8 +45,16 @@ const log = (...a) => console.log(...a);
 // ---------------------------------------------------------------- red (8004scan)
 
 let lastCall = 0;
+let apiCalls = 0;
+// Cuota diaria agotada. Cuando pasa, todas las llamadas siguientes son 429 y
+// reintentar solo alarga la agonia: sin key el limite anonimo es 1.000/dia y no
+// se recupera hasta la hora siguiente. Se aborta rapido en vez de moler 10
+// minutos en un runner para acabar fallando igual.
+let dailyQuotaExhausted = false;
 
 async function scan(path, params = {}) {
+  if (dailyQuotaExhausted) return null;
+  apiCalls++;
   const url = new URL(API + path);
   for (const [k, v] of Object.entries(params)) {
     if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
@@ -49,6 +69,19 @@ async function scan(path, params = {}) {
         signal: AbortSignal.timeout(30000),
       });
       if (res.status === 429) {
+        const body = await res.json().catch(() => ({}));
+        if (body?.limit_type === 'day') {
+          dailyQuotaExhausted = true;
+          log(
+            `
+  CUOTA DIARIA AGOTADA: ${body.current_usage}/${body.limit_value} peticiones.` +
+              `
+  Reintentar no sirve; se recupera en ${body.retry_after ?? '?'}s.` +
+              `
+  Con la key Pro gratuita del hackathon el limite pasa a 100.000/dia.`,
+          );
+          return null;
+        }
         await sleep(3000 * (attempt + 1));
         continue;
       }
@@ -511,6 +544,19 @@ async function main() {
   log('\nSMEAI — ingesta ' + started);
   log(KEY ? 'API key 8004scan: presente (500 req/min)' : 'API key 8004scan: AUSENTE (30 req/min, esto va lento)');
 
+  // Snapshot anterior como cache de detalle. Si no existe, se ingiere entero.
+  const previous = await readFile('data/snapshot.json', 'utf8')
+    .then((t) => JSON.parse(t))
+    .catch(() => null);
+  const cache = new Map();
+  if (previous?.agents) {
+    for (const a of previous.agents) {
+      if (a.detail_cached_at) cache.set(a.agent_id, a);
+    }
+  }
+  log(cache.size ? `cache de detalle: ${cache.size} agentes conocidos` : 'sin cache previa: ingesta completa');
+
+  let cacheHits = 0;
   const records = [];
   const pipeline = [];
   const registry = [];
@@ -536,9 +582,22 @@ async function main() {
     log('  ' + relevant.length + ' clasificados en alguna de las 4 categorias');
 
     for (const { a, cats } of relevant) {
-      // La busqueda semantica ya trae `services`; solo pedimos detalle si falta.
+      const agentId = a.agent_id ?? chain.id + ':' + a.token_id;
+      const cached = cache.get(agentId);
+      const fresh =
+        cached && Date.now() - new Date(cached.detail_cached_at).getTime() < DETAIL_TTL_MS;
+
+      // Tres vias, de mas barata a mas cara:
+      //   1. cache vigente          -> 0 llamadas
+      //   2. `services` ya en mano  -> 0 llamadas (lo trae la busqueda semantica)
+      //   3. pedir el detalle       -> 1 llamada
       let d = a;
-      if (!a.services) {
+      let detailAt = new Date().toISOString();
+      if (fresh) {
+        cacheHits++;
+        d = { ...cached, services: undefined };
+        detailAt = cached.detail_cached_at;
+      } else if (!a.services) {
         const detail = await scan('/agents/' + chain.id + '/' + a.token_id);
         d = detail?.data ?? detail ?? a;
       }
@@ -564,7 +623,12 @@ async function main() {
         created_tx_hash: d.created_tx_hash ?? null,
         categories: cats.map((c) => c.key),
         category_evidence: Object.fromEntries(cats.map((c) => [c.key, c.evidence])),
-        _endpoints: endpointsOf(d),
+        detail_cached_at: detailAt,
+        // Desde cache reutilizamos los endpoints ya resueltos; si no, se derivan
+        // de `services`. Los endpoints se re-SONDEAN siempre, cacheados o no.
+        _endpoints: fresh && cached._cached_endpoints
+          ? cached._cached_endpoints
+          : endpointsOf(d),
       });
     }
 
@@ -588,6 +652,7 @@ async function main() {
 
   for (const rec of records) {
     rec.probes = byAgent.get(rec.agent_id) ?? [];
+    rec._cached_endpoints = rec._endpoints;
     delete rec._endpoints;
     rec.live = rec.probes.some((p) => p.valid_card);
   }
@@ -712,7 +777,8 @@ async function main() {
           `(caida de ${Math.round((1 - now / before) * 100)}%).`,
       );
       log('El snapshot anterior se conserva intacto. Revisa si el upstream esta caido.');
-      process.exit(1);
+      process.exitCode = 1;
+      return;
     }
   }
 
