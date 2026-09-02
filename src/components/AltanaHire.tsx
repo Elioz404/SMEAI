@@ -80,10 +80,10 @@ export function AltanaHire({
     <section className="mt-12">
       <h2 className="t-h2 text-t1">Hire on-chain with a scoped session</h2>
       <p className="mt-1 max-w-2xl text-[12px] leading-relaxed text-t3">
-        Grants an Altana session key that may call only the ERC-8183 escrow and
-        the $U token, may spend at most the price {agentName} quoted, and expires
-        in an hour. Then it funds the job through that key. BSC Testnet — no real
-        funds move.
+        Grants an Altana session key scoped to the four ERC-8183 contracts a
+        hire needs, capped at the price {agentName} quoted, expiring in an hour.
+        Then it funds the job through that key. BSC Testnet — no real funds
+        move.
       </p>
 
       {status && !status.configured && (
@@ -128,10 +128,12 @@ export function AltanaHire({
             </p>
             <dl className="mt-2.5 flex flex-col gap-1.5">
               <Row label="may call">
-                ERC-8183 escrow and the $U token only
+                the ERC-8183 escrow, router, dispute policy and $U token — and
+                nothing else
               </Row>
               <Row label="may spend">
-                at most {formatPrice(price)} $U, the quoted price
+                at most {formatPrice(price)} $U — the price this agent quoted,
+                not a number we chose — plus a small BNB cap for the relay fee
               </Row>
               <Row label="expires">one hour after granting</Row>
               <Row label="registered">
