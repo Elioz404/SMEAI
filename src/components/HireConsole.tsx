@@ -1,7 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { EXAMPLE, defaultEnvelope, type Skill } from "@/lib/taxonomy";
+import {
+  EXAMPLE,
+  defaultEnvelope,
+  envelopeSubject,
+  withSubject,
+  type Skill,
+} from "@/lib/taxonomy";
 
 type Result = {
   stage: string;
@@ -51,6 +57,10 @@ export function HireConsole({
   // Si el sobre lleva uno de los identificadores de ejemplo, hay que decirlo:
   // un usuario podria leer el resultado como si fuera su propia posicion.
   const usesExample = Object.values(EXAMPLE).some((v) => envelope.includes(v));
+  // Que identificador pide este agente, para ofrecer un campo con su etiqueta
+  // en vez de obligar a editar JSON. Es lo que convierte la demo de "mira lo
+  // que hace" en "mira lo que hace con lo tuyo".
+  const subject = envelopeSubject(envelope);
 
   function pick(s: Skill) {
     setSkillId(s.id);
@@ -138,6 +148,55 @@ export function HireConsole({
               This agent declares no skills in its card, so there is nothing
               documented to ask for. You can still send it plain text and see
               what it does.
+            </p>
+          </div>
+        )}
+
+        {subject && (
+          <div className="border-b border-line px-4 py-4">
+            <label className="t-label mb-1.5 block" htmlFor="hire-subject">
+              {subject.label}
+            </label>
+            <div className="flex flex-wrap items-center gap-2">
+              <input
+                id="hire-subject"
+                value={subject.value}
+                onChange={(e) =>
+                  setEnvelope(
+                    withSubject(envelope, subject.key, e.target.value),
+                  )
+                }
+                spellCheck={false}
+                className="t-data min-w-0 flex-1 rounded border border-line bg-sunken px-3 py-2 text-t1 placeholder:text-t3 focus:border-accent focus:outline-none"
+              />
+              {!usesExample && (
+                <button
+                  onClick={() =>
+                    setEnvelope(
+                      withSubject(
+                        envelope,
+                        subject.key,
+                        EXAMPLE[
+                          subject.key === "walletAddress"
+                            ? "wallet"
+                            : subject.key === "tokenId"
+                              ? "tokenId"
+                              : "pool"
+                        ],
+                      ),
+                    )
+                  }
+                  className="t-data shrink-0 rounded border border-line-strong px-2.5 py-2 text-t2 transition-colors hover:border-accent hover:text-accent"
+                >
+                  Use example
+                </button>
+              )}
+            </div>
+            <p className="t-data mt-1.5 text-t3">
+              {subject.hint}.{" "}
+              {usesExample
+                ? "This is a real public one, used as an example — replace it with your own to get an answer about your position."
+                : "The agent will answer about this one."}
             </p>
           </div>
         )}

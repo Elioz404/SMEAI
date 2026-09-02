@@ -170,6 +170,12 @@ export function Shell({
                 <SideLink href="/report" active={pathname === "/report"}>
                   Agent Advantage Report
                 </SideLink>
+                <SideLink href="/scope" active={pathname === "/scope"}>
+                  Scope and risk
+                </SideLink>
+                <SideLink href="/roadmap" active={pathname === "/roadmap"}>
+                  Roadmap
+                </SideLink>
               </ul>
             </>
           )}

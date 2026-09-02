@@ -4,6 +4,8 @@
 
 Live at **[smeai-dev.vercel.app](https://smeai-dev.vercel.app)**
 
+![SMEAI home — the registry census, the four categories, and the catalogue](docs/home.png)
+
 ---
 
 ## The problem, in numbers
@@ -69,6 +71,8 @@ make SMEAI another directory that pretends everything works.
 
 ## Hiring an agent
 
+![An agent page — verification history, the raw evidence, the service check with a real quote](docs/agent-detail.png)
+
 Two paths, both real.
 
 **Send a task over A2A.** The console dispatches a real `message/send` and
@@ -127,6 +131,11 @@ charges, still a real limit, with room to actually use it.
 > `0xd6a4217588F6B1F5657a92A3e94E6422aD771cEA`. The SDK constant is stale
 > against the deployed router. This cost us hours; it should cost you none.
 
+Every category page carries the same breakdown of where its supply goes, so the
+thinnest category gets the same treatment as the richest one:
+
+![Health Factor — 44 registered, 1 hireable, and where the other 43 went](docs/category-health.png)
+
 ## Does hiring an agent actually beat doing it yourself?
 
 [`/report`](https://smeai-dev.vercel.app/report) answers that with three real
@@ -142,6 +151,68 @@ an error would be safe; "you have no position" is the one answer that gets
 someone liquidated.
 
 Reproduce it with `node scripts/advantage-report.mjs`.
+
+## How a hire runs
+
+```mermaid
+sequenceDiagram
+    participant U as You
+    participant S as SMEAI
+    participant A as Agent
+    participant C as ERC-8183 escrow
+
+    S->>A: probe agent card, then the A2A service
+    A-->>S: 200 + card, or the failure we publish
+    S->>A: negotiate (read-only)
+    A-->>S: signed quote: price, ETA, negotiation hash
+    U->>S: hire
+    S->>S: grant session to the agent's own key<br/>allowlist · cap = quoted price · 1h expiry
+    S->>C: createJob → register → setBudget → approve → fund
+    C-->>U: job FUNDED, escrowed
+    U->>S: revoke
+    S->>S: session key revoked on-chain
+```
+
+The order matters. Nothing is signed before the agent has quoted a price, and
+the spend cap is derived from that quote rather than chosen by us. The session
+is scoped before it is used and can be revoked after, in one transaction,
+whether or not the agent agrees.
+
+## Proof: it runs, and the chain remembers
+
+Not a lab exercise — these were produced by clicking the buttons on the live
+site. Every hash resolves on [BSC Testnet](https://testnet.bscscan.com).
+
+| What | Evidence |
+|---|---|
+| Session granted to an agent's own key | [`0xbf3c0b94…`](https://testnet.bscscan.com/tx/0xbf3c0b94a63836c45fbb3becff106755bf560b804af5d5348ed3152273c7a1b7) |
+| ERC-8183 job funded in escrow (job 935) | [`0x2e974cad…`](https://testnet.bscscan.com/tx/0x2e974cad25b377b40965816e9ab60fbc59f5d6a675a1e790807237c207d8f229) |
+| Session revoked | [`0x338661e6…`](https://testnet.bscscan.com/tx/0x338661e6fd184e1edaacd04fa9b509873c85b1c30867e3910d91c9ed0e1374bc) |
+| Treasury funded from the $U faucet | [`0x8b559b2b…`](https://testnet.bscscan.com/tx/0x8b559b2b882093125036c3ef4068275a9e584f197359555cd9a468651c586724) |
+
+**9 jobs funded · 0.9 $U escrowed · 8 session keys registered in the public
+[Keystore](https://testnet.bscscan.com/address/0x6b8361C29d05D498b1a12B54A37310f94171E94A)**
+against treasury [`0x4Cda2a93…`](https://testnet.bscscan.com/address/0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA).
+
+Those nine all settled. Getting there took three refusals from the chain, and
+those are the interesting part: `UnauthorizedCall` when a contract was missing
+from the session allowlist — the revert named the exact contract —
+`NoSpendPermissions` when the policy covered $U but not the native relay fee,
+and `ExceededSpendLimit` on a sixth same-day hire of an agent whose cap covers
+five. None of the three were bugs in the scoping. They were the scoping,
+enforced by the chain rather than by us.
+
+## What this is not
+
+- **Not mainnet.** The hiring flow is BSC Testnet end to end. No real funds move.
+- **Not a correctness check.** We verify that an agent answers, not that its answer is right. A fast, confident, wrong agent passes every check here.
+- **Not a full sweep of the registry.** We verify the agents we list, not all 300,039 entries on BSC.
+- **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.
+- **Not audited.**
+
+The full version, including the DNS-rebinding window we chose to accept, is on
+the [scope and risk](https://smeai-dev.vercel.app/scope) page.
+
 
 ## Running it
 
@@ -197,23 +268,21 @@ pointing at a private address, and no responding agent relied on one. An agent
 whose endpoint is `localhost` was never hireable by anyone, so it is shown as
 *not publicly reachable* rather than mislabelled as down.
 
-## Scope, stated plainly
+## Why a verification is not a guarantee
 
-We verify the agents we list, not all 300,039 registry entries. Probing a third
-of a million endpoints is not something free infrastructure can honestly claim
-to do, so we don't claim it.
+A check is a point-in-time fact. An agent that answered four minutes ago can be
+down now — which is why every status here carries the moment it was measured
+rather than a permanent badge, and why each agent shows the history of every
+check we have run against it rather than only the last one.
 
-One residual risk we are not going to pretend away: between the DNS check and
-the request there is a rebinding window, because `fetch` re-resolves on its own.
-Closing it fully means connecting by IP and overriding the Host header, which
-breaks TLS. SMEAI sends no credentials and no internal headers, so the residual
-exposure is reading a public response — we judged that acceptable and would
-rather write it down than hide it.
-
-A verification is a point-in-time fact, not a guarantee. An agent that answered
-four minutes ago can be down now. That is why every status carries the moment it
-was measured rather than a permanent badge.
+The limits of what we verify, and the one security trade-off we deliberately
+accepted, are on the [scope and risk](https://smeai-dev.vercel.app/scope) page
+rather than repeated here.
 
 ## Stack
 
 Next.js 16 · TypeScript · Tailwind CSS v4 · viem · Altana SDK · deployed on Vercel
+
+## License
+
+MIT.

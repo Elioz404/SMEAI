@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { snapshot } from "@/lib/snapshot";
 
 export const metadata = {
@@ -104,27 +105,17 @@ export default function MethodPage() {
 
       <section className="mt-14 border-t border-line pt-10">
         <h2 className="t-h2 text-t1">Scope, stated plainly</h2>
-        <div className="mt-4 flex max-w-2xl flex-col gap-4">
-          <p className="t-body text-t2">
-            We verify the agents we list, not all 297,281 registry entries.
-            Probing a third of a million endpoints is not something free
-            infrastructure can honestly claim to do, so we don&apos;t claim it.
-          </p>
-          <p className="t-body text-t2">
-            Category assignment uses deterministic rules over each agent&apos;s
-            registered name and description, and every listing records which
-            phrase matched. Semantic search alone is not good enough here: asked
-            for &ldquo;health factor&rdquo;, it returns an agent called
-            &ldquo;water&rdquo; that helps you find inner peace. That agent has
-            no business appearing in a lending product.
-          </p>
-          <p className="t-body text-t2">
-            A verification is a point-in-time fact, not a guarantee. An agent
-            that answered four minutes ago can be down now. That is why every
-            status on this site carries the moment it was measured, rather than
-            a permanent badge.
-          </p>
-        </div>
+        <p className="t-body mt-3 max-w-2xl text-t2">
+          What we verify, what we do not, and the limitations we know about are
+          collected on one page rather than scattered through this one. See{" "}
+          <Link
+            href="/scope"
+            className="text-t1 underline decoration-line-strong underline-offset-2 hover:text-accent"
+          >
+            scope and risk
+          </Link>
+          .
+        </p>
       </section>
     </div>
   );

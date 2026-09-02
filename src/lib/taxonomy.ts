@@ -203,6 +203,60 @@ export const EXAMPLE = {
   wallet: "0x0949251a1c62157c9dcC24fA8FF6b373959dea69",
 } as const;
 
+/**
+ * Que identificador pide el sobre, si pide alguno. Permite ofrecer un campo
+ * con la etiqueta correcta en vez de obligar a editar JSON.
+ */
+export function envelopeSubject(envelope: string): {
+  key: "walletAddress" | "tokenId" | "poolAddress";
+  label: string;
+  hint: string;
+  value: string;
+} | null {
+  let parsed: { input?: Record<string, string> };
+  try {
+    parsed = JSON.parse(envelope);
+  } catch {
+    return null;
+  }
+  const input = parsed?.input;
+  if (!input) return null;
+
+  if (typeof input.walletAddress === "string")
+    return {
+      key: "walletAddress",
+      label: "Wallet to analyse",
+      hint: "Any BSC address with a lending position",
+      value: input.walletAddress,
+    };
+  if (typeof input.tokenId === "string")
+    return {
+      key: "tokenId",
+      label: "Position to analyse",
+      hint: "A PancakeSwap V3 position NFT id",
+      value: input.tokenId,
+    };
+  if (typeof input.poolAddress === "string")
+    return {
+      key: "poolAddress",
+      label: "Pool to analyse",
+      hint: "A PancakeSwap V3 pool address",
+      value: input.poolAddress,
+    };
+  return null;
+}
+
+/** Sustituye el identificador conservando el resto del sobre intacto. */
+export function withSubject(envelope: string, key: string, value: string): string {
+  try {
+    const parsed = JSON.parse(envelope);
+    parsed.input = { ...(parsed.input ?? {}), [key]: value };
+    return JSON.stringify(parsed, null, 2);
+  } catch {
+    return envelope;
+  }
+}
+
 export function defaultEnvelope(
   skill: Skill,
   agentName: string,
