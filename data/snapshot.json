@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-02T06:33:11.967Z",
-  "finished_at": "2026-09-02T06:44:31.514Z",
+  "generated_at": "2026-09-02T08:00:35.264Z",
+  "finished_at": "2026-09-02T08:05:51.018Z",
   "pipeline": [
     {
       "chain": 56,
-      "raw": 897,
-      "clean": 567,
-      "relevant": 29
+      "raw": 898,
+      "clean": 569,
+      "relevant": 30
     },
     {
       "chain": 97,
-      "raw": 531,
-      "clean": 375,
+      "raw": 542,
+      "clean": 386,
       "relevant": 83
     }
   ],
@@ -19,7 +19,7 @@
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
-      "registered": 298237,
+      "registered": 298473,
       "endpoint_verified": 5
     },
     {
@@ -30,11 +30,11 @@
     }
   ],
   "totals": {
-    "agents": 112,
-    "live": 36,
-    "hireable": 23,
-    "services_checked": 33,
-    "quotes": 2,
+    "agents": 113,
+    "live": 41,
+    "hireable": 27,
+    "services_checked": 37,
+    "quotes": 6,
     "cloned": 13,
     "clusters": 1,
     "endpoints_probed": 100,
@@ -42,24 +42,24 @@
   },
   "per_category": {
     "rebalancing": {
-      "total": 43,
-      "live": 15,
-      "hireable": 13
+      "total": 44,
+      "live": 16,
+      "hireable": 14
     },
     "grid": {
       "total": 24,
-      "live": 7,
-      "hireable": 3
+      "live": 8,
+      "hireable": 4
     },
     "yield": {
       "total": 35,
-      "live": 12,
-      "hireable": 7
+      "live": 14,
+      "hireable": 8
     },
     "health": {
       "total": 19,
-      "live": 3,
-      "hireable": 1
+      "live": 4,
+      "hireable": 2
     }
   },
   "agents": [
@@ -86,13 +86,14 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 327,
+          "latency_ms": 426,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -109,7 +110,13 @@
           ],
           "service_url": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/a2a",
           "sample": "{\"name\":\"mandaterebalance-agent\",\"description\":\"MandateX PancakeSwap V3 rebalancing reference agent (mandaterebalance-agent) - deterministic quote policy plus simulation/refusal receipts over ERC-8183.\",\"url\":\"https://gv",
-          "checked_at": "2026-09-02T06:44:04.534Z"
+          "checked_at": "2026-09-02T08:05:46.050Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -118,14 +125,14 @@
         "status": 401,
         "reachable": true,
         "requires_auth": true,
-        "latency_ms": 148
+        "latency_ms": 14
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 327 ms",
+        "answers in 426 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -155,13 +162,14 @@
       "category_evidence": {
         "rebalancing": "LP Range"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bnb-lp.172-104-171-139.nip.io/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1136,
+          "latency_ms": 1278,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -178,7 +186,13 @@
           ],
           "service_url": "https://bnb-lp.172-104-171-139.nip.io/",
           "sample": "{\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"ERC-8183 seller agent (bnbLpRangeRebalancer-agent) — negotiate + notify_funded over A2",
-          "checked_at": "2026-09-02T06:44:05.342Z"
+          "checked_at": "2026-09-02T08:05:46.903Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bnb-lp.172-104-171-139.nip.io/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -187,14 +201,14 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 773,
-        "checked_at": "2026-09-02T06:44:30.516Z",
+        "latency_ms": 239,
+        "checked_at": "2026-09-02T08:05:50.020Z",
         "quote": {
           "accepted": true,
           "price": "100000000000000000",
           "currency": "0xcE24439F2D9C6a2289F741120FE202248B666666",
           "eta_seconds": 600,
-          "negotiation_hash": "0x19d25247102709d45b06ce67adf233d246e0cfa272ba5834f78ac6d8efc3b058"
+          "negotiation_hash": "0x2b7fd0abe6a128b8436c028f6b13ca08c2b26057362d2a39b0f1cd9dbadcdf5a"
         }
       },
       "hireable": true,
@@ -203,7 +217,7 @@
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
         "returned a signed price quote on request",
-        "answers in 1136 ms",
+        "answers in 1278 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -234,13 +248,14 @@
       "category_evidence": {
         "health": "Health Factor"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://agent.brainonbnb.com/a2a",
           "ok": true,
           "status": 200,
-          "latency_ms": 530,
+          "latency_ms": 409,
           "valid_card": true,
           "skills": 3,
           "skill_list": [
@@ -262,7 +277,13 @@
           ],
           "service_url": null,
           "sample": "{\n  \"endpoint\": \"A2A JSON-RPC, POST only\",\n  \"method\": \"message/send\",\n  \"example\": {\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"message/send\",\n    \"params\": {\n      \"message\": {\n        \"role\": \"user\",\n        \"m",
-          "checked_at": "2026-09-02T06:44:04.737Z"
+          "checked_at": "2026-09-02T08:05:46.034Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://agent.brainonbnb.com/a2a"
         }
       ],
       "live": true,
@@ -270,7 +291,7 @@
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 530 ms",
+        "answers in 409 ms",
         "declares 3 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -302,13 +323,14 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:05:17.616Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/rangekeeper/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 591,
+          "latency_ms": 525,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -320,7 +342,13 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/rangekeeper/a2a",
           "sample": "{\"name\":\"RangeKeeper\",\"description\":\"First-party Spotriq reference service for deterministic PancakeSwap concentrated-liquidity position analysis and bounded rebalancing preparation.\",\"protocolVersion\":\"1.0.0\",\"url\":\"htt",
-          "checked_at": "2026-09-02T06:44:04.797Z"
+          "checked_at": "2026-09-02T08:05:46.150Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://spotriq-production.up.railway.app/v1/reference-agents/rangekeeper/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -329,15 +357,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 222,
-        "checked_at": "2026-09-02T06:44:29.924Z"
+        "latency_ms": 80,
+        "checked_at": "2026-09-02T08:05:49.760Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 591 ms",
+        "answers in 525 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -367,13 +395,14 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:18.095Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bnb-grid.172-104-171-139.nip.io/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 927,
+          "latency_ms": 1000,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -390,7 +419,13 @@
           ],
           "service_url": "https://bnb-grid.172-104-171-139.nip.io/",
           "sample": "{\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"ERC-8183 seller agent (bnbGridTrader-agent) — negotiate + notify_funded over A2A.\",\"na",
-          "checked_at": "2026-09-02T06:44:05.662Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bnb-grid.172-104-171-139.nip.io/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -399,14 +434,14 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 788,
-        "checked_at": "2026-09-02T06:44:30.597Z",
+        "latency_ms": 239,
+        "checked_at": "2026-09-02T08:05:50.027Z",
         "quote": {
           "accepted": true,
           "price": "100000000000000000",
           "currency": "0xcE24439F2D9C6a2289F741120FE202248B666666",
           "eta_seconds": 600,
-          "negotiation_hash": "0x19d25247102709d45b06ce67adf233d246e0cfa272ba5834f78ac6d8efc3b058"
+          "negotiation_hash": "0x2b7fd0abe6a128b8436c028f6b13ca08c2b26057362d2a39b0f1cd9dbadcdf5a"
         }
       },
       "hireable": true,
@@ -415,7 +450,7 @@
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
         "returned a signed price quote on request",
-        "answers in 927 ms",
+        "answers in 1000 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -445,13 +480,14 @@
       "category_evidence": {
         "rebalancing": "LP range"
       },
+      "detail_cached_at": "2026-09-02T08:05:18.824Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://proofera-lp.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 799,
+          "latency_ms": 962,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -468,7 +504,13 @@
           ],
           "service_url": "https://proofera-lp.tangvu.dev/",
           "sample": "{\"name\":\"ProofEra LP Risk Evidence Agent\",\"description\":\"Deterministic, read-only PancakeSwap LP range and scoped permission evidence analysis on BSC mainnet and testnet.\",\"url\":\"https://proofera-lp.tangvu.dev/\",\"version",
-          "checked_at": "2026-09-02T06:44:05.536Z"
+          "checked_at": "2026-09-02T08:05:47.043Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://proofera-lp.tangvu.dev/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -477,15 +519,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 859,
-        "checked_at": "2026-09-02T06:44:30.604Z"
+        "latency_ms": 802,
+        "checked_at": "2026-09-02T08:05:50.584Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 799 ms",
+        "answers in 962 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "supports x402 payments"
@@ -514,13 +556,14 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:25.885Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://proofera-grid.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 847,
+          "latency_ms": 1003,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -532,7 +575,13 @@
           ],
           "service_url": "https://proofera-grid.tangvu.dev/",
           "sample": "{\"name\":\"ProofEra Grid Trading Evidence Agent\",\"description\":\"Deterministic, read-only BSC grid candidate analysis backed only by caller-supplied evidence.\",\"url\":\"https://proofera-grid.tangvu.dev/\",\"version\":\"1.0.0\",\"pr",
-          "checked_at": "2026-09-02T06:44:05.665Z"
+          "checked_at": "2026-09-02T08:05:47.397Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://proofera-grid.tangvu.dev/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -541,15 +590,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 826,
-        "checked_at": "2026-09-02T06:44:30.575Z"
+        "latency_ms": 732,
+        "checked_at": "2026-09-02T08:05:50.523Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 847 ms",
+        "answers in 1003 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -578,13 +627,14 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:26.358Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://proofera-yield.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 839,
+          "latency_ms": 940,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -596,7 +646,13 @@
           ],
           "service_url": "https://proofera-yield.tangvu.dev/",
           "sample": "{\"name\":\"yieldOptimisationAgent-agent\",\"description\":\"ProofEra deterministic yield route evidence analyzer for BSC mainnet and testnet. Read-only; missing evidence lowers confidence.\",\"url\":\"https://proofera-yield.tangvu",
-          "checked_at": "2026-09-02T06:44:05.851Z"
+          "checked_at": "2026-09-02T08:05:47.433Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://proofera-yield.tangvu.dev/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -605,15 +661,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 460,
-        "checked_at": "2026-09-02T06:44:30.209Z"
+        "latency_ms": 893,
+        "checked_at": "2026-09-02T08:05:50.685Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 839 ms",
+        "answers in 940 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -643,13 +699,14 @@
       "category_evidence": {
         "health": "lending health"
       },
+      "detail_cached_at": "2026-09-02T08:05:38.172Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/venusguard/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 88,
+          "latency_ms": 224,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -661,7 +718,13 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/venusguard/a2a",
           "sample": "{\"name\":\"VenusGuard\",\"description\":\"First-party Spotriq reference service for deterministic Venus lending-risk and liquidation-state monitoring without hidden automatic authority.\",\"protocolVersion\":\"1.0.0\",\"url\":\"https:",
-          "checked_at": "2026-09-02T06:44:04.885Z"
+          "checked_at": "2026-09-02T08:05:46.374Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://spotriq-production.up.railway.app/v1/reference-agents/venusguard/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -670,15 +733,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 99,
-        "checked_at": "2026-09-02T06:44:30.040Z"
+        "latency_ms": 79,
+        "checked_at": "2026-09-02T08:05:49.902Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 88 ms",
+        "answers in 224 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -708,13 +771,14 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:38.399Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/yieldpilot/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 131,
+          "latency_ms": 133,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -726,7 +790,13 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/yieldpilot/a2a",
           "sample": "{\"name\":\"YieldPilot\",\"description\":\"First-party Spotriq reference service for deterministic Venus supply-yield opportunity discovery using current protocol state rather than projected profit.\",\"protocolVersion\":\"1.0.0\",\"",
-          "checked_at": "2026-09-02T06:44:05.016Z"
+          "checked_at": "2026-09-02T08:05:46.509Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://spotriq-production.up.railway.app/v1/reference-agents/yieldpilot/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -735,15 +805,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 80,
-        "checked_at": "2026-09-02T06:44:30.133Z"
+        "latency_ms": 77,
+        "checked_at": "2026-09-02T08:05:49.985Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 131 ms",
+        "answers in 133 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -773,13 +843,14 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:38.608Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/gridpilot/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 116,
+          "latency_ms": 128,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -791,7 +862,13 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/gridpilot/a2a",
           "sample": "{\"name\":\"GridPilot\",\"description\":\"First-party Spotriq reference service for deterministic PancakeSwap V3 grid-trading market context without profit prediction or autonomous trading authority.\",\"protocolVersion\":\"1.0.0\",",
-          "checked_at": "2026-09-02T06:44:05.133Z"
+          "checked_at": "2026-09-02T08:05:46.637Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://spotriq-production.up.railway.app/v1/reference-agents/gridpilot/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -800,18 +877,354 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 104,
-        "checked_at": "2026-09-02T06:44:30.245Z"
+        "latency_ms": 102,
+        "checked_at": "2026-09-02T08:05:50.093Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 116 ms",
+        "answers in 128 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
+        "supports x402 payments"
+      ]
+    },
+    {
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1926",
+      "token_id": "1926",
+      "chain_id": 97,
+      "chain_name": "BSC Testnet",
+      "is_testnet": true,
+      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
+      "name": "weighladder-agent",
+      "description": "WEIGH LADDER policy-bounded PancakeSwap grid trading agent",
+      "owner_address": "0x0aa36a8c9d3f48b4220cf88fa8819b064a389a0e",
+      "agent_wallet": "0x0aa36a8c9d3f48b4220cf88fa8819b064a389a0e",
+      "x402_supported": true,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 12,
+      "created_at": "2026-08-26T01:35:24Z",
+      "created_tx_hash": "0xc7efbbbde84e3c69364b8cee6333bb8272cdc2e5c67587e3cc39932249b8ee0d",
+      "categories": [
+        "grid"
+      ],
+      "category_evidence": {
+        "grid": "LADDER"
+      },
+      "detail_cached_at": "2026-09-02T08:05:39.947Z",
+      "probes": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-ladder-agent.onrender.com/.well-known/agent-card.json",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 414,
+          "valid_card": true,
+          "skills": 2,
+          "skill_list": [
+            {
+              "id": "negotiate",
+              "name": "WEIGH LADDER",
+              "description": "Send a data part {\"skill\": \"negotiate\", \"task_description\": \"...\", \"terms\": {\"deliverables\": \"...\", \"quality_standards\": \"...\"}} (both terms keys are REQUIRED) and receive a wallet-signed price quote (price, currency, negotiation_hash, prov"
+            },
+            {
+              "id": "notify_funded",
+              "name": "Notify the seller a job is funded (request delivery)",
+              "description": "After you fund the job on-chain, send {\"skill\": \"notify_funded\", \"job_id\": <int>} to tell the seller \"I funded job X — please deliver\". The seller verifies the funded job carries its signed quote and replies AT ONCE with {\"status\": \"accepte"
+            }
+          ],
+          "service_url": "https://weigh-ladder-agent.onrender.com",
+          "sample": "{\"name\":\"weighladder-agent\",\"description\":\"ERC-8183 seller agent (weighladder-agent) — negotiate + notify_funded over A2A.\",\"url\":\"https://weigh-ladder-agent.onrender.com\",\"version\":\"1.0.0\",\"protocolVersion\":\"0.3.0\",\"pre",
+          "checked_at": "2026-09-02T08:05:47.793Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-ladder-agent.onrender.com/.well-known/agent-card.json"
+        }
+      ],
+      "live": true,
+      "service": {
+        "url": "https://weigh-ladder-agent.onrender.com",
+        "status": 200,
+        "reachable": true,
+        "speaks_a2a": true,
+        "latency_ms": 256,
+        "checked_at": "2026-09-02T08:05:50.072Z",
+        "quote": {
+          "accepted": true,
+          "price": "100000000000000000",
+          "currency": "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565",
+          "eta_seconds": 600,
+          "negotiation_hash": "0xc264bf013c0a1793564bc59a35f12b85d879b538e3bb49a141ea29a303ee2f87"
+        }
+      },
+      "hireable": true,
+      "trust_score": 100,
+      "trust_reasons": [
+        "serves a valid agent card live",
+        "its A2A service answers, not just its card",
+        "returned a signed price quote on request",
+        "answers in 414 ms",
+        "declares 2 callable skills",
+        "matches 1 category rule",
+        "supports x402 payments"
+      ]
+    },
+    {
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1925",
+      "token_id": "1925",
+      "chain_id": 97,
+      "chain_name": "BSC Testnet",
+      "is_testnet": true,
+      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
+      "name": "weighbuffer-agent",
+      "description": "WEIGH BUFFER lending health-factor protection agent",
+      "owner_address": "0x83556b1187ffbb9e4869ad7c368183c4fb635b51",
+      "agent_wallet": "0x83556b1187ffbb9e4869ad7c368183c4fb635b51",
+      "x402_supported": true,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 12,
+      "created_at": "2026-08-26T01:34:37Z",
+      "created_tx_hash": "0xc1892984eecec14aa1916acaeb38db944121c3183d50f7f3f737988af5024541",
+      "categories": [
+        "health"
+      ],
+      "category_evidence": {
+        "health": "lending health"
+      },
+      "detail_cached_at": "2026-09-02T08:05:40.195Z",
+      "probes": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-buffer-agent.onrender.com/.well-known/agent-card.json",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 268,
+          "valid_card": true,
+          "skills": 2,
+          "skill_list": [
+            {
+              "id": "negotiate",
+              "name": "WEIGH BUFFER",
+              "description": "Send a data part {\"skill\": \"negotiate\", \"task_description\": \"...\", \"terms\": {\"deliverables\": \"...\", \"quality_standards\": \"...\"}} (both terms keys are REQUIRED) and receive a wallet-signed price quote (price, currency, negotiation_hash, prov"
+            },
+            {
+              "id": "notify_funded",
+              "name": "Notify the seller a job is funded (request delivery)",
+              "description": "After you fund the job on-chain, send {\"skill\": \"notify_funded\", \"job_id\": <int>} to tell the seller \"I funded job X — please deliver\". The seller verifies the funded job carries its signed quote and replies AT ONCE with {\"status\": \"accepte"
+            }
+          ],
+          "service_url": "https://weigh-buffer-agent.onrender.com",
+          "sample": "{\"name\":\"weighbuffer-agent\",\"description\":\"ERC-8183 seller agent (weighbuffer-agent) — negotiate + notify_funded over A2A.\",\"url\":\"https://weigh-buffer-agent.onrender.com\",\"version\":\"1.0.0\",\"protocolVersion\":\"0.3.0\",\"pre",
+          "checked_at": "2026-09-02T08:05:47.649Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-buffer-agent.onrender.com/.well-known/agent-card.json"
+        }
+      ],
+      "live": true,
+      "service": {
+        "url": "https://weigh-buffer-agent.onrender.com",
+        "status": 200,
+        "reachable": true,
+        "speaks_a2a": true,
+        "latency_ms": 298,
+        "checked_at": "2026-09-02T08:05:50.118Z",
+        "quote": {
+          "accepted": true,
+          "price": "100000000000000000",
+          "currency": "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565",
+          "eta_seconds": 600,
+          "negotiation_hash": "0xc264bf013c0a1793564bc59a35f12b85d879b538e3bb49a141ea29a303ee2f87"
+        }
+      },
+      "hireable": true,
+      "trust_score": 100,
+      "trust_reasons": [
+        "serves a valid agent card live",
+        "its A2A service answers, not just its card",
+        "returned a signed price quote on request",
+        "answers in 268 ms",
+        "declares 2 callable skills",
+        "matches 1 category rule",
+        "supports x402 payments"
+      ]
+    },
+    {
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1924",
+      "token_id": "1924",
+      "chain_id": 97,
+      "chain_name": "BSC Testnet",
+      "is_testnet": true,
+      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
+      "name": "weighroute-agent",
+      "description": "WEIGH ROUTE stablecoin yield optimisation agent",
+      "owner_address": "0x355886a9cb925a2c8cbf03c9aec0a92e86e48511",
+      "agent_wallet": "0x355886a9cb925a2c8cbf03c9aec0a92e86e48511",
+      "x402_supported": true,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 12,
+      "created_at": "2026-08-26T01:33:38Z",
+      "created_tx_hash": "0xd4be9e2fa8fc690bab4b664c1683db738c4f49b203c8405f4fe97b9971d2604d",
+      "categories": [
+        "yield"
+      ],
+      "category_evidence": {
+        "yield": "yield"
+      },
+      "detail_cached_at": "2026-09-02T08:05:40.454Z",
+      "probes": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-route-agent.onrender.com/.well-known/agent-card.json",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 275,
+          "valid_card": true,
+          "skills": 2,
+          "skill_list": [
+            {
+              "id": "negotiate",
+              "name": "WEIGH ROUTE",
+              "description": "Send a data part {\"skill\": \"negotiate\", \"task_description\": \"...\", \"terms\": {\"deliverables\": \"...\", \"quality_standards\": \"...\"}} (both terms keys are REQUIRED) and receive a wallet-signed price quote (price, currency, negotiation_hash, prov"
+            },
+            {
+              "id": "notify_funded",
+              "name": "Notify the seller a job is funded (request delivery)",
+              "description": "After you fund the job on-chain, send {\"skill\": \"notify_funded\", \"job_id\": <int>} to tell the seller \"I funded job X — please deliver\". The seller verifies the funded job carries its signed quote and replies AT ONCE with {\"status\": \"accepte"
+            }
+          ],
+          "service_url": "https://weigh-route-agent.onrender.com",
+          "sample": "{\"name\":\"weighroute-agent\",\"description\":\"ERC-8183 seller agent (weighroute-agent) — negotiate + notify_funded over A2A.\",\"url\":\"https://weigh-route-agent.onrender.com\",\"version\":\"1.0.0\",\"protocolVersion\":\"0.3.0\",\"prefer",
+          "checked_at": "2026-09-02T08:05:47.673Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-route-agent.onrender.com/.well-known/agent-card.json"
+        }
+      ],
+      "live": true,
+      "service": {
+        "url": "https://weigh-route-agent.onrender.com",
+        "status": 200,
+        "reachable": true,
+        "speaks_a2a": true,
+        "latency_ms": 186,
+        "checked_at": "2026-09-02T08:05:50.173Z",
+        "quote": {
+          "accepted": true,
+          "price": "100000000000000000",
+          "currency": "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565",
+          "eta_seconds": 600,
+          "negotiation_hash": "0x9a69239e188cb40b03df937fa7d23ad4ee7c0f31979788abf52303c02b15e774"
+        }
+      },
+      "hireable": true,
+      "trust_score": 100,
+      "trust_reasons": [
+        "serves a valid agent card live",
+        "its A2A service answers, not just its card",
+        "returned a signed price quote on request",
+        "answers in 275 ms",
+        "declares 2 callable skills",
+        "matches 1 category rule",
+        "supports x402 payments"
+      ]
+    },
+    {
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1923",
+      "token_id": "1923",
+      "chain_id": 97,
+      "chain_name": "BSC Testnet",
+      "is_testnet": true,
+      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
+      "name": "weighrange-agent",
+      "description": "WEIGH RANGE evidence-measured PancakeSwap liquidity rebalancing agent",
+      "owner_address": "0xb01eef1075e5a5218be7d6bc2c7e67fbeb723553",
+      "agent_wallet": "0xb01eef1075e5a5218be7d6bc2c7e67fbeb723553",
+      "x402_supported": true,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 12,
+      "created_at": "2026-08-26T01:32:34Z",
+      "created_tx_hash": "0x8a27aabd693dc8ece4f59a56c276b888dee89b579931c40f39263092203b613c",
+      "categories": [
+        "rebalancing"
+      ],
+      "category_evidence": {
+        "rebalancing": "rebalancing"
+      },
+      "detail_cached_at": "2026-09-02T08:05:40.696Z",
+      "probes": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-range-agent.onrender.com/.well-known/agent-card.json",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 253,
+          "valid_card": true,
+          "skills": 2,
+          "skill_list": [
+            {
+              "id": "negotiate",
+              "name": "WEIGH RANGE",
+              "description": "Send a data part {\"skill\": \"negotiate\", \"task_description\": \"...\", \"terms\": {\"deliverables\": \"...\", \"quality_standards\": \"...\"}} (both terms keys are REQUIRED) and receive a wallet-signed price quote (price, currency, negotiation_hash, prov"
+            },
+            {
+              "id": "notify_funded",
+              "name": "Notify the seller a job is funded (request delivery)",
+              "description": "After you fund the job on-chain, send {\"skill\": \"notify_funded\", \"job_id\": <int>} to tell the seller \"I funded job X — please deliver\". The seller verifies the funded job carries its signed quote and replies AT ONCE with {\"status\": \"accepte"
+            }
+          ],
+          "service_url": "https://weigh-range-agent.onrender.com",
+          "sample": "{\"name\":\"weighrange-agent\",\"description\":\"ERC-8183 seller agent (weighrange-agent) — negotiate + notify_funded over A2A.\",\"url\":\"https://weigh-range-agent.onrender.com\",\"version\":\"1.0.0\",\"protocolVersion\":\"0.3.0\",\"prefer",
+          "checked_at": "2026-09-02T08:05:47.670Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://weigh-range-agent.onrender.com/.well-known/agent-card.json"
+        }
+      ],
+      "live": true,
+      "service": {
+        "url": "https://weigh-range-agent.onrender.com",
+        "status": 200,
+        "reachable": true,
+        "speaks_a2a": true,
+        "latency_ms": 209,
+        "checked_at": "2026-09-02T08:05:50.233Z",
+        "quote": {
+          "accepted": true,
+          "price": "100000000000000000",
+          "currency": "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565",
+          "eta_seconds": 600,
+          "negotiation_hash": "0x9a69239e188cb40b03df937fa7d23ad4ee7c0f31979788abf52303c02b15e774"
+        }
+      },
+      "hireable": true,
+      "trust_score": 100,
+      "trust_reasons": [
+        "serves a valid agent card live",
+        "its A2A service answers, not just its card",
+        "returned a signed price quote on request",
+        "answers in 253 ms",
+        "declares 2 callable skills",
+        "matches 1 category rule",
         "supports x402 payments"
       ]
     },
@@ -838,45 +1251,60 @@
       "category_evidence": {
         "yield": "apy"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "mcp",
           "url": "https://mpp.hyreagent.fun/agents/eights",
           "ok": false,
           "status": 404,
-          "latency_ms": 982,
+          "latency_ms": 1069,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":\"agent not found\"}",
-          "checked_at": "2026-09-02T06:44:05.188Z"
+          "checked_at": "2026-09-02T08:05:46.693Z"
         },
         {
           "kind": "a2a",
           "url": "https://me.hyreagent.fun/agent/eights/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 1116,
+          "latency_ms": 1186,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":\"agent_not_found\",\"name\":\"eights\"}",
-          "checked_at": "2026-09-02T06:44:05.323Z"
+          "checked_at": "2026-09-02T08:05:46.811Z"
         },
         {
           "kind": "web",
           "url": "https://me.hyreagent.fun/agent/eights",
           "ok": true,
           "status": 200,
-          "latency_ms": 238,
+          "latency_ms": 265,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" class=\"inter_7b064e0d-module__MOT0tq__variable kode_mono_b77c911b-module__GERdAG__variable press_start_2p_93adc060-module__SxLmSq__variable instrumentserif_d6aa98ca-module__P8Z5GW__variable",
-          "checked_at": "2026-09-02T06:44:05.561Z"
+          "checked_at": "2026-09-02T08:05:47.077Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://me.hyreagent.fun/agent/eights/.well-known/agent-card.json"
+        },
+        {
+          "kind": "mcp",
+          "url": "https://mpp.hyreagent.fun/agents/eights"
+        },
+        {
+          "kind": "web",
+          "url": "https://me.hyreagent.fun/agent/eights"
         }
       ],
       "live": true,
@@ -884,7 +1312,7 @@
       "trust_score": 81,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 238 ms",
+        "answers in 265 ms",
         "matches 1 category rule",
         "supports x402 payments",
         "2 on-chain feedback entries"
@@ -913,13 +1341,14 @@
       "category_evidence": {
         "health": "liquidation"
       },
+      "detail_cached_at": "2026-09-02T08:05:17.848Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://hevo-agents.fly.dev/sentinel/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 230,
+          "latency_ms": 39,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -936,7 +1365,13 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/sentinel",
           "sample": "{\"name\":\"Hevo Sentinel\",\"description\":\"Checks lending positions against safety thresholds on Venus and Aave V3, alerting on liquidation risks and computing precise collateral/debt remedies to restore safe buffers. It mon",
-          "checked_at": "2026-09-02T06:44:04.765Z"
+          "checked_at": "2026-09-02T08:05:46.073Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://hevo-agents.fly.dev/sentinel/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -952,7 +1387,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 230 ms",
+        "answers in 39 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -982,13 +1417,14 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:18.341Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://hevo-agents.fly.dev/grid/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 27,
+          "latency_ms": 165,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1005,7 +1441,13 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/grid",
           "sample": "{\"name\":\"Hevo Grid\",\"description\":\"Computes a grid trading plan for a pair and price range — levels, order sizes, and expected capture — as a deliverable a buyer (or their own bot) can execute. It designs the grid; it do",
-          "checked_at": "2026-09-02T06:44:04.793Z"
+          "checked_at": "2026-09-02T08:05:46.238Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://hevo-agents.fly.dev/grid/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1021,7 +1463,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 27 ms",
+        "answers in 165 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1051,13 +1493,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:18.596Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://hevo-agents.fly.dev/yield/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 11,
+          "latency_ms": 40,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1074,7 +1517,13 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/yield",
           "sample": "{\"name\":\"Hevo Yield\",\"description\":\"Compares yield opportunities across BNB Chain lending and liquid staking protocols (Venus, Aave V3, Lista DAO) and delivers an optimal allocation recommendation. It analyses and recomm",
-          "checked_at": "2026-09-02T06:44:04.805Z"
+          "checked_at": "2026-09-02T08:05:46.279Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://hevo-agents.fly.dev/yield/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1090,7 +1539,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 11 ms",
+        "answers in 40 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1120,13 +1569,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:05:24.997Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://hevo-agents.fly.dev/rebalance/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 8,
+          "latency_ms": 114,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1143,7 +1593,13 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/rebalance",
           "sample": "{\"name\":\"Hevo Rebalance\",\"description\":\"Reads a wallet's current holdings against a target allocation and returns the exact trade set needed to close the drift — tokens to sell, tokens to buy, and the resulting allocatio",
-          "checked_at": "2026-09-02T06:44:04.815Z"
+          "checked_at": "2026-09-02T08:05:46.393Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://hevo-agents.fly.dev/rebalance/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1159,7 +1615,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 8 ms",
+        "answers in 114 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1189,13 +1645,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:03:47.171Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 424,
+          "latency_ms": 658,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1237,7 +1694,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:04.630Z"
+          "checked_at": "2026-09-02T08:05:46.282Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1246,8 +1709,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 466,
-        "checked_at": "2026-09-02T06:44:30.132Z"
+        "latency_ms": 105,
+        "checked_at": "2026-09-02T08:05:49.777Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1321,7 +1784,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 424 ms",
+        "answers in 658 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1352,13 +1815,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:50.230Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 196,
+          "latency_ms": 208,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1400,7 +1864,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:05.987Z"
+          "checked_at": "2026-09-02T08:05:47.318Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1409,8 +1879,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 90,
-        "checked_at": "2026-09-02T06:44:30.827Z"
+        "latency_ms": 98,
+        "checked_at": "2026-09-02T08:05:50.312Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1484,7 +1954,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 196 ms",
+        "answers in 208 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1515,13 +1985,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:50.554Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 184,
+          "latency_ms": 298,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1563,7 +2034,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.173Z"
+          "checked_at": "2026-09-02T08:05:47.616Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1572,8 +2049,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 81,
-        "checked_at": "2026-09-02T06:44:30.913Z"
+        "latency_ms": 104,
+        "checked_at": "2026-09-02T08:05:50.419Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1647,7 +2124,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 184 ms",
+        "answers in 298 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1678,13 +2155,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:50.783Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 94,
+          "latency_ms": 102,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1726,7 +2204,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.268Z"
+          "checked_at": "2026-09-02T08:05:47.718Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1735,8 +2219,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 102,
-        "checked_at": "2026-09-02T06:44:31.019Z"
+        "latency_ms": 90,
+        "checked_at": "2026-09-02T08:05:50.512Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1810,7 +2294,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 94 ms",
+        "answers in 102 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1841,13 +2325,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:03:51.090Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 88,
+          "latency_ms": 101,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1889,7 +2374,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.356Z"
+          "checked_at": "2026-09-02T08:05:47.820Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -1898,8 +2389,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 80,
-        "checked_at": "2026-09-02T06:44:31.104Z"
+        "latency_ms": 100,
+        "checked_at": "2026-09-02T08:05:50.616Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1973,7 +2464,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 88 ms",
+        "answers in 101 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2004,13 +2495,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:52.416Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 96,
+          "latency_ms": 91,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2052,7 +2544,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.452Z"
+          "checked_at": "2026-09-02T08:05:47.912Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2061,8 +2559,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 83,
-        "checked_at": "2026-09-02T06:44:31.191Z"
+        "latency_ms": 90,
+        "checked_at": "2026-09-02T08:05:50.710Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2136,12 +2634,83 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 96 ms",
+        "answers in 91 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
         "2 on-chain feedback entries",
         "one of 13 registered identities sharing a single backend"
+      ]
+    },
+    {
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:2054",
+      "token_id": "2054",
+      "chain_id": 97,
+      "chain_name": "BSC Testnet",
+      "is_testnet": true,
+      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
+      "name": "YieldRoute Provider",
+      "description": "Yield Optimisation provider offering a bounded, hash-verifiable service on BSC Testnet.",
+      "owner_address": "0x1007950f2cd328cea873e212b0d18ef17c51dc9f",
+      "agent_wallet": "0x1007950f2cd328cea873e212b0d18ef17c51dc9f",
+      "x402_supported": false,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 0,
+      "created_at": "2026-09-01T18:11:04Z",
+      "created_tx_hash": "0xdd3a4022c6a17500cd4c849645b02a62b3bf4cbd5f1b2a4e7054286068c39282",
+      "categories": [
+        "yield"
+      ],
+      "category_evidence": {
+        "yield": "Yield"
+      },
+      "detail_cached_at": "2026-09-02T08:05:37.184Z",
+      "probes": [
+        {
+          "kind": "a2a",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 1109,
+          "valid_card": true,
+          "skills": null,
+          "skill_list": null,
+          "service_url": null,
+          "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
+          "checked_at": "2026-09-02T08:05:48.366Z"
+        },
+        {
+          "kind": "web",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 267,
+          "valid_card": true,
+          "skills": null,
+          "skill_list": null,
+          "service_url": null,
+          "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
+          "checked_at": "2026-09-02T08:05:48.633Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability"
+        },
+        {
+          "kind": "web",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability"
+        }
+      ],
+      "live": true,
+      "hireable": false,
+      "trust_score": 70,
+      "trust_reasons": [
+        "serves a valid agent card live",
+        "answers in 267 ms",
+        "matches 1 category rule"
       ]
     },
     {
@@ -2167,32 +2736,43 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:37.416Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": true,
           "status": 200,
-          "latency_ms": 6973,
+          "latency_ms": 280,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
-          "checked_at": "2026-09-02T06:44:28.843Z"
+          "checked_at": "2026-09-02T08:05:48.913Z"
         },
         {
           "kind": "web",
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": true,
           "status": 200,
-          "latency_ms": 816,
+          "latency_ms": 752,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
-          "checked_at": "2026-09-02T06:44:29.659Z"
+          "checked_at": "2026-09-02T08:05:49.666Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability"
+        },
+        {
+          "kind": "web",
+          "url": "https://mandate-provider-yield.onrender.com/mandate/capability"
         }
       ],
       "live": true,
@@ -2200,7 +2780,7 @@
       "trust_score": 70,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 816 ms",
+        "answers in 280 ms",
         "matches 1 category rule"
       ]
     },
@@ -2227,13 +2807,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:48.039Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 379,
+          "latency_ms": 388,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2275,7 +2856,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:05.010Z"
+          "checked_at": "2026-09-02T08:05:46.671Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2284,8 +2871,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 277,
-        "checked_at": "2026-09-02T06:44:30.413Z"
+        "latency_ms": 89,
+        "checked_at": "2026-09-02T08:05:49.916Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2359,7 +2946,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 379 ms",
+        "answers in 388 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2391,13 +2978,14 @@
         "rebalancing": "Rebalance",
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:03:48.343Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 246,
+          "latency_ms": 101,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2439,7 +3027,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:05.256Z"
+          "checked_at": "2026-09-02T08:05:46.772Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2448,8 +3042,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 103,
-        "checked_at": "2026-09-02T06:44:30.521Z"
+        "latency_ms": 98,
+        "checked_at": "2026-09-02T08:05:50.016Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2523,7 +3117,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 246 ms",
+        "answers in 101 ms",
         "declares 7 callable skills",
         "matches 2 category rules",
         "substantial on-chain description",
@@ -2553,13 +3147,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:03:48.616Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 255,
+          "latency_ms": 155,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2601,7 +3196,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:05.512Z"
+          "checked_at": "2026-09-02T08:05:46.928Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2610,8 +3211,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 102,
-        "checked_at": "2026-09-02T06:44:30.626Z"
+        "latency_ms": 99,
+        "checked_at": "2026-09-02T08:05:50.119Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2685,7 +3286,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 255 ms",
+        "answers in 155 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2715,13 +3316,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:49.988Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 277,
+          "latency_ms": 180,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2763,7 +3365,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:05.790Z"
+          "checked_at": "2026-09-02T08:05:47.109Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2772,8 +3380,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 101,
-        "checked_at": "2026-09-02T06:44:30.730Z"
+        "latency_ms": 89,
+        "checked_at": "2026-09-02T08:05:50.211Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2847,7 +3455,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 277 ms",
+        "answers in 180 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2877,13 +3485,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:52.638Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 93,
+          "latency_ms": 100,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2925,7 +3534,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.546Z"
+          "checked_at": "2026-09-02T08:05:48.012Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -2934,8 +3549,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 102,
-        "checked_at": "2026-09-02T06:44:31.296Z"
+        "latency_ms": 98,
+        "checked_at": "2026-09-02T08:05:50.812Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3009,7 +3624,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 93 ms",
+        "answers in 100 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3039,13 +3654,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:03:52.962Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 95,
+          "latency_ms": 103,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -3087,7 +3703,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.642Z"
+          "checked_at": "2026-09-02T08:05:48.116Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3096,8 +3718,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 100,
-        "checked_at": "2026-09-02T06:44:31.402Z"
+        "latency_ms": 98,
+        "checked_at": "2026-09-02T08:05:50.913Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3171,7 +3793,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 95 ms",
+        "answers in 103 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3201,13 +3823,14 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:03:53.182Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 97,
+          "latency_ms": 92,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -3249,7 +3872,13 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T06:44:06.739Z"
+          "checked_at": "2026-09-02T08:05:48.208Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://api.bortagent.xyz/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3258,8 +3887,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 105,
-        "checked_at": "2026-09-02T06:44:31.513Z"
+        "latency_ms": 90,
+        "checked_at": "2026-09-02T08:05:51.017Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3333,7 +3962,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 97 ms",
+        "answers in 92 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3363,13 +3992,14 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:25.418Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://genesis-marketplace-one.vercel.app/api/apex/gridwright/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1029,
+          "latency_ms": 1000,
           "valid_card": true,
           "skills": 4,
           "skill_list": [
@@ -3396,7 +4026,13 @@
           ],
           "service_url": "https://genesis-marketplace-one.vercel.app/api/apex/gridwright",
           "sample": "{\"name\":\"Gridwright\",\"description\":\"Marketplace specialist for grid trading (built by Genesis). Designs multi-level grids between user bounds, sizes notional per level, and returns pause rules for drawdown. You keep exec",
-          "checked_at": "2026-09-02T06:44:05.845Z"
+          "checked_at": "2026-09-02T08:05:47.375Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://genesis-marketplace-one.vercel.app/api/apex/gridwright/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3405,15 +4041,15 @@
         "status": 405,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 230,
-        "checked_at": "2026-09-02T06:44:29.977Z"
+        "latency_ms": 64,
+        "checked_at": "2026-09-02T08:05:49.877Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (405)",
-        "answers in 1029 ms",
+        "answers in 1000 ms",
         "declares 4 callable skills",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3442,13 +4078,14 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:37.641Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1331,
+          "latency_ms": 287,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -3460,7 +4097,13 @@
           ],
           "service_url": "https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke",
           "sample": "{\"name\":\"Fee Yield Scout\",\"description\":\"Read-only PancakeSwap V3 LP fee-yield conditions agent for Bearing.\",\"url\":\"https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke\",\"version\":\"0.1.0\",\"protocolVersion\":\"0",
-          "checked_at": "2026-09-02T06:44:07.143Z"
+          "checked_at": "2026-09-02T08:05:47.662Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3469,15 +4112,15 @@
         "status": 400,
         "reachable": false,
         "speaks_a2a": true,
-        "latency_ms": 879,
-        "checked_at": "2026-09-02T06:44:30.692Z"
+        "latency_ms": 755,
+        "checked_at": "2026-09-02T08:05:50.620Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (400)",
-        "answers in 1331 ms",
+        "answers in 287 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3506,13 +4149,14 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:37.931Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 77,
+          "latency_ms": 130,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -3524,7 +4168,13 @@
           ],
           "service_url": "https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke",
           "sample": "{\"name\":\"Range Cartographer\",\"description\":\"Read-only CAKE/XRP PancakeSwap V3 grid proposal agent for Bearing.\",\"url\":\"https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke\",\"version\":\"0.1.0\",\"protocolVers",
-          "checked_at": "2026-09-02T06:44:07.221Z"
+          "checked_at": "2026-09-02T08:05:47.793Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3533,15 +4183,15 @@
         "status": 400,
         "reachable": false,
         "speaks_a2a": true,
-        "latency_ms": 35,
-        "checked_at": "2026-09-02T06:44:30.796Z"
+        "latency_ms": 77,
+        "checked_at": "2026-09-02T08:05:50.701Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (400)",
-        "answers in 77 ms",
+        "answers in 130 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3572,32 +4222,43 @@
         "yield": "APR",
         "health": "collateral"
       },
+      "detail_cached_at": "2026-09-02T08:03:53.421Z",
       "probes": [
         {
           "kind": "web",
           "url": "https://heyanon.ai",
           "ok": true,
           "status": 200,
-          "latency_ms": 387,
+          "latency_ms": 496,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sca",
-          "checked_at": "2026-09-02T06:44:04.595Z"
+          "checked_at": "2026-09-02T08:05:46.133Z"
         },
         {
           "kind": "mcp",
           "url": "https://erc8004.heyanon.ai/mcp/venus",
           "ok": true,
           "status": 200,
-          "latency_ms": 649,
+          "latency_ms": 634,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
-          "checked_at": "2026-09-02T06:44:04.856Z"
+          "checked_at": "2026-09-02T08:05:46.258Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "https://erc8004.heyanon.ai/mcp/venus"
+        },
+        {
+          "kind": "web",
+          "url": "https://heyanon.ai"
         }
       ],
       "live": false,
@@ -3605,7 +4266,7 @@
       "trust_score": 66,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 387 ms",
+        "answers in 496 ms",
         "matches 2 category rules",
         "substantial on-chain description",
         "supports x402 payments",
@@ -3635,32 +4296,43 @@
       "category_evidence": {
         "health": "collateral"
       },
+      "detail_cached_at": "2026-09-02T08:03:53.750Z",
       "probes": [
-        {
-          "kind": "web",
-          "url": "https://heyanon.ai",
-          "ok": true,
-          "status": 200,
-          "latency_ms": 220,
-          "valid_card": false,
-          "skills": null,
-          "skill_list": null,
-          "service_url": null,
-          "sample": "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sca",
-          "checked_at": "2026-09-02T06:44:04.817Z"
-        },
         {
           "kind": "mcp",
           "url": "https://erc8004.heyanon.ai/mcp/aave",
           "ok": true,
           "status": 200,
-          "latency_ms": 155,
+          "latency_ms": 117,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
-          "checked_at": "2026-09-02T06:44:05.012Z"
+          "checked_at": "2026-09-02T08:05:46.375Z"
+        },
+        {
+          "kind": "web",
+          "url": "https://heyanon.ai",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 348,
+          "valid_card": false,
+          "skills": null,
+          "skill_list": null,
+          "service_url": null,
+          "sample": "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sca",
+          "checked_at": "2026-09-02T08:05:46.492Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "https://erc8004.heyanon.ai/mcp/aave"
+        },
+        {
+          "kind": "web",
+          "url": "https://heyanon.ai"
         }
       ],
       "live": false,
@@ -3668,7 +4340,7 @@
       "trust_score": 62,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 155 ms",
+        "answers in 117 ms",
         "matches 1 category rule",
         "substantial on-chain description",
         "supports x402 payments",
@@ -3698,19 +4370,26 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:26.809Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://desk.rouma.online/seller/1882/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 351,
+          "latency_ms": 380,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1882",
           "sample": "{\"name\":\"Studio Desk Bounded Yield\",\"description\":\"First-party bounded yield allocation seller. It makes no optimisation or highest-APR claim.\",\"capabilities\":[\"verified Venus venue\",\"bounded deposit\",\"bounded withdraw\"]",
-          "checked_at": "2026-09-02T06:44:05.484Z"
+          "checked_at": "2026-09-02T08:05:47.017Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://desk.rouma.online/seller/1882/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3719,15 +4398,15 @@
         "status": 404,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 468,
-        "checked_at": "2026-09-02T06:44:30.283Z"
+        "latency_ms": 108,
+        "checked_at": "2026-09-02T08:05:49.904Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 351 ms",
+        "answers in 380 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3755,19 +4434,26 @@
       "category_evidence": {
         "rebalancing": "Rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:27.251Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://desk.rouma.online/seller/1880/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 128,
+          "latency_ms": 212,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1880",
           "sample": "{\"name\":\"Studio Desk Rebalancer\",\"description\":\"First-party bounded Pancake V3 rebalancing seller. It makes no best-range or fee guarantee.\",\"capabilities\":[\"read Pancake V3 pool tick\",\"read position state\",\"typed rebala",
-          "checked_at": "2026-09-02T06:44:05.612Z"
+          "checked_at": "2026-09-02T08:05:47.230Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://desk.rouma.online/seller/1880/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3777,14 +4463,14 @@
         "reachable": false,
         "speaks_a2a": false,
         "latency_ms": 107,
-        "checked_at": "2026-09-02T06:44:30.443Z"
+        "checked_at": "2026-09-02T08:05:50.018Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 128 ms",
+        "answers in 212 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3812,19 +4498,26 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:27.642Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://desk.rouma.online/seller/1881/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 199,
+          "latency_ms": 245,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1881",
           "sample": "{\"name\":\"Studio Desk Grid\",\"description\":\"First-party bounded grid seller using one fixed Pancake pair. It makes no profitability claim.\",\"capabilities\":[\"fixed pair inventory ceiling\",\"bounded minOut swap\",\"cooldown-awa",
-          "checked_at": "2026-09-02T06:44:05.812Z"
+          "checked_at": "2026-09-02T08:05:47.475Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://desk.rouma.online/seller/1881/.well-known/agent-card.json"
         }
       ],
       "live": true,
@@ -3834,14 +4527,14 @@
         "reachable": false,
         "speaks_a2a": false,
         "latency_ms": 107,
-        "checked_at": "2026-09-02T06:44:30.641Z"
+        "checked_at": "2026-09-02T08:05:50.176Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 199 ms",
+        "answers in 245 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3871,19 +4564,26 @@
         "rebalancing": "Range width",
         "yield": "harvests"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.024Z",
       "probes": [
         {
           "kind": "web",
           "url": "https://github.com/harryyyym/bnb-survival-suite",
           "ok": true,
           "status": 200,
-          "latency_ms": 436,
+          "latency_ms": 562,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html>\n<html\n  lang=\"en\"\n  \n  data-color-mode=\"auto\" data-light-theme=\"light\" data-dark-theme=\"dark\"\n  data-a11y-animated-images=\"system\" data-a11y-link-underlines=\"true\"\n  \n  >\n\n\n\n\n  <head>\n    <meta charset=\"u",
-          "checked_at": "2026-09-02T06:44:06.470Z"
+          "checked_at": "2026-09-02T08:05:47.997Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "web",
+          "url": "https://github.com/harryyyym/bnb-survival-suite"
         }
       ],
       "live": false,
@@ -3891,7 +4591,7 @@
       "trust_score": 60,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 436 ms",
+        "answers in 562 ms",
         "matches 2 category rules",
         "substantial on-chain description",
         "supports x402 payments"
@@ -3922,32 +4622,43 @@
         "rebalancing": "rebalanceia",
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:35.411Z",
       "probes": [
         {
           "kind": "mcp",
           "url": "https://yield-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 276,
+          "latency_ms": 229,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:05.878Z"
+          "checked_at": "2026-09-02T08:05:47.272Z"
         },
         {
           "kind": "web",
           "url": "https://yield-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 183,
+          "latency_ms": 106,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:06.061Z"
+          "checked_at": "2026-09-02T08:05:47.378Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "https://yield-agent-demo.vercel.app/mcp"
+        },
+        {
+          "kind": "web",
+          "url": "https://yield-agent-demo.vercel.app/"
         }
       ],
       "live": false,
@@ -3984,32 +4695,43 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:35.948Z",
       "probes": [
         {
           "kind": "mcp",
           "url": "https://grid-trading-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 232,
+          "latency_ms": 226,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:05.896Z"
+          "checked_at": "2026-09-02T08:05:47.277Z"
         },
         {
           "kind": "web",
           "url": "https://grid-trading-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 174,
+          "latency_ms": 104,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:06.070Z"
+          "checked_at": "2026-09-02T08:05:47.381Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "https://grid-trading-agent-demo.vercel.app/mcp"
+        },
+        {
+          "kind": "web",
+          "url": "https://grid-trading-agent-demo.vercel.app/"
         }
       ],
       "live": false,
@@ -4048,32 +4770,43 @@
         "rebalancing": "rebalanceamento",
         "health": "health factor"
       },
+      "detail_cached_at": "2026-09-02T08:05:36.713Z",
       "probes": [
         {
           "kind": "mcp",
           "url": "https://health-factor-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 283,
+          "latency_ms": 277,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:05.949Z"
+          "checked_at": "2026-09-02T08:05:47.355Z"
         },
         {
           "kind": "web",
           "url": "https://health-factor-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 194,
+          "latency_ms": 61,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T06:44:06.143Z"
+          "checked_at": "2026-09-02T08:05:47.417Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "https://health-factor-agent-demo.vercel.app/mcp"
+        },
+        {
+          "kind": "web",
+          "url": "https://health-factor-agent-demo.vercel.app/"
         }
       ],
       "live": false,
@@ -4110,6 +4843,7 @@
       "category_evidence": {
         "rebalancing": "Rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:30.169Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4121,7 +4855,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.439Z"
+          "checked_at": "2026-09-02T08:05:46.720Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://holon.lingoai.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4157,6 +4897,7 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:31.575Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4168,7 +4909,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:9000/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4204,6 +4951,7 @@
       "category_evidence": {
         "health": "Health Factor"
       },
+      "detail_cached_at": "2026-09-02T08:05:32.060Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4215,7 +4963,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.495Z"
+          "checked_at": "2026-09-02T08:05:46.734Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://holon.lingoai.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4251,19 +5005,26 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:32.553Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bnbagent-api.bnbchain.world/v1/rt/01M08TJD8N2NXMR417099K89KZ/a2a",
           "ok": false,
           "status": 401,
-          "latency_ms": 783,
+          "latency_ms": 853,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
-          "sample": "{\"error\":{\"code\":\"auth.missing_token\",\"message\":\"Missing platform token.\",\"request_id\":\"07c8906014a0030a7977d5decfd57988\"}}",
-          "checked_at": "2026-09-02T06:44:06.158Z"
+          "sample": "{\"error\":{\"code\":\"auth.missing_token\",\"message\":\"Missing platform token.\",\"request_id\":\"697067afc04996806d95d12c0ec0583a\"}}",
+          "checked_at": "2026-09-02T08:05:47.602Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bnbagent-api.bnbchain.world/v1/rt/01M08TJD8N2NXMR417099K89KZ/a2a"
         }
       ],
       "live": false,
@@ -4299,6 +5060,7 @@
       "category_evidence": {
         "rebalancing": "Rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:32.849Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4310,7 +5072,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:9000/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4346,6 +5114,7 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:33.152Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4357,7 +5126,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.534Z"
+          "checked_at": "2026-09-02T08:05:46.741Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://holon.lingoai.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4393,6 +5168,7 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:33.955Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4404,7 +5180,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.601Z"
+          "checked_at": "2026-09-02T08:05:46.749Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://holon.lingoai.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4440,6 +5222,7 @@
       "category_evidence": {
         "health": "Liquidation"
       },
+      "detail_cached_at": "2026-09-02T08:05:34.218Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4451,7 +5234,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
         },
         {
           "kind": "mcp",
@@ -4463,7 +5246,17 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:8003/skill/scan/{token}"
+        },
+        {
+          "kind": "mcp",
+          "url": "http://localhost:8003/erc8183/status"
         }
       ],
       "live": false,
@@ -4499,19 +5292,26 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:35.184Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A699289398114%3Aruntime%2FRelicYieldScout-Aby9v32xja/invocations/.well-known/agent-card.json?qualifier=DEFAULT",
           "ok": false,
           "status": 401,
-          "latency_ms": 250,
+          "latency_ms": 347,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "",
-          "checked_at": "2026-09-02T06:44:05.811Z"
+          "checked_at": "2026-09-02T08:05:47.257Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A699289398114%3Aruntime%2FRelicYieldScout-Aby9v32xja/invocations/.well-known/agent-card.json?qualifier=DEFAULT"
         }
       ],
       "live": false,
@@ -4547,6 +5347,7 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:35.675Z",
       "probes": [
         {
           "kind": "mcp",
@@ -4558,7 +5359,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.663Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "http://127.0.0.1:8004"
         }
       ],
       "live": false,
@@ -4594,19 +5401,26 @@
       "category_evidence": {
         "rebalancing": "Rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:36.949Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://agent-street.zevlat.workers.dev/agent/ivl-rebalancer/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 364,
+          "latency_ms": 401,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" data-theme=\"dark\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"theme-color\" content=\"#0B0E11\"/><link rel=\"modulepreload\" hre",
-          "checked_at": "2026-09-02T06:44:06.032Z"
+          "checked_at": "2026-09-02T08:05:47.490Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://agent-street.zevlat.workers.dev/agent/ivl-rebalancer/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4642,7 +5456,9 @@
       "category_evidence": {
         "rebalancing": "Rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:05:41.931Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4676,7 +5492,9 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:42.622Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4710,7 +5528,9 @@
       "category_evidence": {
         "rebalancing": "Rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:42.824Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4744,7 +5564,9 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.024Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4778,7 +5600,9 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:44.428Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4812,7 +5636,9 @@
       "category_evidence": {
         "health": "Health Factor"
       },
+      "detail_cached_at": "2026-09-02T08:05:45.404Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 30,
@@ -4846,19 +5672,26 @@
       "category_evidence": {
         "health": "Liquidation"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 288,
+          "latency_ms": 236,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "default backend - 404",
-          "checked_at": "2026-09-02T06:44:05.667Z"
+          "checked_at": "2026-09-02T08:05:46.910Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card"
         }
       ],
       "live": false,
@@ -4894,6 +5727,7 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:05:27.967Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4905,7 +5739,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.375Z"
+          "checked_at": "2026-09-02T08:05:46.706Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://portfolioguardian.agentx.network/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4940,6 +5780,7 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:28.349Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4951,7 +5792,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.379Z"
+          "checked_at": "2026-09-02T08:05:46.829Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://yieldoracle.agentx.network/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -4986,6 +5833,7 @@
       "category_evidence": {
         "health": "collateral"
       },
+      "detail_cached_at": "2026-09-02T08:05:38.808Z",
       "probes": [
         {
           "kind": "a2a",
@@ -4997,7 +5845,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.608Z"
+          "checked_at": "2026-09-02T08:05:47.101Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://sidekick.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5032,7 +5886,9 @@
       "category_evidence": {
         "rebalancing": "Rebalance"
       },
+      "detail_cached_at": "2026-09-02T08:05:42.144Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 23,
@@ -5067,7 +5923,9 @@
         "rebalancing": "Rebalances",
         "yield": "APR"
       },
+      "detail_cached_at": "2026-09-02T08:05:42.398Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 23,
@@ -5100,7 +5958,9 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:44.967Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 23,
@@ -5133,19 +5993,26 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:17.389Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://b7be-2409-40c4-4c-911a-a5a5-7f43-33cc-155e.ngrok-free.app/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 527,
+          "latency_ms": 454,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link rel=\"preload\" href=\"https://assets.ngrok",
-          "checked_at": "2026-09-02T06:44:04.735Z"
+          "checked_at": "2026-09-02T08:05:46.079Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://b7be-2409-40c4-4c-911a-a5a5-7f43-33cc-155e.ngrok-free.app/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5180,6 +6047,7 @@
       "category_evidence": {
         "rebalancing": "range width"
       },
+      "detail_cached_at": "2026-09-02T08:05:28.578Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5191,7 +6059,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.706Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/24420b14-3747-4fe5-aad8-e14a49844f12/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5226,6 +6100,7 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:29.219Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5237,7 +6112,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.706Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111103/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5274,6 +6155,7 @@
         "rebalancing": "rebalancer",
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:29.623Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5285,7 +6167,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:8010/a2a/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5320,6 +6208,7 @@
       "category_evidence": {
         "rebalancing": "range width"
       },
+      "detail_cached_at": "2026-09-02T08:05:30.679Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5331,7 +6220,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/ca8bf302-5f2d-4a7b-95a9-9cce7d0f6bf0/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5366,6 +6261,7 @@
       "category_evidence": {
         "rebalancing": "rebalances"
       },
+      "detail_cached_at": "2026-09-02T08:05:30.986Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5377,7 +6273,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111101/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5412,6 +6314,7 @@
       "category_evidence": {
         "health": "borrow"
       },
+      "detail_cached_at": "2026-09-02T08:05:31.248Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5423,7 +6326,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/0e394999-415f-4aa9-956b-bfdb3f67381d/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5460,6 +6369,7 @@
         "yield": "yield",
         "health": "collateral"
       },
+      "detail_cached_at": "2026-09-02T08:05:32.319Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5471,7 +6381,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/230bc298-8f1d-42fd-8c35-4824468510e8/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5506,6 +6422,7 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:33.438Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5517,7 +6434,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/42eba507-4920-487c-8da8-88f84f543a92/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5552,6 +6475,7 @@
       "category_evidence": {
         "health": "borrow"
       },
+      "detail_cached_at": "2026-09-02T08:05:34.707Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5563,7 +6487,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/5d06dad9-c530-4b87-810c-5127f9148c55/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5598,6 +6528,7 @@
       "category_evidence": {
         "grid": "DCA"
       },
+      "detail_cached_at": "2026-09-02T08:05:34.929Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5609,7 +6540,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111104/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5644,6 +6581,7 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:36.146Z",
       "probes": [
         {
           "kind": "mcp",
@@ -5655,7 +6593,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.663Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
         },
         {
           "kind": "web",
@@ -5667,7 +6605,17 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.663Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "mcp",
+          "url": "http://127.0.0.1:43126/agents/grid-pilot/mcp"
+        },
+        {
+          "kind": "web",
+          "url": "http://127.0.0.1:43126/agents/grid-pilot/health"
         }
       ],
       "live": false,
@@ -5702,6 +6650,7 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:36.435Z",
       "probes": [
         {
           "kind": "mcp",
@@ -5713,7 +6662,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.663Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
         },
         {
           "kind": "web",
@@ -5725,187 +6674,17 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.663Z"
+          "checked_at": "2026-09-02T08:05:47.050Z"
         }
       ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 22,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule",
-        "supports x402 payments"
-      ]
-    },
-    {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1926",
-      "token_id": "1926",
-      "chain_id": 97,
-      "chain_name": "BSC Testnet",
-      "is_testnet": true,
-      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
-      "name": "weighladder-agent",
-      "description": "WEIGH LADDER policy-bounded PancakeSwap grid trading agent",
-      "owner_address": "0x0aa36a8c9d3f48b4220cf88fa8819b064a389a0e",
-      "agent_wallet": "0x0aa36a8c9d3f48b4220cf88fa8819b064a389a0e",
-      "x402_supported": true,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 12,
-      "created_at": "2026-08-26T01:35:24Z",
-      "created_tx_hash": "0xc7efbbbde84e3c69364b8cee6333bb8272cdc2e5c67587e3cc39932249b8ee0d",
-      "categories": [
-        "grid"
-      ],
-      "category_evidence": {
-        "grid": "LADDER"
-      },
-      "probes": [
+      "_cached_endpoints": [
         {
-          "kind": "a2a",
-          "url": "https://weigh-ladder-agent.onrender.com/.well-known/agent-card.json",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8162,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:13.974Z"
-        }
-      ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 22,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule",
-        "supports x402 payments"
-      ]
-    },
-    {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1925",
-      "token_id": "1925",
-      "chain_id": 97,
-      "chain_name": "BSC Testnet",
-      "is_testnet": true,
-      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
-      "name": "weighbuffer-agent",
-      "description": "WEIGH BUFFER lending health-factor protection agent",
-      "owner_address": "0x83556b1187ffbb9e4869ad7c368183c4fb635b51",
-      "agent_wallet": "0x83556b1187ffbb9e4869ad7c368183c4fb635b51",
-      "x402_supported": true,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 12,
-      "created_at": "2026-08-26T01:34:37Z",
-      "created_tx_hash": "0xc1892984eecec14aa1916acaeb38db944121c3183d50f7f3f737988af5024541",
-      "categories": [
-        "health"
-      ],
-      "category_evidence": {
-        "health": "lending health"
-      },
-      "probes": [
+          "kind": "mcp",
+          "url": "http://127.0.0.1:43126/agents/yield-steward/mcp"
+        },
         {
-          "kind": "a2a",
-          "url": "https://weigh-buffer-agent.onrender.com/.well-known/agent-card.json",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8195,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:14.040Z"
-        }
-      ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 22,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule",
-        "supports x402 payments"
-      ]
-    },
-    {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1924",
-      "token_id": "1924",
-      "chain_id": 97,
-      "chain_name": "BSC Testnet",
-      "is_testnet": true,
-      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
-      "name": "weighroute-agent",
-      "description": "WEIGH ROUTE stablecoin yield optimisation agent",
-      "owner_address": "0x355886a9cb925a2c8cbf03c9aec0a92e86e48511",
-      "agent_wallet": "0x355886a9cb925a2c8cbf03c9aec0a92e86e48511",
-      "x402_supported": true,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 12,
-      "created_at": "2026-08-26T01:33:38Z",
-      "created_tx_hash": "0xd4be9e2fa8fc690bab4b664c1683db738c4f49b203c8405f4fe97b9971d2604d",
-      "categories": [
-        "yield"
-      ],
-      "category_evidence": {
-        "yield": "yield"
-      },
-      "probes": [
-        {
-          "kind": "a2a",
-          "url": "https://weigh-route-agent.onrender.com/.well-known/agent-card.json",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8208,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:14.059Z"
-        }
-      ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 22,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule",
-        "supports x402 payments"
-      ]
-    },
-    {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1923",
-      "token_id": "1923",
-      "chain_id": 97,
-      "chain_name": "BSC Testnet",
-      "is_testnet": true,
-      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
-      "name": "weighrange-agent",
-      "description": "WEIGH RANGE evidence-measured PancakeSwap liquidity rebalancing agent",
-      "owner_address": "0xb01eef1075e5a5218be7d6bc2c7e67fbeb723553",
-      "agent_wallet": "0xb01eef1075e5a5218be7d6bc2c7e67fbeb723553",
-      "x402_supported": true,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 12,
-      "created_at": "2026-08-26T01:32:34Z",
-      "created_tx_hash": "0x8a27aabd693dc8ece4f59a56c276b888dee89b579931c40f39263092203b613c",
-      "categories": [
-        "rebalancing"
-      ],
-      "category_evidence": {
-        "rebalancing": "rebalancing"
-      },
-      "probes": [
-        {
-          "kind": "a2a",
-          "url": "https://weigh-range-agent.onrender.com/.well-known/agent-card.json",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8177,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:14.069Z"
+          "kind": "web",
+          "url": "http://127.0.0.1:43126/agents/yield-steward/health"
         }
       ],
       "live": false,
@@ -5940,6 +6719,7 @@
       "category_evidence": {
         "rebalancing": "rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:40.996Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5951,7 +6731,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111102/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -5986,6 +6772,7 @@
       "category_evidence": {
         "health": "health factor"
       },
+      "detail_cached_at": "2026-09-02T08:05:41.191Z",
       "probes": [
         {
           "kind": "a2a",
@@ -5997,7 +6784,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111108/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6032,6 +6825,7 @@
       "category_evidence": {
         "yield": "auto-compounds"
       },
+      "detail_cached_at": "2026-09-02T08:05:41.380Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6043,7 +6837,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111106/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6078,6 +6878,7 @@
       "category_evidence": {
         "health": "LiquidationShield"
       },
+      "detail_cached_at": "2026-09-02T08:05:41.577Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6089,7 +6890,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111107/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6124,6 +6931,7 @@
       "category_evidence": {
         "yield": "harvests"
       },
+      "detail_cached_at": "2026-09-02T08:05:41.738Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6135,7 +6943,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.707Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "http://localhost:3000/agent/11111111-1111-1111-1111-111111111105/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6170,7 +6984,9 @@
       "category_evidence": {
         "rebalancing": "RebalanceGuard"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.230Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6203,7 +7019,9 @@
       "category_evidence": {
         "yield": "APR"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.469Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6236,7 +7054,9 @@
       "category_evidence": {
         "grid": "DCA"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.740Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6269,7 +7089,9 @@
       "category_evidence": {
         "grid": "DCA"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.740Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6302,7 +7124,9 @@
       "category_evidence": {
         "yield": "yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.983Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6337,7 +7161,9 @@
         "grid": "grid",
         "yield": "harvests"
       },
+      "detail_cached_at": "2026-09-02T08:05:44.202Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6370,7 +7196,9 @@
       "category_evidence": {
         "health": "lending health"
       },
+      "detail_cached_at": "2026-09-02T08:05:45.216Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 22,
@@ -6403,19 +7231,26 @@
       "category_evidence": {
         "grid": "grid"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 1172,
+          "latency_ms": 1050,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "default backend - 404",
-          "checked_at": "2026-09-02T06:44:05.379Z"
+          "checked_at": "2026-09-02T08:05:46.674Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card"
         }
       ],
       "live": false,
@@ -6450,19 +7285,26 @@
       "category_evidence": {
         "health": "loan health"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [
         {
           "kind": "a2a",
           "url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 1146,
+          "latency_ms": 1079,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":{\"code\":\"NOT_FOUND\",\"message\":\"Agent not found\"}}",
-          "checked_at": "2026-09-02T06:44:05.352Z"
+          "checked_at": "2026-09-02T08:05:46.704Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card"
         }
       ],
       "live": false,
@@ -6496,7 +7338,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.124Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6528,7 +7372,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.349Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6560,7 +7406,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.640Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6592,7 +7440,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:54.919Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6624,7 +7474,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:55.184Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6656,7 +7508,9 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:55.439Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6688,7 +7542,43 @@
       "category_evidence": {
         "rebalancing": "rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:03:55.688Z",
       "probes": [],
+      "_cached_endpoints": [],
+      "live": false,
+      "hireable": false,
+      "trust_score": 15,
+      "trust_reasons": [
+        "declares no callable endpoint",
+        "matches 1 category rule"
+      ]
+    },
+    {
+      "agent_id": "56:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432:11013",
+      "token_id": "11013",
+      "chain_id": 56,
+      "chain_name": "BSC Mainnet",
+      "is_testnet": false,
+      "registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
+      "name": "QuantumHub_7275A1",
+      "description": "Risk management AI for DeFi protocols and automated rebalancing.",
+      "owner_address": "0xfdcd9ce007b47aae2e0e0008890811c75522c2c0",
+      "agent_wallet": "0xfdcd9ce007b47aae2e0e0008890811c75522c2c0",
+      "x402_supported": false,
+      "is_endpoint_verified": false,
+      "total_feedbacks": 0,
+      "scan_score": 0,
+      "created_at": "2026-03-01T18:33:18Z",
+      "created_tx_hash": "0x3a224a5e756a1b96d6b082e7ff65dc37129e6f0e3a20e753661c4438931bed38",
+      "categories": [
+        "rebalancing"
+      ],
+      "category_evidence": {
+        "rebalancing": "rebalancing"
+      },
+      "detail_cached_at": "2026-09-02T08:03:55.916Z",
+      "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
@@ -6720,6 +7610,7 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:33.668Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6731,7 +7622,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.538Z"
+          "checked_at": "2026-09-02T08:05:46.935Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://sidekick.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6765,6 +7662,7 @@
       "category_evidence": {
         "rebalancing": "rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:34.453Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6776,62 +7674,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.606Z"
+          "checked_at": "2026-09-02T08:05:47.008Z"
         }
       ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 15,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule"
-      ]
-    },
-    {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:2054",
-      "token_id": "2054",
-      "chain_id": 97,
-      "chain_name": "BSC Testnet",
-      "is_testnet": true,
-      "registry": "0x8004a818bfb912233c491871b3d84c89a494bd9e",
-      "name": "YieldRoute Provider",
-      "description": "Yield Optimisation provider offering a bounded, hash-verifiable service on BSC Testnet.",
-      "owner_address": "0x1007950f2cd328cea873e212b0d18ef17c51dc9f",
-      "agent_wallet": "0x1007950f2cd328cea873e212b0d18ef17c51dc9f",
-      "x402_supported": false,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 0,
-      "created_at": "2026-09-01T18:11:04Z",
-      "created_tx_hash": "0xdd3a4022c6a17500cd4c849645b02a62b3bf4cbd5f1b2a4e7054286068c39282",
-      "categories": [
-        "yield"
-      ],
-      "category_evidence": {
-        "yield": "Yield"
-      },
-      "probes": [
+      "_cached_endpoints": [
         {
           "kind": "a2a",
-          "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8138,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:13.864Z"
-        },
-        {
-          "kind": "web",
-          "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
-          "ok": false,
-          "status": null,
-          "latency_ms": 8005,
-          "valid_card": false,
-          "skills": null,
-          "error": "timeout",
-          "checked_at": "2026-09-02T06:44:21.869Z"
+          "url": "https://portfolio-rebalancer.bnbagent.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6865,6 +7714,7 @@
       "category_evidence": {
         "yield": "Yield"
       },
+      "detail_cached_at": "2026-09-02T08:05:39.064Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6876,7 +7726,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.688Z"
+          "checked_at": "2026-09-02T08:05:47.315Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://sidekick.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6910,6 +7766,7 @@
       "category_evidence": {
         "rebalancing": "Rebalancing"
       },
+      "detail_cached_at": "2026-09-02T08:05:39.462Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6921,7 +7778,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.787Z"
+          "checked_at": "2026-09-02T08:05:47.392Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://sidekick.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -6955,6 +7818,7 @@
       "category_evidence": {
         "grid": "Grid"
       },
+      "detail_cached_at": "2026-09-02T08:05:39.709Z",
       "probes": [
         {
           "kind": "a2a",
@@ -6966,7 +7830,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.892Z"
+          "checked_at": "2026-09-02T08:05:47.491Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://sidekick.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -7000,6 +7870,7 @@
       "category_evidence": {
         "rebalancing": "rebalancer"
       },
+      "detail_cached_at": "2026-09-02T08:05:43.024Z",
       "probes": [
         {
           "kind": "a2a",
@@ -7011,7 +7882,13 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T06:44:05.726Z"
+          "checked_at": "2026-09-02T08:05:47.088Z"
+        }
+      ],
+      "_cached_endpoints": [
+        {
+          "kind": "a2a",
+          "url": "https://portfolio-rebalancer.bnbagent.example/.well-known/agent-card.json"
         }
       ],
       "live": false,
@@ -7045,7 +7922,9 @@
       "category_evidence": {
         "grid": "dca"
       },
+      "detail_cached_at": "2026-09-02T08:05:44.665Z",
       "probes": [],
+      "_cached_endpoints": [],
       "live": false,
       "hireable": false,
       "trust_score": 15,
