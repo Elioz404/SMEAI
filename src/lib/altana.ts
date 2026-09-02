@@ -45,6 +45,19 @@ const ADDR = ERC8183_ADDRESSES[CHAIN_ID];
 /** Faucet de $U en testnet: 10 $U por reclamo, 30 min de espera. */
 const U_FAUCET: Address = "0x86e9197CC0F76E4e4aaa7082180945196bBAb5D3";
 
+/**
+ * Por debajo de esto se recarga sola la tesorería antes de contratar.
+ *
+ * El escrow se financia en $U, y ese saldo solo baja. Si se agota durante el
+ * periodo de evaluación, el botón de contratar deja de funcionar y nadie se
+ * entera hasta que un juez lo pulsa. El faucet da 10 $U cada 30 minutos y le
+ * quedan ~10.000 millones, así que el fallo era evitable y absurdo.
+ *
+ * Diez veces el precio típico: margen para que una ráfaga de contrataciones no
+ * agote el saldo entre una recarga y la siguiente.
+ */
+const U_TOPUP_THRESHOLD = 1_000_000_000_000_000_000n; // 1 $U
+
 /** Cuánto dura una sesión concedida desde el producto. */
 const SESSION_TTL_SECONDS = 60 * 60;
 
@@ -357,6 +370,7 @@ export async function hire(opts: {
   budget: bigint;
 }): Promise<HireResult> {
   const { client, wallet } = await getWallet();
+  await topUpIfLow(wallet.address);
 
   // La sesión se reconstruye, no se recuerda.
   //
@@ -412,6 +426,34 @@ export async function revoke(publicKey: Hex) {
     session: publicKey,
   });
   return { transactionHash: (res as { transactionHash?: Hex }).transactionHash };
+}
+
+/**
+ * Recarga la tesorería si le queda poco $U. Silenciosa a propósito: si el faucet
+ * está en periodo de espera no es un error que deba ver el usuario, y contratar
+ * seguirá funcionando mientras quede saldo.
+ */
+async function topUpIfLow(address: Address) {
+  try {
+    const bal = await pub.readContract({
+      address: ADDRESSES.paymentToken,
+      abi: parseAbi(["function balanceOf(address) view returns (uint256)"]),
+      functionName: "balanceOf",
+      args: [address],
+    });
+    if (bal >= U_TOPUP_THRESHOLD) return;
+
+    const allowed = await pub.readContract({
+      address: U_FAUCET,
+      abi: parseAbi(["function allowedToWithdraw(address) view returns (bool)"]),
+      functionName: "allowedToWithdraw",
+      args: [address],
+    });
+    if (!allowed) return; // en espera; se reintentará en la próxima contratación
+    await claimTestU();
+  } catch {
+    // Una recarga fallida nunca debe impedir contratar con el saldo que ya hay.
+  }
 }
 
 /** Reclama $U de prueba para que la demo pueda financiar trabajos. */
