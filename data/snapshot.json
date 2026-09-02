@@ -1,17 +1,17 @@
 {
-  "generated_at": "2026-09-02T04:56:34.313Z",
-  "finished_at": "2026-09-02T05:06:45.862Z",
+  "generated_at": "2026-09-02T06:33:11.967Z",
+  "finished_at": "2026-09-02T06:44:31.514Z",
   "pipeline": [
     {
       "chain": 56,
       "raw": 897,
       "clean": 567,
-      "relevant": 31
+      "relevant": 29
     },
     {
       "chain": 97,
-      "raw": 542,
-      "clean": 386,
+      "raw": 531,
+      "clean": 375,
       "relevant": 83
     }
   ],
@@ -19,7 +19,7 @@
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
-      "registered": 297823,
+      "registered": 298237,
       "endpoint_verified": 5
     },
     {
@@ -30,19 +30,19 @@
     }
   ],
   "totals": {
-    "agents": 114,
+    "agents": 112,
     "live": 36,
     "hireable": 23,
     "services_checked": 33,
     "quotes": 2,
     "cloned": 13,
     "clusters": 1,
-    "endpoints_probed": 101,
+    "endpoints_probed": 100,
     "endpoints_blocked": 37
   },
   "per_category": {
     "rebalancing": {
-      "total": 44,
+      "total": 43,
       "live": 15,
       "hireable": 13
     },
@@ -52,7 +52,7 @@
       "hireable": 3
     },
     "yield": {
-      "total": 36,
+      "total": 35,
       "live": 12,
       "hireable": 7
     },
@@ -92,7 +92,7 @@
           "url": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 636,
+          "latency_ms": 327,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -109,7 +109,7 @@
           ],
           "service_url": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/a2a",
           "sample": "{\"name\":\"mandaterebalance-agent\",\"description\":\"MandateX PancakeSwap V3 rebalancing reference agent (mandaterebalance-agent) - deterministic quote policy plus simulation/refusal receipts over ERC-8183.\",\"url\":\"https://gv",
-          "checked_at": "2026-09-02T05:06:18.941Z"
+          "checked_at": "2026-09-02T06:44:04.534Z"
         }
       ],
       "live": true,
@@ -118,14 +118,14 @@
         "status": 401,
         "reachable": true,
         "requires_auth": true,
-        "latency_ms": 480
+        "latency_ms": 148
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 636 ms",
+        "answers in 327 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -161,7 +161,7 @@
           "url": "https://bnb-lp.172-104-171-139.nip.io/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1019,
+          "latency_ms": 1136,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -178,7 +178,7 @@
           ],
           "service_url": "https://bnb-lp.172-104-171-139.nip.io/",
           "sample": "{\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"ERC-8183 seller agent (bnbLpRangeRebalancer-agent) — negotiate + notify_funded over A2",
-          "checked_at": "2026-09-02T05:06:19.324Z"
+          "checked_at": "2026-09-02T06:44:05.342Z"
         }
       ],
       "live": true,
@@ -187,14 +187,14 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 928,
-        "checked_at": "2026-09-02T05:06:43.937Z",
+        "latency_ms": 773,
+        "checked_at": "2026-09-02T06:44:30.516Z",
         "quote": {
           "accepted": true,
           "price": "100000000000000000",
           "currency": "0xcE24439F2D9C6a2289F741120FE202248B666666",
           "eta_seconds": 600,
-          "negotiation_hash": "0xfa793ce8644fa5e30b90df2e21d7bece67945c3621b761d0535390dad6850d52"
+          "negotiation_hash": "0x19d25247102709d45b06ce67adf233d246e0cfa272ba5834f78ac6d8efc3b058"
         }
       },
       "hireable": true,
@@ -203,7 +203,7 @@
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
         "returned a signed price quote on request",
-        "answers in 1019 ms",
+        "answers in 1136 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -240,7 +240,7 @@
           "url": "https://agent.brainonbnb.com/a2a",
           "ok": true,
           "status": 200,
-          "latency_ms": 159,
+          "latency_ms": 530,
           "valid_card": true,
           "skills": 3,
           "skill_list": [
@@ -262,7 +262,7 @@
           ],
           "service_url": null,
           "sample": "{\n  \"endpoint\": \"A2A JSON-RPC, POST only\",\n  \"method\": \"message/send\",\n  \"example\": {\n    \"jsonrpc\": \"2.0\",\n    \"id\": 1,\n    \"method\": \"message/send\",\n    \"params\": {\n      \"message\": {\n        \"role\": \"user\",\n        \"m",
-          "checked_at": "2026-09-02T05:06:18.466Z"
+          "checked_at": "2026-09-02T06:44:04.737Z"
         }
       ],
       "live": true,
@@ -270,7 +270,7 @@
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 159 ms",
+        "answers in 530 ms",
         "declares 3 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -308,7 +308,7 @@
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/rangekeeper/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 677,
+          "latency_ms": 591,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -320,7 +320,7 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/rangekeeper/a2a",
           "sample": "{\"name\":\"RangeKeeper\",\"description\":\"First-party Spotriq reference service for deterministic PancakeSwap concentrated-liquidity position analysis and bounded rebalancing preparation.\",\"protocolVersion\":\"1.0.0\",\"url\":\"htt",
-          "checked_at": "2026-09-02T05:06:19.144Z"
+          "checked_at": "2026-09-02T06:44:04.797Z"
         }
       ],
       "live": true,
@@ -329,15 +329,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 513,
-        "checked_at": "2026-09-02T05:06:43.522Z"
+        "latency_ms": 222,
+        "checked_at": "2026-09-02T06:44:29.924Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 677 ms",
+        "answers in 591 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -373,7 +373,7 @@
           "url": "https://bnb-grid.172-104-171-139.nip.io/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 923,
+          "latency_ms": 927,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -390,7 +390,7 @@
           ],
           "service_url": "https://bnb-grid.172-104-171-139.nip.io/",
           "sample": "{\"capabilities\":{\"streaming\":false},\"defaultInputModes\":[\"application/json\"],\"defaultOutputModes\":[\"application/json\"],\"description\":\"ERC-8183 seller agent (bnbGridTrader-agent) — negotiate + notify_funded over A2A.\",\"na",
-          "checked_at": "2026-09-02T05:06:19.687Z"
+          "checked_at": "2026-09-02T06:44:05.662Z"
         }
       ],
       "live": true,
@@ -399,14 +399,14 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 938,
-        "checked_at": "2026-09-02T05:06:43.948Z",
+        "latency_ms": 788,
+        "checked_at": "2026-09-02T06:44:30.597Z",
         "quote": {
           "accepted": true,
           "price": "100000000000000000",
           "currency": "0xcE24439F2D9C6a2289F741120FE202248B666666",
           "eta_seconds": 600,
-          "negotiation_hash": "0xfa793ce8644fa5e30b90df2e21d7bece67945c3621b761d0535390dad6850d52"
+          "negotiation_hash": "0x19d25247102709d45b06ce67adf233d246e0cfa272ba5834f78ac6d8efc3b058"
         }
       },
       "hireable": true,
@@ -415,7 +415,7 @@
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
         "returned a signed price quote on request",
-        "answers in 923 ms",
+        "answers in 927 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -451,7 +451,7 @@
           "url": "https://proofera-lp.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1331,
+          "latency_ms": 799,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -468,7 +468,7 @@
           ],
           "service_url": "https://proofera-lp.tangvu.dev/",
           "sample": "{\"name\":\"ProofEra LP Risk Evidence Agent\",\"description\":\"Deterministic, read-only PancakeSwap LP range and scoped permission evidence analysis on BSC mainnet and testnet.\",\"url\":\"https://proofera-lp.tangvu.dev/\",\"version",
-          "checked_at": "2026-09-02T05:06:20.273Z"
+          "checked_at": "2026-09-02T06:44:05.536Z"
         }
       ],
       "live": true,
@@ -477,15 +477,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 459,
-        "checked_at": "2026-09-02T05:06:43.470Z"
+        "latency_ms": 859,
+        "checked_at": "2026-09-02T06:44:30.604Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 1331 ms",
+        "answers in 799 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "supports x402 payments"
@@ -520,7 +520,7 @@
           "url": "https://proofera-grid.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1176,
+          "latency_ms": 847,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -532,7 +532,7 @@
           ],
           "service_url": "https://proofera-grid.tangvu.dev/",
           "sample": "{\"name\":\"ProofEra Grid Trading Evidence Agent\",\"description\":\"Deterministic, read-only BSC grid candidate analysis backed only by caller-supplied evidence.\",\"url\":\"https://proofera-grid.tangvu.dev/\",\"version\":\"1.0.0\",\"pr",
-          "checked_at": "2026-09-02T05:06:20.501Z"
+          "checked_at": "2026-09-02T06:44:05.665Z"
         }
       ],
       "live": true,
@@ -541,15 +541,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 459,
-        "checked_at": "2026-09-02T05:06:43.472Z"
+        "latency_ms": 826,
+        "checked_at": "2026-09-02T06:44:30.575Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 1176 ms",
+        "answers in 847 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -584,7 +584,7 @@
           "url": "https://proofera-yield.tangvu.dev/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1192,
+          "latency_ms": 839,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -596,7 +596,7 @@
           ],
           "service_url": "https://proofera-yield.tangvu.dev/",
           "sample": "{\"name\":\"yieldOptimisationAgent-agent\",\"description\":\"ProofEra deterministic yield route evidence analyzer for BSC mainnet and testnet. Read-only; missing evidence lowers confidence.\",\"url\":\"https://proofera-yield.tangvu",
-          "checked_at": "2026-09-02T05:06:20.524Z"
+          "checked_at": "2026-09-02T06:44:05.851Z"
         }
       ],
       "live": true,
@@ -605,15 +605,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 456,
-        "checked_at": "2026-09-02T05:06:43.469Z"
+        "latency_ms": 460,
+        "checked_at": "2026-09-02T06:44:30.209Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 1192 ms",
+        "answers in 839 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -649,7 +649,7 @@
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/venusguard/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 246,
+          "latency_ms": 88,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -661,7 +661,7 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/venusguard/a2a",
           "sample": "{\"name\":\"VenusGuard\",\"description\":\"First-party Spotriq reference service for deterministic Venus lending-risk and liquidation-state monitoring without hidden automatic authority.\",\"protocolVersion\":\"1.0.0\",\"url\":\"https:",
-          "checked_at": "2026-09-02T05:06:19.390Z"
+          "checked_at": "2026-09-02T06:44:04.885Z"
         }
       ],
       "live": true,
@@ -670,15 +670,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 248,
-        "checked_at": "2026-09-02T05:06:43.771Z"
+        "latency_ms": 99,
+        "checked_at": "2026-09-02T06:44:30.040Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 246 ms",
+        "answers in 88 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -714,7 +714,7 @@
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/yieldpilot/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 245,
+          "latency_ms": 131,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -726,7 +726,7 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/yieldpilot/a2a",
           "sample": "{\"name\":\"YieldPilot\",\"description\":\"First-party Spotriq reference service for deterministic Venus supply-yield opportunity discovery using current protocol state rather than projected profit.\",\"protocolVersion\":\"1.0.0\",\"",
-          "checked_at": "2026-09-02T05:06:19.636Z"
+          "checked_at": "2026-09-02T06:44:05.016Z"
         }
       ],
       "live": true,
@@ -735,15 +735,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 226,
-        "checked_at": "2026-09-02T05:06:43.998Z"
+        "latency_ms": 80,
+        "checked_at": "2026-09-02T06:44:30.133Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 245 ms",
+        "answers in 131 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -779,7 +779,7 @@
           "url": "https://spotriq-production.up.railway.app/v1/reference-agents/gridpilot/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 224,
+          "latency_ms": 116,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -791,7 +791,7 @@
           ],
           "service_url": "https://spotriq-production.up.railway.app/v1/reference-agents/gridpilot/a2a",
           "sample": "{\"name\":\"GridPilot\",\"description\":\"First-party Spotriq reference service for deterministic PancakeSwap V3 grid-trading market context without profit prediction or autonomous trading authority.\",\"protocolVersion\":\"1.0.0\",",
-          "checked_at": "2026-09-02T05:06:19.860Z"
+          "checked_at": "2026-09-02T06:44:05.133Z"
         }
       ],
       "live": true,
@@ -800,15 +800,15 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 252,
-        "checked_at": "2026-09-02T05:06:44.251Z"
+        "latency_ms": 104,
+        "checked_at": "2026-09-02T06:44:30.245Z"
       },
       "hireable": true,
       "trust_score": 100,
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 224 ms",
+        "answers in 116 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -844,39 +844,39 @@
           "url": "https://mpp.hyreagent.fun/agents/eights",
           "ok": false,
           "status": 404,
-          "latency_ms": 458,
+          "latency_ms": 982,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":\"agent not found\"}",
-          "checked_at": "2026-09-02T05:06:18.764Z"
+          "checked_at": "2026-09-02T06:44:05.188Z"
         },
         {
           "kind": "a2a",
           "url": "https://me.hyreagent.fun/agent/eights/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 815,
+          "latency_ms": 1116,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":\"agent_not_found\",\"name\":\"eights\"}",
-          "checked_at": "2026-09-02T05:06:19.121Z"
+          "checked_at": "2026-09-02T06:44:05.323Z"
         },
         {
           "kind": "web",
           "url": "https://me.hyreagent.fun/agent/eights",
           "ok": true,
           "status": 200,
-          "latency_ms": 211,
+          "latency_ms": 238,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" class=\"inter_7b064e0d-module__MOT0tq__variable kode_mono_b77c911b-module__GERdAG__variable press_start_2p_93adc060-module__SxLmSq__variable instrumentserif_d6aa98ca-module__P8Z5GW__variable",
-          "checked_at": "2026-09-02T05:06:19.332Z"
+          "checked_at": "2026-09-02T06:44:05.561Z"
         }
       ],
       "live": true,
@@ -884,7 +884,7 @@
       "trust_score": 81,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 211 ms",
+        "answers in 238 ms",
         "matches 1 category rule",
         "supports x402 payments",
         "2 on-chain feedback entries"
@@ -919,7 +919,7 @@
           "url": "https://hevo-agents.fly.dev/sentinel/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 393,
+          "latency_ms": 230,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -936,7 +936,7 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/sentinel",
           "sample": "{\"name\":\"Hevo Sentinel\",\"description\":\"Checks lending positions against safety thresholds on Venus and Aave V3, alerting on liquidation risks and computing precise collateral/debt remedies to restore safe buffers. It mon",
-          "checked_at": "2026-09-02T05:06:18.958Z"
+          "checked_at": "2026-09-02T06:44:04.765Z"
         }
       ],
       "live": true,
@@ -952,7 +952,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 393 ms",
+        "answers in 230 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -988,7 +988,7 @@
           "url": "https://hevo-agents.fly.dev/grid/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 182,
+          "latency_ms": 27,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1005,7 +1005,7 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/grid",
           "sample": "{\"name\":\"Hevo Grid\",\"description\":\"Computes a grid trading plan for a pair and price range — levels, order sizes, and expected capture — as a deliverable a buyer (or their own bot) can execute. It designs the grid; it do",
-          "checked_at": "2026-09-02T05:06:19.141Z"
+          "checked_at": "2026-09-02T06:44:04.793Z"
         }
       ],
       "live": true,
@@ -1021,7 +1021,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 182 ms",
+        "answers in 27 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1057,7 +1057,7 @@
           "url": "https://hevo-agents.fly.dev/yield/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 173,
+          "latency_ms": 11,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1074,7 +1074,7 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/yield",
           "sample": "{\"name\":\"Hevo Yield\",\"description\":\"Compares yield opportunities across BNB Chain lending and liquid staking protocols (Venus, Aave V3, Lista DAO) and delivers an optimal allocation recommendation. It analyses and recomm",
-          "checked_at": "2026-09-02T05:06:19.314Z"
+          "checked_at": "2026-09-02T06:44:04.805Z"
         }
       ],
       "live": true,
@@ -1090,7 +1090,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 173 ms",
+        "answers in 11 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1126,7 +1126,7 @@
           "url": "https://hevo-agents.fly.dev/rebalance/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 187,
+          "latency_ms": 8,
           "valid_card": true,
           "skills": 2,
           "skill_list": [
@@ -1143,7 +1143,7 @@
           ],
           "service_url": "http://hevo-agents.fly.dev/rebalance",
           "sample": "{\"name\":\"Hevo Rebalance\",\"description\":\"Reads a wallet's current holdings against a target allocation and returns the exact trade set needed to close the drift — tokens to sell, tokens to buy, and the resulting allocatio",
-          "checked_at": "2026-09-02T05:06:19.502Z"
+          "checked_at": "2026-09-02T06:44:04.815Z"
         }
       ],
       "live": true,
@@ -1159,7 +1159,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (scheme not allowed: http:)",
-        "answers in 187 ms",
+        "answers in 8 ms",
         "declares 2 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1195,7 +1195,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 829,
+          "latency_ms": 424,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1237,7 +1237,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:19.135Z"
+          "checked_at": "2026-09-02T06:44:04.630Z"
         }
       ],
       "live": true,
@@ -1246,8 +1246,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 215,
-        "checked_at": "2026-09-02T05:06:43.223Z"
+        "latency_ms": 466,
+        "checked_at": "2026-09-02T06:44:30.132Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1321,7 +1321,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 829 ms",
+        "answers in 424 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1358,7 +1358,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 237,
+          "latency_ms": 196,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1400,7 +1400,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:20.263Z"
+          "checked_at": "2026-09-02T06:44:05.987Z"
         }
       ],
       "live": true,
@@ -1409,8 +1409,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 191,
-        "checked_at": "2026-09-02T05:06:44.282Z"
+        "latency_ms": 90,
+        "checked_at": "2026-09-02T06:44:30.827Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1484,7 +1484,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 237 ms",
+        "answers in 196 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1521,7 +1521,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 191,
+          "latency_ms": 184,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1563,7 +1563,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:20.455Z"
+          "checked_at": "2026-09-02T06:44:06.173Z"
         }
       ],
       "live": true,
@@ -1572,8 +1572,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 238,
-        "checked_at": "2026-09-02T05:06:44.521Z"
+        "latency_ms": 81,
+        "checked_at": "2026-09-02T06:44:30.913Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1647,7 +1647,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 191 ms",
+        "answers in 184 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1684,7 +1684,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 199,
+          "latency_ms": 94,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1726,7 +1726,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:20.654Z"
+          "checked_at": "2026-09-02T06:44:06.268Z"
         }
       ],
       "live": true,
@@ -1735,8 +1735,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 192,
-        "checked_at": "2026-09-02T05:06:44.713Z"
+        "latency_ms": 102,
+        "checked_at": "2026-09-02T06:44:31.019Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1810,7 +1810,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 199 ms",
+        "answers in 94 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -1847,7 +1847,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 193,
+          "latency_ms": 88,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -1889,7 +1889,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:20.848Z"
+          "checked_at": "2026-09-02T06:44:06.356Z"
         }
       ],
       "live": true,
@@ -1898,8 +1898,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 238,
-        "checked_at": "2026-09-02T05:06:44.952Z"
+        "latency_ms": 80,
+        "checked_at": "2026-09-02T06:44:31.104Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -1973,7 +1973,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 193 ms",
+        "answers in 88 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2010,7 +2010,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 191,
+          "latency_ms": 96,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2052,7 +2052,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:21.039Z"
+          "checked_at": "2026-09-02T06:44:06.452Z"
         }
       ],
       "live": true,
@@ -2061,8 +2061,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 238,
-        "checked_at": "2026-09-02T05:06:45.190Z"
+        "latency_ms": 83,
+        "checked_at": "2026-09-02T06:44:31.191Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2136,7 +2136,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 191 ms",
+        "answers in 96 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2173,26 +2173,26 @@
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": true,
           "status": 200,
-          "latency_ms": 6865,
+          "latency_ms": 6973,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
-          "checked_at": "2026-09-02T05:06:42.643Z"
+          "checked_at": "2026-09-02T06:44:28.843Z"
         },
         {
           "kind": "web",
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": true,
           "status": 200,
-          "latency_ms": 360,
+          "latency_ms": 816,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"schema\":\"mandate.provider-service.v1\",\"version\":1,\"chain_id\":97,\"provider_address\":\"0x1007950f2cd328ceA873e212b0D18EF17c51dc9f\",\"service_protocol\":\"A2A\",\"categories\":[\"yield\"],\"acceptance_endpoint\":\"https://mandate-pro",
-          "checked_at": "2026-09-02T05:06:43.003Z"
+          "checked_at": "2026-09-02T06:44:29.659Z"
         }
       ],
       "live": true,
@@ -2200,7 +2200,7 @@
       "trust_score": 70,
       "trust_reasons": [
         "serves a valid agent card live",
-        "answers in 360 ms",
+        "answers in 816 ms",
         "matches 1 category rule"
       ]
     },
@@ -2233,7 +2233,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 238,
+          "latency_ms": 379,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2275,7 +2275,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.010Z"
         }
       ],
       "live": true,
@@ -2284,8 +2284,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 193,
-        "checked_at": "2026-09-02T05:06:43.418Z"
+        "latency_ms": 277,
+        "checked_at": "2026-09-02T06:44:30.413Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2359,7 +2359,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 238 ms",
+        "answers in 379 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2397,7 +2397,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 217,
+          "latency_ms": 246,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2439,7 +2439,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:19.592Z"
+          "checked_at": "2026-09-02T06:44:05.256Z"
         }
       ],
       "live": true,
@@ -2448,8 +2448,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 240,
-        "checked_at": "2026-09-02T05:06:43.658Z"
+        "latency_ms": 103,
+        "checked_at": "2026-09-02T06:44:30.521Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2523,7 +2523,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 217 ms",
+        "answers in 246 ms",
         "declares 7 callable skills",
         "matches 2 category rules",
         "substantial on-chain description",
@@ -2559,7 +2559,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 193,
+          "latency_ms": 255,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2601,7 +2601,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:19.785Z"
+          "checked_at": "2026-09-02T06:44:05.512Z"
         }
       ],
       "live": true,
@@ -2610,8 +2610,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 239,
-        "checked_at": "2026-09-02T05:06:43.898Z"
+        "latency_ms": 102,
+        "checked_at": "2026-09-02T06:44:30.626Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2685,7 +2685,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 193 ms",
+        "answers in 255 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2721,7 +2721,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 239,
+          "latency_ms": 277,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2763,7 +2763,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:20.025Z"
+          "checked_at": "2026-09-02T06:44:05.790Z"
         }
       ],
       "live": true,
@@ -2772,8 +2772,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 191,
-        "checked_at": "2026-09-02T05:06:44.090Z"
+        "latency_ms": 101,
+        "checked_at": "2026-09-02T06:44:30.730Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -2847,7 +2847,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 239 ms",
+        "answers in 277 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -2883,7 +2883,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 195,
+          "latency_ms": 93,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -2925,7 +2925,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:21.235Z"
+          "checked_at": "2026-09-02T06:44:06.546Z"
         }
       ],
       "live": true,
@@ -2934,8 +2934,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 239,
-        "checked_at": "2026-09-02T05:06:45.429Z"
+        "latency_ms": 102,
+        "checked_at": "2026-09-02T06:44:31.296Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3009,7 +3009,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 195 ms",
+        "answers in 93 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3045,7 +3045,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 193,
+          "latency_ms": 95,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -3087,7 +3087,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:21.429Z"
+          "checked_at": "2026-09-02T06:44:06.642Z"
         }
       ],
       "live": true,
@@ -3096,8 +3096,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 237,
-        "checked_at": "2026-09-02T05:06:45.666Z"
+        "latency_ms": 100,
+        "checked_at": "2026-09-02T06:44:31.402Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3171,7 +3171,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 193 ms",
+        "answers in 95 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3207,7 +3207,7 @@
           "url": "https://api.bortagent.xyz/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 192,
+          "latency_ms": 97,
           "valid_card": true,
           "skills": 7,
           "skill_list": [
@@ -3249,7 +3249,7 @@
           ],
           "service_url": "https://api.bortagent.xyz/api/a2a",
           "sample": "{\"name\":\"BORT Agent\",\"description\":\"Autonomous on-chain agents on BNB Smart Chain (BAP-578). Each agent reads live token data, trades on PancakeSwap and FourMeme, and acts from its own ERC-6551 wallet under an owner-revo",
-          "checked_at": "2026-09-02T05:06:21.622Z"
+          "checked_at": "2026-09-02T06:44:06.739Z"
         }
       ],
       "live": true,
@@ -3258,8 +3258,8 @@
         "status": 200,
         "reachable": true,
         "speaks_a2a": true,
-        "latency_ms": 193,
-        "checked_at": "2026-09-02T05:06:45.861Z"
+        "latency_ms": 105,
+        "checked_at": "2026-09-02T06:44:31.513Z"
       },
       "cluster": {
         "key": "0x97e8f3b4bffc1982b2791b21609c3b2542c5eb50|https://api.bortagent.xyz/api/a2a",
@@ -3333,7 +3333,7 @@
       "trust_reasons": [
         "serves a valid agent card live",
         "its A2A service answers, not just its card",
-        "answers in 192 ms",
+        "answers in 97 ms",
         "declares 7 callable skills",
         "matches 1 category rule",
         "substantial on-chain description",
@@ -3369,7 +3369,7 @@
           "url": "https://genesis-marketplace-one.vercel.app/api/apex/gridwright/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 1115,
+          "latency_ms": 1029,
           "valid_card": true,
           "skills": 4,
           "skill_list": [
@@ -3396,7 +3396,7 @@
           ],
           "service_url": "https://genesis-marketplace-one.vercel.app/api/apex/gridwright",
           "sample": "{\"name\":\"Gridwright\",\"description\":\"Marketplace specialist for grid trading (built by Genesis). Designs multi-level grids between user bounds, sizes notional per level, and returns pause rules for drawdown. You keep exec",
-          "checked_at": "2026-09-02T05:06:20.262Z"
+          "checked_at": "2026-09-02T06:44:05.845Z"
         }
       ],
       "live": true,
@@ -3405,15 +3405,15 @@
         "status": 405,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 287,
-        "checked_at": "2026-09-02T05:06:43.299Z"
+        "latency_ms": 230,
+        "checked_at": "2026-09-02T06:44:29.977Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (405)",
-        "answers in 1115 ms",
+        "answers in 1029 ms",
         "declares 4 callable skills",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3448,7 +3448,7 @@
           "url": "https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 960,
+          "latency_ms": 1331,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -3460,7 +3460,7 @@
           ],
           "service_url": "https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke",
           "sample": "{\"name\":\"Fee Yield Scout\",\"description\":\"Read-only PancakeSwap V3 LP fee-yield conditions agent for Bearing.\",\"url\":\"https://bearing-fawn.vercel.app/api/agents/vault-weather/invoke\",\"version\":\"0.1.0\",\"protocolVersion\":\"0",
-          "checked_at": "2026-09-02T05:06:20.764Z"
+          "checked_at": "2026-09-02T06:44:07.143Z"
         }
       ],
       "live": true,
@@ -3469,15 +3469,15 @@
         "status": 400,
         "reachable": false,
         "speaks_a2a": true,
-        "latency_ms": 1466,
-        "checked_at": "2026-09-02T05:06:44.481Z"
+        "latency_ms": 879,
+        "checked_at": "2026-09-02T06:44:30.692Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (400)",
-        "answers in 960 ms",
+        "answers in 1331 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3512,7 +3512,7 @@
           "url": "https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 173,
+          "latency_ms": 77,
           "valid_card": true,
           "skills": 1,
           "skill_list": [
@@ -3524,7 +3524,7 @@
           ],
           "service_url": "https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke",
           "sample": "{\"name\":\"Range Cartographer\",\"description\":\"Read-only CAKE/XRP PancakeSwap V3 grid proposal agent for Bearing.\",\"url\":\"https://bearing-fawn.vercel.app/api/agents/range-cartographer/invoke\",\"version\":\"0.1.0\",\"protocolVers",
-          "checked_at": "2026-09-02T05:06:20.938Z"
+          "checked_at": "2026-09-02T06:44:07.221Z"
         }
       ],
       "live": true,
@@ -3533,15 +3533,15 @@
         "status": 400,
         "reachable": false,
         "speaks_a2a": true,
-        "latency_ms": 170,
-        "checked_at": "2026-09-02T05:06:44.652Z"
+        "latency_ms": 35,
+        "checked_at": "2026-09-02T06:44:30.796Z"
       },
       "hireable": false,
       "trust_score": 67,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (400)",
-        "answers in 173 ms",
+        "answers in 77 ms",
         "declares 1 callable skill",
         "matches 1 category rule",
         "supports x402 payments"
@@ -3574,30 +3574,30 @@
       },
       "probes": [
         {
-          "kind": "mcp",
-          "url": "https://erc8004.heyanon.ai/mcp/venus",
-          "ok": true,
-          "status": 200,
-          "latency_ms": 808,
-          "valid_card": false,
-          "skills": null,
-          "skill_list": null,
-          "service_url": null,
-          "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
-          "checked_at": "2026-09-02T05:06:19.114Z"
-        },
-        {
           "kind": "web",
           "url": "https://heyanon.ai",
           "ok": true,
           "status": 200,
-          "latency_ms": 1085,
+          "latency_ms": 387,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sca",
-          "checked_at": "2026-09-02T05:06:19.505Z"
+          "checked_at": "2026-09-02T06:44:04.595Z"
+        },
+        {
+          "kind": "mcp",
+          "url": "https://erc8004.heyanon.ai/mcp/venus",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 649,
+          "valid_card": false,
+          "skills": null,
+          "skill_list": null,
+          "service_url": null,
+          "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
+          "checked_at": "2026-09-02T06:44:04.856Z"
         }
       ],
       "live": false,
@@ -3605,7 +3605,7 @@
       "trust_score": 66,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 808 ms",
+        "answers in 387 ms",
         "matches 2 category rules",
         "substantial on-chain description",
         "supports x402 payments",
@@ -3637,30 +3637,30 @@
       },
       "probes": [
         {
-          "kind": "mcp",
-          "url": "https://erc8004.heyanon.ai/mcp/aave",
-          "ok": true,
-          "status": 200,
-          "latency_ms": 227,
-          "valid_card": false,
-          "skills": null,
-          "skill_list": null,
-          "service_url": null,
-          "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
-          "checked_at": "2026-09-02T05:06:19.341Z"
-        },
-        {
           "kind": "web",
           "url": "https://heyanon.ai",
           "ok": true,
           "status": 200,
-          "latency_ms": 302,
+          "latency_ms": 220,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-sca",
-          "checked_at": "2026-09-02T05:06:19.807Z"
+          "checked_at": "2026-09-02T06:44:04.817Z"
+        },
+        {
+          "kind": "mcp",
+          "url": "https://erc8004.heyanon.ai/mcp/aave",
+          "ok": true,
+          "status": 200,
+          "latency_ms": 155,
+          "valid_card": false,
+          "skills": null,
+          "skill_list": null,
+          "service_url": null,
+          "sample": "{\"protocolVersion\":\"2025-06-18\",\"capabilities\":{\"tools\":{\"listChanged\":false}},\"agentGuidance\":{\"description\":\"General guidance for external AI agents using this MCP server. Read before selecting a project endpoint, requ",
+          "checked_at": "2026-09-02T06:44:05.012Z"
         }
       ],
       "live": false,
@@ -3668,7 +3668,7 @@
       "trust_score": 62,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 227 ms",
+        "answers in 155 ms",
         "matches 1 category rule",
         "substantial on-chain description",
         "supports x402 payments",
@@ -3704,13 +3704,13 @@
           "url": "https://desk.rouma.online/seller/1882/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 742,
+          "latency_ms": 351,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1882",
           "sample": "{\"name\":\"Studio Desk Bounded Yield\",\"description\":\"First-party bounded yield allocation seller. It makes no optimisation or highest-APR claim.\",\"capabilities\":[\"verified Venus venue\",\"bounded deposit\",\"bounded withdraw\"]",
-          "checked_at": "2026-09-02T05:06:20.083Z"
+          "checked_at": "2026-09-02T06:44:05.484Z"
         }
       ],
       "live": true,
@@ -3719,15 +3719,15 @@
         "status": 404,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 756,
-        "checked_at": "2026-09-02T05:06:43.770Z"
+        "latency_ms": 468,
+        "checked_at": "2026-09-02T06:44:30.283Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 742 ms",
+        "answers in 351 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3761,13 +3761,13 @@
           "url": "https://desk.rouma.online/seller/1880/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 246,
+          "latency_ms": 128,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1880",
           "sample": "{\"name\":\"Studio Desk Rebalancer\",\"description\":\"First-party bounded Pancake V3 rebalancing seller. It makes no best-range or fee guarantee.\",\"capabilities\":[\"read Pancake V3 pool tick\",\"read position state\",\"typed rebala",
-          "checked_at": "2026-09-02T05:06:20.329Z"
+          "checked_at": "2026-09-02T06:44:05.612Z"
         }
       ],
       "live": true,
@@ -3776,15 +3776,15 @@
         "status": 404,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 251,
-        "checked_at": "2026-09-02T05:06:44.021Z"
+        "latency_ms": 107,
+        "checked_at": "2026-09-02T06:44:30.443Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 246 ms",
+        "answers in 128 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3818,13 +3818,13 @@
           "url": "https://desk.rouma.online/seller/1881/.well-known/agent-card.json",
           "ok": true,
           "status": 200,
-          "latency_ms": 245,
+          "latency_ms": 199,
           "valid_card": true,
           "skills": null,
           "skill_list": null,
           "service_url": "https://desk.rouma.online/seller/1881",
           "sample": "{\"name\":\"Studio Desk Grid\",\"description\":\"First-party bounded grid seller using one fixed Pancake pair. It makes no profitability claim.\",\"capabilities\":[\"fixed pair inventory ceiling\",\"bounded minOut swap\",\"cooldown-awa",
-          "checked_at": "2026-09-02T05:06:20.574Z"
+          "checked_at": "2026-09-02T06:44:05.812Z"
         }
       ],
       "live": true,
@@ -3833,15 +3833,15 @@
         "status": 404,
         "reachable": false,
         "speaks_a2a": false,
-        "latency_ms": 249,
-        "checked_at": "2026-09-02T05:06:44.272Z"
+        "latency_ms": 107,
+        "checked_at": "2026-09-02T06:44:30.641Z"
       },
       "hireable": false,
       "trust_score": 62,
       "trust_reasons": [
         "serves a valid agent card live",
         "serves a card but its A2A service does not answer (404)",
-        "answers in 245 ms",
+        "answers in 199 ms",
         "matches 1 category rule",
         "supports x402 payments"
       ]
@@ -3877,13 +3877,13 @@
           "url": "https://github.com/harryyyym/bnb-survival-suite",
           "ok": true,
           "status": 200,
-          "latency_ms": 660,
+          "latency_ms": 436,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html>\n<html\n  lang=\"en\"\n  \n  data-color-mode=\"auto\" data-light-theme=\"light\" data-dark-theme=\"dark\"\n  data-a11y-animated-images=\"system\" data-a11y-link-underlines=\"true\"\n  \n  >\n\n\n\n\n  <head>\n    <meta charset=\"u",
-          "checked_at": "2026-09-02T05:06:20.934Z"
+          "checked_at": "2026-09-02T06:44:06.470Z"
         }
       ],
       "live": false,
@@ -3891,7 +3891,7 @@
       "trust_score": 60,
       "trust_reasons": [
         "endpoint responds but serves no agent card",
-        "answers in 660 ms",
+        "answers in 436 ms",
         "matches 2 category rules",
         "substantial on-chain description",
         "supports x402 payments"
@@ -3928,26 +3928,26 @@
           "url": "https://yield-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 124,
+          "latency_ms": 276,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.663Z"
+          "checked_at": "2026-09-02T06:44:05.878Z"
         },
         {
           "kind": "web",
           "url": "https://yield-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 37,
+          "latency_ms": 183,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.700Z"
+          "checked_at": "2026-09-02T06:44:06.061Z"
         }
       ],
       "live": false,
@@ -3990,26 +3990,26 @@
           "url": "https://grid-trading-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 121,
+          "latency_ms": 232,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.768Z"
+          "checked_at": "2026-09-02T06:44:05.896Z"
         },
         {
           "kind": "web",
           "url": "https://grid-trading-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 35,
+          "latency_ms": 174,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.803Z"
+          "checked_at": "2026-09-02T06:44:06.070Z"
         }
       ],
       "live": false,
@@ -4054,26 +4054,26 @@
           "url": "https://health-factor-agent-demo.vercel.app/mcp",
           "ok": false,
           "status": 404,
-          "latency_ms": 150,
+          "latency_ms": 283,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.837Z"
+          "checked_at": "2026-09-02T06:44:05.949Z"
         },
         {
           "kind": "web",
           "url": "https://health-factor-agent-demo.vercel.app/",
           "ok": false,
           "status": 404,
-          "latency_ms": 35,
+          "latency_ms": 194,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\": {\"code\": \"404\", \"message\": \"The deployment could not be found on Vercel.\"}}",
-          "checked_at": "2026-09-02T05:06:19.873Z"
+          "checked_at": "2026-09-02T06:44:06.143Z"
         }
       ],
       "live": false,
@@ -4085,54 +4085,6 @@
         "substantial on-chain description",
         "supports x402 payments",
         "3 on-chain feedback entries"
-      ]
-    },
-    {
-      "agent_id": "56:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432:326106",
-      "token_id": "326106",
-      "chain_id": 56,
-      "chain_name": "BSC Mainnet",
-      "is_testnet": false,
-      "registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
-      "name": "Sentinels Yield Router",
-      "description": "SmartSentinels hireable yield optimisation seller for BNB Chain DeFi. Compares Lista, Venus, and PancakeSwap routes and returns APR-ranked briefs under Altana spend limits. Analysis only — does not move funds or custody your wallet. Hire via Hub Marketplace; paid jobs settle in $U through ERC-8183. Runtime: AWS Bedrock AgentCore A2A seller. Informational tooling — not financial advice.",
-      "owner_address": "0x4e21f74143660ee576f4d2ac26bd30729a849f55",
-      "agent_wallet": "0x4e21f74143660ee576f4d2ac26bd30729a849f55",
-      "x402_supported": true,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 0,
-      "created_at": "2026-09-01T11:29:17Z",
-      "created_tx_hash": "0x8dc03b872bb2bd1871293dc7dcdfd6c45c6a9f94aba4af01313b6b2b6a50038d",
-      "categories": [
-        "yield"
-      ],
-      "category_evidence": {
-        "yield": "Yield"
-      },
-      "probes": [
-        {
-          "kind": "a2a",
-          "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A562333538205%3Aruntime%2Fssyieldrouter_ssyieldrouter-zC4ZBpB9Z6/invocations/.well-known/agent-card.json",
-          "ok": false,
-          "status": 401,
-          "latency_ms": 638,
-          "valid_card": false,
-          "skills": null,
-          "skill_list": null,
-          "service_url": null,
-          "sample": "",
-          "checked_at": "2026-09-02T05:06:18.944Z"
-        }
-      ],
-      "live": false,
-      "hireable": false,
-      "trust_score": 30,
-      "trust_reasons": [
-        "declares an endpoint that does not respond",
-        "matches 1 category rule",
-        "substantial on-chain description",
-        "supports x402 payments"
       ]
     },
     {
@@ -4169,7 +4121,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.382Z"
+          "checked_at": "2026-09-02T06:44:05.439Z"
         }
       ],
       "live": false,
@@ -4216,7 +4168,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -4263,7 +4215,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.387Z"
+          "checked_at": "2026-09-02T06:44:05.495Z"
         }
       ],
       "live": false,
@@ -4305,13 +4257,13 @@
           "url": "https://bnbagent-api.bnbchain.world/v1/rt/01M08TJD8N2NXMR417099K89KZ/a2a",
           "ok": false,
           "status": 401,
-          "latency_ms": 1806,
+          "latency_ms": 783,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
-          "sample": "{\"error\":{\"code\":\"auth.missing_token\",\"message\":\"Missing platform token.\",\"request_id\":\"e6f27c7475ecbdf9e06ede1795c0b340\"}}",
-          "checked_at": "2026-09-02T05:06:21.203Z"
+          "sample": "{\"error\":{\"code\":\"auth.missing_token\",\"message\":\"Missing platform token.\",\"request_id\":\"07c8906014a0030a7977d5decfd57988\"}}",
+          "checked_at": "2026-09-02T06:44:06.158Z"
         }
       ],
       "live": false,
@@ -4358,7 +4310,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -4405,7 +4357,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.391Z"
+          "checked_at": "2026-09-02T06:44:05.534Z"
         }
       ],
       "live": false,
@@ -4452,7 +4404,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.397Z"
+          "checked_at": "2026-09-02T06:44:05.601Z"
         }
       ],
       "live": false,
@@ -4499,7 +4451,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         },
         {
           "kind": "mcp",
@@ -4511,7 +4463,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -4553,13 +4505,13 @@
           "url": "https://bedrock-agentcore.us-east-1.amazonaws.com/runtimes/arn%3Aaws%3Abedrock-agentcore%3Aus-east-1%3A699289398114%3Aruntime%2FRelicYieldScout-Aby9v32xja/invocations/.well-known/agent-card.json?qualifier=DEFAULT",
           "ok": false,
           "status": 401,
-          "latency_ms": 202,
+          "latency_ms": 250,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "",
-          "checked_at": "2026-09-02T05:06:19.146Z"
+          "checked_at": "2026-09-02T06:44:05.811Z"
         }
       ],
       "live": false,
@@ -4606,7 +4558,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.663Z"
         }
       ],
       "live": false,
@@ -4648,13 +4600,13 @@
           "url": "https://agent-street.zevlat.workers.dev/agent/ivl-rebalancer/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 58,
+          "latency_ms": 364,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html><html lang=\"en\" data-theme=\"dark\"><head><meta charSet=\"utf-8\"/><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"/><meta name=\"theme-color\" content=\"#0B0E11\"/><link rel=\"modulepreload\" hre",
-          "checked_at": "2026-09-02T05:06:19.758Z"
+          "checked_at": "2026-09-02T06:44:06.032Z"
         }
       ],
       "live": false,
@@ -4900,13 +4852,13 @@
           "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 304,
+          "latency_ms": 288,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "default backend - 404",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.667Z"
         }
       ],
       "live": false,
@@ -4953,7 +4905,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.367Z"
+          "checked_at": "2026-09-02T06:44:05.375Z"
         }
       ],
       "live": false,
@@ -4999,7 +4951,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.379Z"
         }
       ],
       "live": false,
@@ -5045,7 +4997,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.513Z"
+          "checked_at": "2026-09-02T06:44:05.608Z"
         }
       ],
       "live": false,
@@ -5187,13 +5139,13 @@
           "url": "https://b7be-2409-40c4-4c-911a-a5a5-7f43-33cc-155e.ngrok-free.app/.well-known/agent-card.json",
           "ok": false,
           "status": 404,
-          "latency_ms": 257,
+          "latency_ms": 527,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "<!DOCTYPE html>\n<html class=\"h-full\" lang=\"en-US\" dir=\"ltr\">\n  <head>\n    <meta charset=\"utf-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n    <link rel=\"preload\" href=\"https://assets.ngrok",
-          "checked_at": "2026-09-02T05:06:18.564Z"
+          "checked_at": "2026-09-02T06:44:04.735Z"
         }
       ],
       "live": false,
@@ -5239,7 +5191,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5285,7 +5237,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5333,7 +5285,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5379,7 +5331,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5425,7 +5377,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5471,7 +5423,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5519,7 +5471,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5565,7 +5517,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.374Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5611,7 +5563,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5657,7 +5609,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -5703,7 +5655,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.663Z"
         },
         {
           "kind": "web",
@@ -5715,7 +5667,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.663Z"
         }
       ],
       "live": false,
@@ -5761,7 +5713,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.663Z"
         },
         {
           "kind": "web",
@@ -5773,7 +5725,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.647Z"
+          "checked_at": "2026-09-02T06:44:05.663Z"
         }
       ],
       "live": false,
@@ -5814,11 +5766,11 @@
           "url": "https://weigh-ladder-agent.onrender.com/.well-known/agent-card.json",
           "ok": false,
           "status": null,
-          "latency_ms": 8008,
+          "latency_ms": 8162,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:27.815Z"
+          "checked_at": "2026-09-02T06:44:13.974Z"
         }
       ],
       "live": false,
@@ -5859,11 +5811,11 @@
           "url": "https://weigh-buffer-agent.onrender.com/.well-known/agent-card.json",
           "ok": false,
           "status": null,
-          "latency_ms": 8013,
+          "latency_ms": 8195,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:27.873Z"
+          "checked_at": "2026-09-02T06:44:14.040Z"
         }
       ],
       "live": false,
@@ -5904,11 +5856,11 @@
           "url": "https://weigh-route-agent.onrender.com/.well-known/agent-card.json",
           "ok": false,
           "status": null,
-          "latency_ms": 8008,
+          "latency_ms": 8208,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:27.881Z"
+          "checked_at": "2026-09-02T06:44:14.059Z"
         }
       ],
       "live": false,
@@ -5949,11 +5901,11 @@
           "url": "https://weigh-range-agent.onrender.com/.well-known/agent-card.json",
           "ok": false,
           "status": null,
-          "latency_ms": 8008,
+          "latency_ms": 8177,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:28.270Z"
+          "checked_at": "2026-09-02T06:44:14.069Z"
         }
       ],
       "live": false,
@@ -5999,7 +5951,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6045,7 +5997,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6091,7 +6043,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6137,7 +6089,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6183,7 +6135,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (scheme not allowed: http:)",
-          "checked_at": "2026-09-02T05:06:19.375Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6262,8 +6214,8 @@
       ]
     },
     {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1348",
-      "token_id": "1348",
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1338",
+      "token_id": "1338",
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "is_testnet": true,
@@ -6276,8 +6228,8 @@
       "is_endpoint_verified": false,
       "total_feedbacks": 0,
       "scan_score": 12,
-      "created_at": "2026-06-10T02:02:30Z",
-      "created_tx_hash": "0x4dcc42a27db87bc573c855edb0b0735a22548ce554042a8fbbd2519b8466b1c3",
+      "created_at": "2026-06-09T19:42:06Z",
+      "created_tx_hash": "0xe91d66fb7aec2aa62adfb8bb52785835f2dfbaa3eb59bd74928b7c5360db7857",
       "categories": [
         "grid"
       ],
@@ -6295,8 +6247,8 @@
       ]
     },
     {
-      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1339",
-      "token_id": "1339",
+      "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:1348",
+      "token_id": "1348",
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "is_testnet": true,
@@ -6309,8 +6261,8 @@
       "is_endpoint_verified": false,
       "total_feedbacks": 0,
       "scan_score": 12,
-      "created_at": "2026-06-09T19:42:51Z",
-      "created_tx_hash": "0x5b36774865ad295891d898ccca74b88ded502a593fa5624d0671e1cf37afd558",
+      "created_at": "2026-06-10T02:02:30Z",
+      "created_tx_hash": "0x4dcc42a27db87bc573c855edb0b0735a22548ce554042a8fbbd2519b8466b1c3",
       "categories": [
         "grid"
       ],
@@ -6457,13 +6409,13 @@
           "url": "https://platform-backend-bnb8183.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 1038,
+          "latency_ms": 1172,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "default backend - 404",
-          "checked_at": "2026-09-02T05:06:19.343Z"
+          "checked_at": "2026-09-02T06:44:05.379Z"
         }
       ],
       "live": false,
@@ -6504,13 +6456,13 @@
           "url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "ok": false,
           "status": 404,
-          "latency_ms": 1053,
+          "latency_ms": 1146,
           "valid_card": false,
           "skills": null,
           "skill_list": null,
           "service_url": null,
           "sample": "{\"error\":{\"code\":\"NOT_FOUND\",\"message\":\"Agent not found\"}}",
-          "checked_at": "2026-09-02T05:06:19.359Z"
+          "checked_at": "2026-09-02T06:44:05.352Z"
         }
       ],
       "live": false,
@@ -6746,38 +6698,6 @@
       ]
     },
     {
-      "agent_id": "56:0x8004a169fb4a3325136eb29fa0ceb6d2e539a432:11013",
-      "token_id": "11013",
-      "chain_id": 56,
-      "chain_name": "BSC Mainnet",
-      "is_testnet": false,
-      "registry": "0x8004a169fb4a3325136eb29fa0ceb6d2e539a432",
-      "name": "QuantumHub_7275A1",
-      "description": "Risk management AI for DeFi protocols and automated rebalancing.",
-      "owner_address": "0xfdcd9ce007b47aae2e0e0008890811c75522c2c0",
-      "agent_wallet": "0xfdcd9ce007b47aae2e0e0008890811c75522c2c0",
-      "x402_supported": false,
-      "is_endpoint_verified": false,
-      "total_feedbacks": 0,
-      "scan_score": 0,
-      "created_at": "2026-03-01T18:33:18Z",
-      "created_tx_hash": "0x3a224a5e756a1b96d6b082e7ff65dc37129e6f0e3a20e753661c4438931bed38",
-      "categories": [
-        "rebalancing"
-      ],
-      "category_evidence": {
-        "rebalancing": "rebalancing"
-      },
-      "probes": [],
-      "live": false,
-      "hireable": false,
-      "trust_score": 15,
-      "trust_reasons": [
-        "declares no callable endpoint",
-        "matches 1 category rule"
-      ]
-    },
-    {
       "agent_id": "97:0x8004a818bfb912233c491871b3d84c89a494bd9e:2042",
       "token_id": "2042",
       "chain_id": 97,
@@ -6811,7 +6731,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.508Z"
+          "checked_at": "2026-09-02T06:44:05.538Z"
         }
       ],
       "live": false,
@@ -6856,7 +6776,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.534Z"
+          "checked_at": "2026-09-02T06:44:05.606Z"
         }
       ],
       "live": false,
@@ -6896,22 +6816,22 @@
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": false,
           "status": null,
-          "latency_ms": 8011,
+          "latency_ms": 8138,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:27.769Z"
+          "checked_at": "2026-09-02T06:44:13.864Z"
         },
         {
           "kind": "web",
           "url": "https://mandate-provider-yield.onrender.com/mandate/capability",
           "ok": false,
           "status": null,
-          "latency_ms": 8009,
+          "latency_ms": 8005,
           "valid_card": false,
           "skills": null,
           "error": "timeout",
-          "checked_at": "2026-09-02T05:06:35.778Z"
+          "checked_at": "2026-09-02T06:44:21.869Z"
         }
       ],
       "live": false,
@@ -6956,7 +6876,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.518Z"
+          "checked_at": "2026-09-02T06:44:05.688Z"
         }
       ],
       "live": false,
@@ -7001,7 +6921,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.523Z"
+          "checked_at": "2026-09-02T06:44:05.787Z"
         }
       ],
       "live": false,
@@ -7046,7 +6966,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.528Z"
+          "checked_at": "2026-09-02T06:44:05.892Z"
         }
       ],
       "live": false,
@@ -7091,7 +7011,7 @@
           "skills": null,
           "blocked": true,
           "error": "unreachable endpoint (DNS failed: ENOTFOUND)",
-          "checked_at": "2026-09-02T05:06:19.539Z"
+          "checked_at": "2026-09-02T06:44:05.726Z"
         }
       ],
       "live": false,
