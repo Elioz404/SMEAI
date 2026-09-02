@@ -26,13 +26,17 @@ import {
   type Wallet,
 } from "@altananetwork/sdk";
 import {
+  concatHex,
   createPublicClient,
   encodeFunctionData,
   http,
+  keccak256,
   parseAbi,
+  toHex,
   type Address,
   type Hex,
 } from "viem";
+import { privateKeyToAccount } from "viem/accounts";
 import { bscTestnet } from "viem/chains";
 
 const CHAIN_ID = 97;
@@ -119,6 +123,60 @@ async function getWallet(): Promise<{
   return { client, wallet, signer };
 }
 
+/**
+ * Clave propia de un agente, derivada de forma determinista de la clave madre.
+ *
+ * El modelo de Altana es explicito: "An agent holds its own wallet and its own
+ * key... The owner grants a scoped session". El agente NO necesita fondos: tiene
+ * identidad propia, y el dueno le concede autoridad acotada sobre la wallet del
+ * dueno. Es el patron que ellos mismos documentan como "Run a portfolio with
+ * multiple agents: two agents share one wallet, each with its own scoped
+ * session... you can revoke either one without touching the other".
+ *
+ * Determinista a proposito: la misma entrada da siempre la misma clave, asi que
+ * no hay estado que guardar y funciona igual entre arranques en frio.
+ */
+function agentKey(agentId: string): Hex {
+  const key = adminKey();
+  if (!key) throw new Error("ALTANA_ADMIN_KEY is not set");
+  return keccak256(concatHex([key, toHex(`smeai:agent:${agentId}`)]));
+}
+
+/**
+ * Extrae el mensaje de un revert `Error(string)` del texto de un error del SDK.
+ *
+ * El SDK entrega el revert en hexadecimal crudo ("Reason: 0x08c379a0…"), sin
+ * decodificarlo, asi que buscar el texto en el mensaje no encuentra nada. Esto
+ * lo decodifica para poder distinguir un fallo esperado de uno real.
+ */
+function revertMessage(err: unknown): string {
+  const text = String((err as Error)?.message ?? "");
+  const m = text.match(/0x08c379a0([0-9a-fA-F]+)/);
+  if (!m) return "";
+  try {
+    const body = m[1];
+    const len = parseInt(body.slice(64, 128), 16);
+    const bytes = body.slice(128, 128 + len * 2);
+    return Buffer.from(bytes, "hex").toString("utf8");
+  } catch {
+    return "";
+  }
+}
+
+/** Direccion publica de la identidad de un agente. Segura de mostrar. */
+export function agentIdentity(agentId: string): Address {
+  return privateKeyToAccount(agentKey(agentId)).address;
+}
+
+/**
+ * Clave publica SEC1 del agente — el identificador con el que su sesion queda
+ * registrada en el Keystore y por el que se revoca. Se toma del propio signer
+ * en vez de derivarla a mano: menos superficie donde equivocarse.
+ */
+function agentPublicKey(agentId: string): Hex {
+  return signerFromPrivateKey(agentKey(agentId)).publicKey as Hex;
+}
+
 export type AltanaStatus =
   | { configured: false }
   | {
@@ -173,15 +231,18 @@ export function sessionPolicy(budget: bigint) {
     // revertía con `UnauthorizedCall`, indicando el contrato exacto que había
     // bloqueado. Ese rechazo es la prueba de que el acotado se aplica en
     // cadena y no es decorativo.
+    // Se usa ADDRESSES, no ADDR: la política del SDK está obsoleta y la que de
+    // verdad se llama es la corregida. Permitir una y llamar a otra habría
+    // dejado la allowlist describiendo algo que no ocurre.
     calls: [
-      { to: ADDR.commerce, signature: "" }, // escrow de trabajos
-      { to: ADDR.router, signature: "" }, // EvaluatorRouter
-      { to: ADDR.policy, signature: "" }, // política optimista de disputa
-      { to: ADDR.paymentToken, signature: "" }, // $U
+      { to: ADDRESSES.commerce, signature: "" }, // escrow de trabajos
+      { to: ADDRESSES.router, signature: "" }, // EvaluatorRouter
+      { to: ADDRESSES.policy, signature: "" }, // política de disputa
+      { to: ADDRESSES.paymentToken, signature: "" }, // $U
     ],
     spend: [
       // El precio del trabajo, en $U. Ni un token mas.
-      { limit: budget, period: "day" as const, token: ADDR.paymentToken },
+      { limit: budget, period: "day" as const, token: ADDRESSES.paymentToken },
       // Y un tope pequeno en nativo para la comision del relay.
       //
       // Sin esta segunda entrada, contratar revierte con `NoSpendPermissions`:
@@ -198,6 +259,8 @@ export type GrantResult = {
   expiry: number;
   transactionHash?: Hex;
   walletAddress: Address;
+  /** Direccion de la identidad propia del agente que recibe la sesion. */
+  agentAddress: Address;
   policy: {
     allowlist: Address[];
     capRaw: string;
@@ -206,35 +269,56 @@ export type GrantResult = {
   };
 };
 
-/** Sesiones vivas de este proceso. Se pierde en frío; revocar no depende de esto. */
-const liveSessions = new Map<string, Session>();
 
-export async function grant(budget: bigint): Promise<GrantResult> {
+export async function grant(
+  agentId: string,
+  budget: bigint,
+): Promise<GrantResult> {
   const { client, wallet, signer } = await getWallet();
   const expiry = Math.floor(Date.now() / 1000) + SESSION_TTL_SECONDS;
   const permissions = sessionPolicy(budget);
 
-  // register: true deja la clave en el Keystore público, que es lo que permite
+  // La sesion se concede a la clave PROPIA del agente, no a una generada al
+  // vuelo. Cada agente contratado acaba con su propia autoridad acotada sobre
+  // la tesoreria, revocable por separado sin tocar a los demas.
+  //
+  // register: true deja la clave en el Keystore publico, que es lo que permite
   // a cualquiera verificar su autoridad sin preguntarnos a nosotros.
-  const session = await client.grantSession({
-    wallet,
-    signer,
-    permissions,
-    expiry,
-    register: true,
-  });
+  const sessionSigner = signerFromPrivateKey(agentKey(agentId));
+  const opts = { wallet, signer, sessionSigner, permissions, expiry };
 
-  liveSessions.set(session.publicKey, session);
+  // La clave del agente es determinista, así que la segunda vez que se contrata
+  // al mismo agente ya está en el Keystore y `register: true` revierte con
+  // "KeyStore: key already registered". No es un error del usuario ni algo que
+  // deba verse: la clave sigue registrada y verificable públicamente desde la
+  // primera vez, y lo único que cambia es que esta concesión no la re-registra.
+  //
+  // Se intenta registrar primero y se reintenta sin registro, en vez de
+  // consultar antes: una comprobación previa sería una condición de carrera
+  // contra otra petición concediendo a la vez.
+  let session;
+  try {
+    session = await client.grantSession({ ...opts, register: true });
+  } catch (err) {
+    if (!/already registered/i.test(revertMessage(err))) throw err;
+    session = await client.grantSession({ ...opts, register: false });
+  }
 
   return {
     publicKey: session.publicKey,
     expiry,
     transactionHash: session.transactionHash,
     walletAddress: wallet.address,
+    agentAddress: agentIdentity(agentId),
     policy: {
-      allowlist: [ADDR.commerce, ADDR.router, ADDR.policy, ADDR.paymentToken],
+      allowlist: [
+        ADDRESSES.commerce,
+        ADDRESSES.router,
+        ADDRESSES.policy,
+        ADDRESSES.paymentToken,
+      ],
       capRaw: budget.toString(),
-      capToken: ADDR.paymentToken,
+      capToken: ADDRESSES.paymentToken,
       expiry,
     },
   };
@@ -243,18 +327,29 @@ export async function grant(budget: bigint): Promise<GrantResult> {
 export type HireResult = { jobId: string; transactionHash?: Hex };
 
 export async function hire(opts: {
-  publicKey: Hex;
+  agentId: string;
+  expiry: number;
   provider: Address;
   task: string;
   budget: bigint;
 }): Promise<HireResult> {
-  const { client } = await getWallet();
-  const session = liveSessions.get(opts.publicKey);
-  if (!session) {
-    throw new Error(
-      "session not held by this instance — grant a new one (serverless instances do not share memory)",
-    );
-  }
+  const { client, wallet } = await getWallet();
+
+  // La sesión se reconstruye, no se recuerda.
+  //
+  // Antes se guardaba en un Map del proceso y contratar fallaba con "session
+  // not held by this instance" en cuanto la petición caía en otra instancia
+  // serverless — es decir, en producción, de forma intermitente. Como la clave
+  // del agente es determinista y la política se deriva del presupuesto, basta
+  // con el expiry que devolvió la concesión para rearmarla byte a byte.
+  const session: Session = {
+    walletAddress: wallet.address,
+    signer: signerFromPrivateKey(agentKey(opts.agentId)),
+    publicKey: agentPublicKey(opts.agentId),
+    permissions: sessionPolicy(opts.budget),
+    expiry: opts.expiry,
+  };
+
   // El jobId se predice como jobCounter() + 1; si otro trabajo se crea en el
   // mismo bloque el lote revierte sin efecto y basta reintentar.
   const counter = await pub.readContract({
@@ -293,7 +388,6 @@ export async function revoke(publicKey: Hex) {
     signer,
     session: publicKey,
   });
-  liveSessions.delete(publicKey);
   return { transactionHash: (res as { transactionHash?: Hex }).transactionHash };
 }
 

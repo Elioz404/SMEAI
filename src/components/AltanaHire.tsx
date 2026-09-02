@@ -21,6 +21,7 @@ type Grant = {
   expiry: number;
   transactionHash?: string;
   walletAddress: string;
+  agentAddress: string;
   policy: {
     allowlist: string[];
     capRaw: string;
@@ -80,10 +81,11 @@ export function AltanaHire({
     <section className="mt-12">
       <h2 className="t-h2 text-t1">Hire on-chain with a scoped session</h2>
       <p className="mt-1 max-w-2xl text-[12px] leading-relaxed text-t3">
-        Grants an Altana session key scoped to the four ERC-8183 contracts a
-        hire needs, capped at the price {agentName} quoted, expiring in an hour.
-        Then it funds the job through that key. BSC Testnet — no real funds
-        move.
+        {agentName} holds its own key. Granting gives that key — and only that
+        key — scoped authority over the treasury: the four ERC-8183 contracts a
+        hire needs, capped at the price it quoted, expiring in an hour, recorded
+        in the public Keystore. It then funds the job itself. BSC Testnet — no
+        real funds move.
       </p>
 
       {status && !status.configured && (
@@ -136,6 +138,10 @@ export function AltanaHire({
                 not a number we chose — plus a small BNB cap for the relay fee
               </Row>
               <Row label="expires">one hour after granting</Row>
+              <Row label="granted to">
+                this agent&apos;s own key, not a shared one — revoking it leaves
+                every other agent&apos;s authority untouched
+              </Row>
               <Row label="registered">
                 in the public Keystore, so anyone can verify it
               </Row>
@@ -153,8 +159,18 @@ export function AltanaHire({
             {grant?.publicKey && (
               <div className="mt-3 rounded border border-line bg-sunken px-3 py-2.5">
                 <p className="t-data text-t2">
-                  session key{" "}
-                  <span className="break-all text-t1">{grant.publicKey}</span>
+                  agent identity{" "}
+                  <a
+                    href={`${status.explorer}/address/${grant.agentAddress}`}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="break-all text-t1 underline decoration-line-strong underline-offset-2 hover:text-accent"
+                  >
+                    {grant.agentAddress}
+                  </a>
+                </p>
+                <p className="t-data mt-1 break-all text-t3">
+                  session key {grant.publicKey}
                 </p>
                 <p className="t-data mt-1 text-t3">
                   expires {expiryDate?.toUTCString()}
@@ -175,7 +191,7 @@ export function AltanaHire({
             <p className="t-label">Step 2 · fund the job through that key</p>
             <button
               onClick={async () =>
-                setJob(await call("hire", { publicKey: grant?.publicKey }))
+                setJob(await call("hire", { expiry: grant?.expiry }))
               }
               disabled={busy !== null || !grant?.publicKey}
               className="mt-2.5 rounded border border-line-strong px-3.5 py-1.5 text-[12px] text-t1 transition-colors hover:border-accent hover:text-accent disabled:cursor-not-allowed disabled:opacity-30"

@@ -55,6 +55,7 @@ export async function POST(req: Request) {
     action?: string;
     agentId?: string;
     publicKey?: string;
+    expiry?: number;
     task?: string;
   };
   try {
@@ -83,7 +84,7 @@ export async function POST(req: Request) {
             { status: 400 },
           );
         }
-        return NextResponse.json(await altana.grant(budget));
+        return NextResponse.json(await altana.grant(body.agentId!, budget));
       }
 
       case "hire": {
@@ -98,7 +99,7 @@ export async function POST(req: Request) {
         if (budget === null) {
           return NextResponse.json({ error: "no quoted price" }, { status: 400 });
         }
-        if (!body.publicKey || !HEX.test(body.publicKey)) {
+        if (!body.expiry || !Number.isFinite(body.expiry)) {
           return NextResponse.json(
             { error: "grant a session first" },
             { status: 400 },
@@ -106,7 +107,8 @@ export async function POST(req: Request) {
         }
         return NextResponse.json(
           await altana.hire({
-            publicKey: body.publicKey as Hex,
+            agentId: body.agentId!,
+            expiry: body.expiry,
             provider: seller.provider,
             task:
               (body.task ?? "").trim().slice(0, 500) ||
@@ -130,13 +132,41 @@ export async function POST(req: Request) {
         return NextResponse.json({ error: "unknown action" }, { status: 400 });
     }
   } catch (err) {
-    // El error de cadena se devuelve tal cual: si la wallet no tiene fondos o
-    // el relay rechaza, el usuario tiene que verlo, no una pantalla en blanco.
+    // Los rechazos on-chain se traducen, no se ocultan. Un `ExceededSpendLimit`
+    // significa que la política hizo su trabajo, y el usuario merece leer eso y
+    // no un revert en crudo. El mensaje original se conserva debajo.
+    const raw = (err as Error).message ?? "";
     return NextResponse.json(
-      { error: (err as Error).message.slice(0, 400) },
+      { error: explain(raw), raw: raw.slice(0, 400) },
       { status: 200 },
     );
   }
+}
+
+/**
+ * Traduce los rechazos que la política de sesión provoca a propósito.
+ *
+ * Los tres primeros no son averías: son la prueba de que el acotado se aplica en
+ * cadena. Presentarlos como errores genéricos haría parecer roto justo lo que
+ * mejor funciona.
+ */
+function explain(raw: string): string {
+  if (/ExceededSpendLimit/.test(raw)) {
+    return "The session's spend cap is used up. It is set to exactly the price this agent quoted, per day, so a second hire of the same agent has to wait for the cap to reset — or be granted a new session with a wider cap. The chain refused this, not us.";
+  }
+  if (/UnauthorizedCall/.test(raw)) {
+    return "The session tried to call a contract outside its allowlist and the chain refused it. This is the scoping working.";
+  }
+  if (/KeyNotFound|expired|Expired/.test(raw)) {
+    return "This session has expired or been revoked. Grant a new one.";
+  }
+  if (/PolicyNotWhitelisted/.test(raw)) {
+    return "The ERC-8183 kernel rejected the dispute policy. Set ALTANA_POLICY_ADDRESS to a policy the EvaluatorRouter whitelists.";
+  }
+  if (/insufficient|InsufficientBalance/i.test(raw)) {
+    return "The treasury wallet is out of funds on BSC Testnet.";
+  }
+  return raw.slice(0, 300);
 }
 
 function quoteOf(a: (typeof snapshot.agents)[number]): bigint | null {

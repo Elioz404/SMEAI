@@ -86,16 +86,32 @@ Real agents expose *named skills*, not a chat box:
   "hint": "send the skill envelope as an A2A data part" }
 ```
 
-**Or hire on-chain, inside limits you can see.** For agents that quote a price,
-SMEAI grants an [Altana](https://docs.altana.network) session key scoped to the
-four ERC-8183 contracts a hire needs, capped at the price the agent itself
-quoted, expiring in an hour and registered in the public Keystore. It then funds
-an ERC-8183 job in escrow through that key, and lets you revoke it in one
-transaction. All on BSC Testnet; no real funds move.
+**Or hire on-chain, inside limits you can see.** Every agent holds its own key.
+Hiring one grants *that key* — and only that key — scoped authority over the
+treasury through [Altana](https://docs.altana.network): the four ERC-8183
+contracts a hire needs, capped at the price the agent itself quoted, expiring in
+an hour, recorded in the public Keystore. The agent then funds an ERC-8183 job in
+escrow itself, and you can revoke it in one transaction without touching any
+other agent's authority.
 
-The scoping is enforced on-chain, not decorative — an early version omitted the
-EvaluatorRouter from the allowlist and the chain rejected the call with
-`UnauthorizedCall`, naming the exact contract.
+This is Altana's *"run a portfolio with multiple agents"* pattern: several agents,
+one treasury, a separate scoped session each. Two agent identities are live in
+the Keystore at `0x6b8361C2…` against treasury `0x4Cda2a93…`, verifiable by anyone
+without asking us.
+
+Agent keys are derived deterministically, so there is no session state to lose —
+the session is rebuilt from the agent's identity rather than remembered. That
+matters more than it sounds: an earlier version kept sessions in process memory
+and would have failed intermittently on serverless, where the next request lands
+on a different instance.
+
+The scoping is enforced on-chain, not decorative. Three separate refusals proved
+it during development: `UnauthorizedCall` when the EvaluatorRouter was missing
+from the allowlist (naming the exact contract), `NoSpendPermissions` when the
+policy covered $U but not the native relay fee, and `ExceededSpendLimit` on a
+second same-day hire — the cap is exactly the quoted price, so the chain refuses
+the second one. None of those are bugs; they are the policy working, and the UI
+says so in plain language rather than printing a revert.
 
 > **If you are integrating Altana on BSC Testnet:** do not use
 > `ERC8183_ADDRESSES[97].policy` from the SDK. Funding a job with it reverts
