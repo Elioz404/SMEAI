@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { HireConsole } from "@/components/HireConsole";
 import { AltanaHire } from "@/components/AltanaHire";
+import { UptimeStrip } from "@/components/UptimeStrip";
+import { uptimeOf } from "@/lib/history";
 import { displayStatus } from "@/components/AgentRow";
 import {
   CATEGORY_META,
@@ -34,6 +36,7 @@ export default async function AgentPage({
   const item = toListItem(agent);
   const st = displayStatus(item);
   const a2a = agent.probes.find((p) => p.kind === "a2a" && p.valid_card);
+  const uptime = uptimeOf(agent.agent_id);
 
   return (
     <div className="wrap px-6 pb-20 lg:px-10">
@@ -126,6 +129,15 @@ export default async function AgentPage({
 
       <div className="grid gap-x-12 gap-y-12 py-10 lg:grid-cols-[minmax(0,1fr)_300px]">
         <div className="min-w-0">
+          <Section
+            title="Verification history"
+            hint="One bar per check we ran. Green means the service answered, not just the card. Hover any bar for its timestamp."
+          >
+            <UptimeStrip uptime={uptime} />
+          </Section>
+
+          <div className="mt-12" />
+
           <Section
             title="Verification evidence"
             hint="Raw result of the last request we made to each endpoint this agent declares on-chain."

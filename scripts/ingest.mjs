@@ -12,6 +12,7 @@
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { CATEGORIES, SPAM } from './categories.mjs';
 import { checkUrl, readCapped, sanitizeText } from '../src/lib/net-guard.mjs';
+import { append as appendHistory } from './history.mjs';
 
 const API = 'https://api.8004scan.io/api/v1';
 const KEY = process.env.SCAN_API_KEY || '';
@@ -784,6 +785,16 @@ async function main() {
 
   await mkdir('data', { recursive: true });
   await writeFile('data/snapshot.json', JSON.stringify(snapshot, null, 2));
+
+  // El historial de disponibilidad se alimenta aqui, no en un paso aparte: si
+  // se escribe el snapshot pero no la marca, las dos series se desincronizan y
+  // el caracter N de un agente deja de corresponder a la comprobacion N.
+  const history = await readFile('data/history.json', 'utf8')
+    .then((t) => JSON.parse(t))
+    .catch(() => ({ checks: [], agents: {} }));
+  appendHistory(history, snapshot);
+  await writeFile('data/history.json', JSON.stringify(history));
+  log('historial: ' + history.checks.length + ' comprobaciones registradas');
 
   log('\n--- RESUMEN ---');
   for (const r of registry) {

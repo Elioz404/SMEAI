@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AgentRow } from "@/components/AgentRow";
+import { MarketSearch } from "@/components/MarketSearch";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
@@ -27,6 +28,8 @@ export default function Home() {
       <Header called={called} blocked={blocked} />
 
       <div className="wrap px-6 pb-20 lg:px-10">
+        <MarketSearch agents={snapshot.agents.map(toListItem)} />
+        <div className="mt-12" />
         <Stats />
 
         <div className="mt-14 flex flex-col gap-12">

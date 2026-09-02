@@ -53,7 +53,7 @@ jobs:
         run: |
           git config user.name "smeai-bot"
           git config user.email "actions@github.com"
-          git add data/snapshot.json
+          git add data/snapshot.json data/history.json
           if git diff --staged --quiet; then
             echo "no change in this run"
           else
