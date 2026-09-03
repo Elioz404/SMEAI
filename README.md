@@ -393,4 +393,5 @@ Next.js 16 · TypeScript · Tailwind CSS v4 · viem · Altana SDK · deployed on
 
 ## License
 
-MIT.
+[MIT](LICENSE). Take it and use it — including, if it comes to that, whoever
+ends up running it.
