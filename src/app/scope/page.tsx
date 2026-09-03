@@ -29,12 +29,24 @@ export default function ScopePage() {
         </p>
       </header>
 
-      <Section title="This is a testnet product">
+      <Section title="What you can press here is testnet">
         <P>
-          The on-chain hiring flow runs entirely on <B>BSC Testnet</B> (chain
-          97). The escrow, the session keys, the $U payment token and the
-          treasury wallet are all testnet. No real funds move, and nothing here
-          should be read as an invitation to move any.
+          The hiring console on this site runs entirely on <B>BSC Testnet</B>{" "}
+          (chain 97). The escrow, the session keys, the $U payment token and the
+          treasury wallet are all testnet, so pressing the button costs nothing
+          and nothing here should be read as an invitation to move real money.
+        </P>
+        <P>
+          The same flow was run <B>once</B> on BSC Mainnet with real funds, by
+          hand, and recorded with its transaction hashes on{" "}
+          <Link href="/judges" className="lnk">
+            the reviewer page
+          </Link>
+          . That was a one-off demonstration, not a mode you can trigger: there
+          is no mainnet button, because every visitor pressing one would spend
+          our money for as long as the site is up. The code enforces it rather
+          than the configuration — the Altana module fixes chain 97 as a
+          constant, with no environment variable that can move it.
         </P>
         <P>
           The <B>catalogue</B> spans both networks and every listing is labelled

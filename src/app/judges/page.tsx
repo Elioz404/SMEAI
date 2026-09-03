@@ -2,6 +2,7 @@ import Link from "next/link";
 import { mainnetRegistry, snapshot } from "@/lib/snapshot";
 import { explorerAddress, formatPrice, since } from "@/lib/taxonomy";
 import { formatU, jobs, jobsWithAgents } from "@/lib/jobs";
+import { STEP_LABEL, hireStep, mainnetDemo, spentBnb } from "@/lib/mainnet";
 import { history } from "@/lib/history";
 
 export const metadata = {
@@ -38,6 +39,7 @@ export default function JudgesPage() {
   const pick = quoted[0] ?? anyHireable[0] ?? null;
   const price = pick ? formatPrice(pick.service?.quote?.price ?? null) : null;
 
+  const hire = hireStep();
   const delivered = jobs.totals.delivered;
   // Un trabajo vencido y aun financiado se queda en FUNDED; solo pasa a EXPIRED
   // cuando el comprador recupera el escrow. La cifra es esa recuperacion.
@@ -222,6 +224,73 @@ export default function JudgesPage() {
           </a>{" "}
           · BSC Testnet, every job readable on-chain by its id
         </p>
+      </Step>
+
+      {/* Mainnet. Va DENTRO del paso del dinero y no como titular aparte: es
+          una demostracion registrada, no una operacion en marcha, y separarla
+          la haria parecer mas de lo que es. */}
+      <Step n="03b" title="And once on mainnet, with real funds">
+        <P>
+          Everything above is BSC Testnet, where the hiring console runs and
+          where anyone can press the button without spending anything. To show
+          the same flow settles with real money, we ran it{" "}
+          <B>once</B> on <B>BSC Mainnet</B>, by hand, and recorded it.
+        </P>
+        <P>
+          Job <B>#{hire?.jobId}</B> is funded in the mainnet ERC-8183 kernel
+          against{" "}
+          <a
+            href={`${mainnetDemo.explorer}/address/${mainnetDemo.provider}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="lnk"
+          >
+            a provider that is not ours
+          </a>
+          . It cost {spentBnb()} BNB and 0.10 $U.
+        </P>
+
+        <div className="mt-2 flex flex-col gap-1">
+          {mainnetDemo.steps.map((s) => (
+            <a
+              key={s.tx}
+              href={`${mainnetDemo.explorer}/tx/${s.tx}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line py-2 last:border-b-0 hover:text-accent"
+            >
+              <span className="t-data w-52 shrink-0 text-t2">
+                {STEP_LABEL[s.step]}
+              </span>
+              <code className="t-mono text-[12px] text-t1">
+                {s.tx.slice(0, 18)}&hellip;
+              </code>
+              {s.status && (
+                <span className="t-data" style={{ color: "var(--warn)" }}>
+                  {s.status}
+                </span>
+              )}
+            </a>
+          ))}
+        </div>
+
+        <P>
+          The dispute window on mainnet is{" "}
+          <B>{Math.round((hire?.dispute_window ?? 0) / 86400)} days</B>, against
+          fifteen minutes on testnet. Copying the testnet deadline would have
+          created a job whose expiry falls inside that window — one that can
+          never complete, which is the state thousands of mainnet jobs are stuck
+          in. The deadline is read from the policy contract instead.
+        </P>
+        <P>
+          There is no mainnet hire button on this site, deliberately. Each new
+          agent would cost a Keystore registration plus the job, paid by us, for
+          as long as the page is up.{" "}
+          <Link href="/scope" className="lnk">
+            Scope and risk
+          </Link>{" "}
+          explains what that means for what you can press here.
+        </P>
       </Step>
 
       {/* 4 — continuidad, que es lo que decide una adopcion. */}

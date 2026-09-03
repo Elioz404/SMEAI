@@ -205,8 +205,9 @@ refund on one of them to prove it works and left the other eight as they are.
 
 ## Proof: it runs, and the chain remembers
 
-Not a lab exercise — these were produced by clicking the buttons on the live
-site. Every hash resolves on [BSC Testnet](https://testnet.bscscan.com).
+Not a lab exercise — the testnet hashes were produced by clicking the buttons on
+the live site, and resolve on [BSC Testnet](https://testnet.bscscan.com). The
+mainnet ones were run once by hand and resolve on [BscScan](https://bscscan.com).
 
 | What | Evidence |
 |---|---|
@@ -216,7 +217,7 @@ site. Every hash resolves on [BSC Testnet](https://testnet.bscscan.com).
 | Treasury funded from the $U faucet | [`0x8b559b2b…`](https://testnet.bscscan.com/tx/0x8b559b2b882093125036c3ef4068275a9e584f197359555cd9a468651c586724) |
 | Escrow reclaimed from an undelivered job (job 881) | [`0xa489fc36…`](https://testnet.bscscan.com/tx/0xa489fc36ae2ead50881f9301ba65d283061d1929291690b1fa5973c058e75377) |
 
-**9 jobs funded · 8 session keys registered in the public
+**10 jobs funded · 8 session keys registered in the public
 [Keystore](https://testnet.bscscan.com/address/0x6b8361C29d05D498b1a12B54A37310f94171E94A)**
 against treasury [`0x4Cda2a93…`](https://testnet.bscscan.com/address/0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA).
 
@@ -230,12 +231,12 @@ the scoping. They were the scoping, enforced by the chain rather than by us.
 ### What happened after we paid
 
 This is the part a listing never shows, and it is the least flattering thing we
-know: **of those nine jobs, not one seller ever submitted a deliverable.** The
+know: **of those 10 jobs, not one seller ever submitted a deliverable.** The
 money sat in escrow until the deadlines passed.
 
 That is not a failure of the escrow. The escrow did precisely its job by holding
 the funds instead of forwarding them, and ERC-8183 gives the buyer a way out
-when the seller goes quiet. We ran that recovery once, on job 881, to prove the
+when the seller goes quiet. We have run that recovery twice — jobs 881 and 882 — to prove the
 path works rather than describing it — the job moved from `FUNDED` to `EXPIRED`
 and the $U returned to the buyer ([`0xa489fc36…`](https://testnet.bscscan.com/tx/0xa489fc36ae2ead50881f9301ba65d283061d1929291690b1fa5973c058e75377),
 receipt `success`, block 128758990). The other eight are deliberately left
@@ -245,9 +246,38 @@ alone, because their state is the finding.
 cron, so `data/jobs.json` and [`/api/jobs`](https://smeai-dev.vercel.app/api/jobs)
 stay honest about it. None of these sellers are ours.
 
+### And once on mainnet, with real funds
+
+Everything above is testnet. To show the same flow settles with real money, we
+ran it **once** on BSC Mainnet and recorded it. Job **#56693** is funded in the
+mainnet ERC-8183 kernel against a provider that is not ours
+([`0x73809F69…`](https://bscscan.com/address/0x73809F69916FcF7Ddc5BB1315fBdf96A569a5963)),
+for 0.10 $U.
+
+| What | Evidence |
+|---|---|
+| Session granted in the mainnet Keystore | [`0xf5b8ef85…`](https://bscscan.com/tx/0xf5b8ef85f58d89e908d7c574332619c7352ad8082a4472425949c9ed9745739e) |
+| ERC-8183 job funded (job 56693) | [`0x01c58b85…`](https://bscscan.com/tx/0x01c58b850a865d8dc3f787d78968243917d652d3473918c83febb850624097a4) |
+| Session revoked | [`0x5ce5e4e1…`](https://bscscan.com/tx/0x5ce5e4e1bbb5898992422560f67e272009d3f1c8576fe230a551a0356d23d7c9) |
+
+Total cost: 0.001677 BNB plus the 0.10 $U escrowed.
+
+The mainnet dispute window is **7 days**, against fifteen minutes on
+testnet. Reusing the testnet deadline would have produced a job whose expiry
+falls inside that window — one that can never complete, which is the state
+thousands of mainnet jobs are stuck in. `scripts/mainnet-demo.mjs` reads
+`disputeWindow()` from the policy instead of copying a constant that happened to
+work on another chain.
+
+One integration note worth writing down: importing this wallet's key into
+MetaMask silently breaks the flow. MetaMask upgrades the account to its own
+EIP-7702 delegator, Altana's relay then simulates against unfamiliar code, and
+the only symptom is a revert with empty data. `scripts/clear-delegation.mjs`
+restores the account.
+
 ## What this is not
 
-- **Not mainnet.** The hiring flow is BSC Testnet end to end. No real funds move.
+- **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
 - **Not a correctness check.** We verify that an agent answers, not that its answer is right. A fast, confident, wrong agent passes every check here.
 - **Not a full sweep of the registry.** We verify the agents we list, not all 300,039 entries on BSC.
 - **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.

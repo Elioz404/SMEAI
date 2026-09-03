@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@altananetwork/sdk": "^0.8.0",
+    "@altananetwork/sdk": "^0.9.0",
     "next": "16.3.4",
     "react": "19.2.8",
     "react-dom": "19.2.8",

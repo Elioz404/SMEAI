@@ -70,11 +70,20 @@ jobs:
         continue-on-error: true
         run: node scripts/jobs.mjs
 
+      # El censo se rehace una vez al dia; el propio script lo decide leyendo
+      # el `generated_at` del JSON anterior, asi que aqui no hay condicion que
+      # mantener sincronizada con el cron.
+      - name: Sample the wider registry (about once a day)
+        continue-on-error: true
+        env:
+          SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
+        run: node scripts/census.mjs
+
       - name: Commit snapshot if it changed
         run: |
           git config user.name "smeai-bot"
           git config user.email "actions@github.com"
-          git add data/snapshot.json data/history.json data/jobs.json
+          git add data/snapshot.json data/history.json data/jobs.json data/census.json
           if git diff --staged --quiet; then
             echo "no change in this run"
           else

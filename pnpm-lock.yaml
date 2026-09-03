@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@altananetwork/sdk':
-        specifier: ^0.8.0
-        version: 0.8.0(@types/react@19.2.18)(@wagmi/core@3.6.5(@types/react@19.2.18)(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4)))(react@19.2.8)(typescript@5.9.3)(zod@4.5.4)
+        specifier: ^0.9.0
+        version: 0.9.0(@types/react@19.2.18)(@wagmi/core@3.6.5(@types/react@19.2.18)(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4)))(react@19.2.8)(typescript@5.9.3)(zod@4.5.4)
       next:
         specifier: 16.3.4
         version: 16.3.4(@babel/core@7.29.7)(@types/node@20.19.43)(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
@@ -61,8 +61,8 @@ packages:
     resolution: {integrity: sha512-U4+70Pc5ZS9osnCBCE5Jha/ciHM+Yp+CNMNC/7HvYbNRk1Ldd+f7qO65W5qfhu/TCv+/ozljlXXe9Nj8419DMA==}
     engines: {node: '>=10'}
 
-  '@altananetwork/sdk@0.8.0':
-    resolution: {integrity: sha512-OPzLZjba1sqGBqc+D003eZcrPfREW/rAhhq/FN17/0hvWBArGzDU7+bHBd/f/jlq0AoRJl0GpCy7L9PQdHx+dQ==}
+  '@altananetwork/sdk@0.9.0':
+    resolution: {integrity: sha512-1RLOTvjQm5CHcIFDh/cN78prUkw59+v6qRDy43xKEOadmLyztpoHJIE1H+4Pisq4AbG+09tW8qMJ1UyuI/JBzw==}
 
   '@babel/code-frame@7.29.7':
     resolution: {integrity: sha512-Aup7aUOfpbAUg2ROOJN6Iw5f9DMBlzu0mIkm/malLQFN/YQgO48wCj0Kxa3sEHJvPVFg7siR+qRInwXd2qhQKw==}
@@ -2179,7 +2179,7 @@ snapshots:
 
   '@alloc/quick-lru@5.3.0': {}
 
-  '@altananetwork/sdk@0.8.0(@types/react@19.2.18)(@wagmi/core@3.6.5(@types/react@19.2.18)(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4)))(react@19.2.8)(typescript@5.9.3)(zod@4.5.4)':
+  '@altananetwork/sdk@0.9.0(@types/react@19.2.18)(@wagmi/core@3.6.5(@types/react@19.2.18)(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4)))(react@19.2.8)(typescript@5.9.3)(zod@4.5.4)':
     dependencies:
       ox: 0.14.44(typescript@5.9.3)(zod@4.5.4)
       porto: 0.2.37(@types/react@19.2.18)(@wagmi/core@3.6.5(@types/react@19.2.18)(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4)))(react@19.2.8)(typescript@5.9.3)(viem@2.56.3(typescript@5.9.3)(zod@4.5.4))

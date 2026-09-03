@@ -167,6 +167,9 @@ export function Shell({
                 <SideLink href="/judges" active={pathname === "/judges"}>
                   Start here
                 </SideLink>
+                <SideLink href="/census" active={pathname === "/census"}>
+                  Registry census
+                </SideLink>
                 <SideLink href="/method" active={pathname === "/method"}>
                   How verification works
                 </SideLink>

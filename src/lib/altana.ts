@@ -89,28 +89,26 @@ const NATIVE_FEE_CAP = 5_000_000_000_000_000n; // 0.005 BNB
 const HIRES_PER_SESSION = 5n;
 
 /**
- * Política de disputa admitida por el EvaluatorRouter en BSC Testnet.
+ * Política de disputa del EvaluatorRouter en BSC Testnet.
  *
- * NO uses `ERC8183_ADDRESSES[97].policy` del SDK: apunta a 0x4F4678D4… y
- * financiar un trabajo con ella revierte con `PolicyNotWhitelisted()`.
+ * Historia, porque explica por que este bloque existe: hasta la version 0.8.0
+ * el SDK exportaba 0x4F4678D4… como policy de chain 97, y financiar un trabajo
+ * con ella revertia con `PolicyNotWhitelisted()`. La direccion correcta no se
+ * adivino — el router expone `policyWhitelist(address)` como getter publico:
  *
- * Esta dirección no está adivinada. El router expone `policyWhitelist(address)`
- * como getter público, y devuelve:
+ *   0x4F4678D4… (la que traia el SDK 0.8.0)  ->  false
+ *   0xd6a42175… (la que usan los trabajos reales de la red)  ->  true
  *
- *   0x4F4678D4… (la del SDK)  ->  false
- *   0xd6a42175… (esta)        ->  true
+ * Altana corrigio la constante en la version 0.9.0, que es la que usamos, asi
+ * que ya NO hace falta sobreescribirla y se toma la del SDK.
  *
- * Es además la que usan los trabajos reales ya creados en la red (jobCounter
- * iba por 880 al comprobarlo). La constante del SDK está desactualizada
- * respecto al despliegue de testnet.
- *
- * Se deja sobreescribible por entorno por si Altana rota la política.
+ * La variable de entorno se mantiene por una razon distinta de la original: si
+ * Altana rota la politica durante el periodo de evaluacion, se cambia sin tocar
+ * codigo ni esperar a una release.
  */
-const POLICY_TESTNET: Address = "0xd6a4217588F6B1F5657a92A3e94E6422aD771cEA";
-
 const ADDRESSES = {
   ...ADDR,
-  policy: (process.env.ALTANA_POLICY_ADDRESS as Address) ?? POLICY_TESTNET,
+  policy: (process.env.ALTANA_POLICY_ADDRESS as Address) ?? ADDR.policy,
 };
 
 const pub = createPublicClient({
@@ -262,9 +260,10 @@ export function sessionPolicy(budget: bigint) {
     // revertía con `UnauthorizedCall`, indicando el contrato exacto que había
     // bloqueado. Ese rechazo es la prueba de que el acotado se aplica en
     // cadena y no es decorativo.
-    // Se usa ADDRESSES, no ADDR: la política del SDK está obsoleta y la que de
-    // verdad se llama es la corregida. Permitir una y llamar a otra habría
-    // dejado la allowlist describiendo algo que no ocurre.
+    // Se usa ADDRESSES y no ADDR para que la allowlist describa exactamente
+    // los contratos que se van a llamar: si alguna vez se sobreescribe la
+    // politica por entorno, permitir una y llamar a otra dejaria la lista
+    // describiendo algo que no ocurre.
     calls: [
       { to: ADDRESSES.commerce, signature: "" }, // escrow de trabajos
       { to: ADDRESSES.router, signature: "" }, // EvaluatorRouter

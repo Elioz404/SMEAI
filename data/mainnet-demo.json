@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-09-03T03:29:42.438Z",
+  "chain_id": 56,
+  "explorer": "https://bscscan.com",
+  "treasury": "0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA",
+  "keystore": "0x6572427ED530BadcF7375Cf9A4709D8d2b0E7E0a",
+  "commerce": "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+  "provider": "0x73809f69916fcf7ddc5bb1315fbdf96a569a5963",
+  "policy": {
+    "allowlist": [
+      "0xEa4DAa3100A767e86FDed867729ae7446476EBA6",
+      "0x51895229E12F9876011789B04f8698af06cCD6DA",
+      "0x9C01845705b3078Aa2e8cfF7520a6376FD766dE5",
+      "0xcE24439F2D9C6a2289F741120FE202248B666666"
+    ],
+    "expiry": 1788409782
+  },
+  "steps": [
+    {
+      "step": "grant",
+      "tx": "0xf5b8ef85f58d89e908d7c574332619c7352ad8082a4472425949c9ed9745739e",
+      "publicKey": "0x0482745173ee0a934ad46b4f5ea2b0fc638528c21af34e6ba97c0018aad3da2c2b720dbc6f4605ef4cdc8563a1b7fba73a6cd2e80ddf288329cc8ebb0bddae83ad"
+    },
+    {
+      "step": "hire",
+      "jobId": "56693",
+      "tx": "0x01c58b850a865d8dc3f787d78968243917d652d3473918c83febb850624097a4",
+      "expired_at": 1789012801,
+      "dispute_window": 604800,
+      "status": "FUNDED"
+    },
+    {
+      "step": "revoke",
+      "tx": "0x5ce5e4e1bbb5898992422560f67e272009d3f1c8576fe230a551a0356d23d7c9"
+    }
+  ],
+  "spent_wei": "1676640168596608"
+}
