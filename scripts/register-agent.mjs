@@ -16,8 +16,10 @@
 // y lo excluye de totales, categorias y embudo. Se ve, se etiqueta, no suma.
 //
 // Uso:
-//   node scripts/register-agent.mjs            # comprueba, no gasta
-//   node scripts/register-agent.mjs --confirm  # registra de verdad
+//   node scripts/register-agent.mjs lp             # comprueba, no gasta
+//   node scripts/register-agent.mjs lp --confirm   # registra de verdad
+//
+// Sin argumento usa `health`. Los agentes disponibles estan en AGENTS.
 
 import {
   BNB,
@@ -39,8 +41,29 @@ const CONFIRM = process.argv.includes('--confirm');
 // La URL publica del agente. Se pasa por entorno para no fijar un despliegue
 // concreto en el codigo: lo que se escribe en la cadena es permanente y
 // apuntar al sitio equivocado no se corrige, se vuelve a registrar.
-const BASE = process.env.SMEAI_PUBLIC_URL || 'https://smeai-dev.vercel.app';
-const ENDPOINT = `${BASE.replace(/\/$/, '')}/api/a2a`;
+const BASE = (process.env.SMEAI_PUBLIC_URL || 'https://smeai-dev.vercel.app').replace(/\/$/, '');
+
+// Los agentes de referencia que publicamos. Uno por categoria delgada, cada uno
+// con su identidad ERC-8004 propia: un agente hace un trabajo, y mezclar dos en
+// una identidad haria imposible clasificarlo o valorarlo por separado.
+const AGENTS = {
+  health: {
+    path: '/api/a2a',
+    name: 'SMEAI Reference Health Factor Monitor',
+    description:
+      "Reads a wallet's Venus position on BSC mainnet and returns its real health factor — weighted collateral over debt, priced by the Venus oracle. Published by SMEAI as a free reference implementation so the health-factor category always has something that answers. Excluded from every statistic SMEAI publishes.",
+  },
+  lp: {
+    path: '/api/a2a/lp',
+    name: 'SMEAI Reference PancakeSwap LP Monitor',
+    description:
+      'Reads a PancakeSwap V3 liquidity position on BSC mainnet and reports whether it is still in range, how far the price can move before it stops earning fees, and what fees sit uncollected. Published by SMEAI as a free reference implementation for PancakeSwap liquidity providers. Excluded from every statistic SMEAI publishes.',
+  },
+};
+
+const WHICH = process.argv.find((a) => AGENTS[a]) ?? 'health';
+const AGENT = AGENTS[WHICH];
+const ENDPOINT = BASE + AGENT.path;
 
 const log = (...a) => console.log(...a);
 
@@ -54,9 +77,8 @@ function adminKey() {
 function record() {
   return {
     type: 'https://eips.ethereum.org/EIPS/eip-8004#registration-v1',
-    name: 'SMEAI Reference Health Factor Monitor',
-    description:
-      "Reads a wallet's Venus position on BSC mainnet and returns its real health factor — weighted collateral over debt, priced by the Venus oracle. Published by SMEAI as a free reference implementation so the health-factor category always has something that answers. Excluded from every statistic SMEAI publishes.",
+    name: AGENT.name,
+    description: AGENT.description,
     services: [{ name: 'A2A', endpoint: ENDPOINT, version: '0.2.0' }],
     registrations: [],
   };
@@ -67,6 +89,7 @@ async function main() {
   const pub = createPublicClient({ chain: bsc, transport: http(BNB.publicRpcUrl) });
   const balance = await pub.getBalance({ address: me });
 
+  log(`agente   : ${WHICH} — ${AGENT.name}`);
   log(`cuenta   : ${me}`);
   log(`cadena   : BSC Mainnet (56)`);
   log(`registro : ${ERC8183_ADDRESSES[CHAIN_ID].registry}`);

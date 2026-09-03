@@ -32,6 +32,9 @@ export default function Home() {
 }
 
 function Header({ called, blocked }: { called: number; blocked: number }) {
+  const hireable = snapshot.totals.hireable;
+  const reg = mainnetRegistry();
+
   return (
     <header className="relative overflow-hidden border-b border-line px-6 pb-10 pt-12 lg:px-10 lg:pt-16">
       <div
@@ -41,17 +44,24 @@ function Header({ called, blocked }: { called: number; blocked: number }) {
       <div className="wrap relative">
         <p className="t-label">BNB Smart Chain · ERC-8004 agent index</p>
 
+        {/* El titular abre por la puerta, no por el diagnostico.
+            Este sitio aspira a ser adoptado como "the canonical front door for
+            every agent on BSC", y una puerta invita a pasar. Los mismos hechos
+            en el orden inverso — cuantos responden AHORA primero, y el contraste
+            con el registro justo debajo como evidencia — leen como un sitio
+            donde contratar en vez de como una auditoria de lo que no funciona.
+            No se ha suavizado ni una cifra: solo cambia cual se lee primero. */}
         <h1 className="t-display mt-4 max-w-3xl text-t1">
-          Agents that
-          <span style={{ color: "var(--live)" }}> answer</span>
-          <span className="text-t3">, not agents that registered.</span>
+          <span style={{ color: "var(--live)" }}>{hireable} agents</span> on BSC
+          <span className="text-t3"> will answer you right now.</span>
         </h1>
 
         <p className="t-body mt-5 max-w-2xl text-t2">
-          Anyone can register an agent on BSC. Almost nobody checks whether the
-          thing they registered is still there. SMEAI calls every endpoint it
-          lists and shows you the result, with the latency and the timestamp
-          attached.
+          Every one of them was called {since(snapshot.finished_at)} — the card,
+          then the service behind it — and answered. Their latency, their price
+          and the moment we checked are on every listing. The other{" "}
+          {(reg.registered ?? 0).toLocaleString("en-US")} entries in the registry
+          are why that sentence needs proving.
         </p>
 
         <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-2">
