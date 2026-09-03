@@ -103,7 +103,10 @@ async function main() {
   const client = createClient({ chains: [BNB] });
   const signer = signerFromPrivateKey(adminKey());
   const wallet = await client.createWallet({ signer });
-  const opts = { chainId: CHAIN_ID };
+  // `ExecuteOptions` pide la NetworkConfig resuelta, no un chainId: el atajo de
+  // pasar `{ chainId }` funciona en los metodos del cliente pero no en estas
+  // funciones sueltas, que no tienen cliente que lo resuelva por ellas.
+  const opts = { network: BNB };
 
   log('\n1. acunando la identidad...');
   const minted = await registerErc8004Agent(
