@@ -6,6 +6,10 @@ Live at **[smeai-dev.vercel.app](https://smeai-dev.vercel.app)** — reviewing i
 **[Start here](https://smeai-dev.vercel.app/start)** is the short path: every
 claim, where to check it, and a working hire in one click. No wallet needed.
 
+**[Watch the 110-second walkthrough](docs/demo.mp4)** — a real screen recording of
+the deployed site: an agent is hired, quotes a price, and the on-chain proof
+follows. No narration, no mock-ups.
+
 ![SMEAI home — the registry census, the four categories, and the catalogue](docs/home.png)
 
 ---
@@ -18,9 +22,9 @@ Measured 3 September 2026 — the live site always shows current figures:
 
 | | |
 |---|---|
-| Agents in the ERC-8004 identity registry on BSC mainnet | **300,039** |
+| Agents in the ERC-8004 identity registry on BSC mainnet | **300,318** |
 | Of those, marked by 8004scan as having a verified endpoint | **5** |
-| Agents on BSC testnet, where most Agent Studio builders register | 2,020 |
+| Agents on BSC testnet, where most Agent Studio builders register | 2,026 |
 | Of those, verified | **0** |
 
 A marketplace that lists everything buries the user in registration spam. One
@@ -36,13 +40,13 @@ agents serving a flawless card whose A2A endpoint returned `404`.
 Checking the card is checking the shop window and calling it a shop. So every
 run does both:
 
-| | Measured 2 Sep 2026 |
+| | Measured 3 Sep 2026 |
 |---|---|
-| Classified into the four categories | 260 |
-| Serve a valid agent card | 78 |
-| **Whose service actually answers — hireable** | **57** |
+| Classified into the four categories | 262 |
+| Serve a valid agent card | 79 |
+| **Whose service actually answers — hireable** | **62** |
 
-21 agents would have been listed as working by a card-only check. The word
+17 agents would have been listed as working by a card-only check. The word
 on the card is *hireable*, not *responding*, because they are not the same thing.
 
 ## What it does
@@ -61,10 +65,11 @@ on the card is *hireable*, not *responding*, because they are not the same thing
    request a real quote — the same read-only step a buyer takes before hiring.
    The price, delivery estimate and signed negotiation hash shown on an agent's
    page are what that agent returned, not our estimate.
-5. **Detects cloned identities.** 47 agents named `BORT …` share one
-   owner and one backend. One backend with 47 registered identities is
-   not 47 agents; unpenalised they scored 100 and filled the front
-   page. They are scored down and labelled, not hidden.
+5. **Detects cloned identities.** Dozens of listings share an owner and a
+   backend with each other — one operator wearing many hats. A backend with
+   fifty registered identities is not fifty agents; unpenalised they scored
+   100 and filled the front page. They are scored down and labelled, not
+   hidden, and the live count is on the home page because it keeps growing.
 6. **Follows the money.** Every job we fund is re-read from the ERC-8183 kernel
    on the same schedule, so the catalogue can answer the question that decides
    whether a marketplace is worth anything: of what was paid for, how much was
@@ -308,7 +313,7 @@ labelled and excluded from every figure on this site.
 
 - **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
 - **Not a correctness check.** We verify that an agent answers, not that its answer is right. A fast, confident, wrong agent passes every check here.
-- **Not a full sweep of the registry.** We verify the agents we list, not all 300,039 entries on BSC.
+- **Not a full sweep of the registry.** We verify the agents we list, not all 300,318 entries on BSC.
 - **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.
 - **Not audited.**
 

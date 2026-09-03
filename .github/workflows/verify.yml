@@ -84,6 +84,29 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/census.mjs
 
+      # Vigilancia del sitio publicado.
+      #
+      # La entrega tiene que estar "functional and publicly accessible during
+      # judging", que son dos semanas. Sin esto, si Vercel deja de servir o una
+      # ruta se rompe, nadie se entera: el cron seguiria commiteando datos
+      # felizmente contra un sitio caido.
+      #
+      # Va al final y SIN continue-on-error a proposito: es lo unico del
+      # workflow que debe pintar la ejecucion en rojo y mandar aviso.
+      - name: Check the published site is alive
+        run: |
+          fail=0
+          for path in "" "/start" "/census" "/report" "/api/agents?limit=1" "/api/jobs" "/api/a2a" "/api/a2a/lp"; do
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 "https://smeai-dev.vercel.app$path")
+            if [ "$code" != "200" ]; then
+              echo "CAIDO: $path devolvio $code"
+              fail=1
+            else
+              echo "ok: ${path:-/} ($code)"
+            fi
+          done
+          exit $fail
+
       - name: Commit snapshot if it changed
         run: |
           git config user.name "smeai-bot"
