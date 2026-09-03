@@ -122,15 +122,22 @@ export async function POST(req: Request) {
       });
     }
 
-    const serviceUrl = (card?.url ?? card?.endpoint) as string | undefined;
-    if (!serviceUrl) {
-      return NextResponse.json({
-        stage: "agent-card",
-        ok: false,
-        latency_ms: Date.now() - started,
-        error: "agent card declares no service url",
-      });
-    }
+    // De donde sale la URL del servicio, por orden.
+    //
+    // Un agent-card A2A estandar la declara en `url`. Pero muchos vendedores
+    // sirven en su lugar un documento de descubrimiento en el MISMO path que
+    // atiende el JSON-RPC, y ahi `endpoint` no es una direccion sino una
+    // descripcion — medido: "A2A JSON-RPC, POST only". Tomarla por URL hacia
+    // fallar la contratacion con "malformed URL" en agentes que funcionan.
+    //
+    // Si el campo no parece una URL absoluta, el endpoint del que acabamos de
+    // leer la card ES el servicio: eso es lo que significa que el registro lo
+    // declare como endpoint A2A. Mismo criterio que usa la ingesta, para que
+    // el catalogo y el boton no discrepen sobre quien es contratable.
+    const declared = (card?.url ?? card?.endpoint) as unknown;
+    const looksAbsolute =
+      typeof declared === "string" && /^https?:\/\//i.test(declared.trim());
+    const serviceUrl = looksAbsolute ? (declared as string).trim() : endpoint;
 
     // La URL del servicio sale del cuerpo que nos acaba de devolver el agente,
     // asi que es tan poco fiable como la primera: se valida igual.

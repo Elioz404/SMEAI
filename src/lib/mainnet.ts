@@ -57,3 +57,16 @@ export const STEP_LABEL: Record<MainnetStep["step"], string> = {
   hire: "ERC-8183 job funded in escrow",
   revoke: "Session revoked",
 };
+
+/**
+ * El explorador de claves de Altana, que es donde el jurado mira.
+ *
+ * Observa el REGISTRO DE CLAVES, no los trabajos: ahi se ven las concesiones y
+ * las revocaciones, pero no el job ERC-8183, que vive en el kernel y se lee en
+ * el explorador de la cadena. Conviene decirlo para que nadie busque el trabajo
+ * donde no esta.
+ */
+export const ALTANA_EXPLORER = {
+  mainnet: `https://explorer.altana.network/account/${mainnetDemo.treasury}`,
+  testnet: `https://testnet.altana.network/account/${mainnetDemo.treasury}`,
+} as const;

@@ -61,10 +61,12 @@ export type Snapshot = {
     cloned: number;
     /** Cuántos grupos distintos de identidades clonadas hay. */
     clusters: number;
+    /** Agentes publicados por nosotros. Nunca sumados en el resto de cifras. */
+    ours?: number;
   };
   per_category: Record<
     CategoryKey,
-    { total: number; live: number; hireable: number }
+    { total: number; live: number; hireable: number; ours?: number }
   >;
   agents: Agent[];
 };
@@ -121,6 +123,7 @@ export function toListItem(a: Agent): AgentListItem {
     currency: a.service?.quote?.currency ?? null,
     etaSeconds: a.service?.quote?.eta_seconds ?? null,
     clusterSize: a.cluster?.size,
+    ours: a.is_ours === true,
     history: recentMarks(a.agent_id),
   };
 }

@@ -875,13 +875,34 @@ Comprobando ${unique.length} servicios distintos ` +
   }
   records.sort((a, b) => b.trust_score - a.trust_score);
 
+  // Agentes publicados por nosotros.
+  //
+  // Se identifican por DUEÑO y no por un id escrito a mano: si mañana
+  // publicamos otro, o si el token cambia, la exclusion sigue siendo correcta
+  // sin tocar codigo. La direccion es publica, asi que vive en una variable de
+  // entorno normal y no en un secreto.
+  const OURS = (process.env.SMEAI_OWNER_ADDRESS || '').toLowerCase();
+  for (const r of records) {
+    if (OURS && (r.owner_address || '').toLowerCase() === OURS) r.is_ours = true;
+  }
+
+  // Las cifras miden el ECOSISTEMA. Un agente nuestro dentro de ellas
+  // convertiria el catalogo en un espejo: contariamos nuestra propia oferta
+  // como si fuera hallazgo. Se muestra en la lista, etiquetado, y no suma.
+  const measured = records.filter((r) => !r.is_ours);
+  const ours = records.length - measured.length;
+  if (ours) log(`
+${ours} agente(s) propio(s) excluido(s) de todas las cifras`);
+
   const perCategory = Object.fromEntries(
     Object.keys(CATEGORIES).map((k) => [
       k,
       {
-        total: records.filter((r) => r.categories.includes(k)).length,
-        live: records.filter((r) => r.categories.includes(k) && r.live).length,
-        hireable: records.filter((r) => r.categories.includes(k) && r.hireable).length,
+        total: measured.filter((r) => r.categories.includes(k)).length,
+        live: measured.filter((r) => r.categories.includes(k) && r.live).length,
+        hireable: measured.filter((r) => r.categories.includes(k) && r.hireable).length,
+        /** Los nuestros, aparte y siempre visibles como tales. */
+        ours: records.filter((r) => r.is_ours && r.categories.includes(k)).length,
       },
     ]),
   );
@@ -892,13 +913,15 @@ Comprobando ${unique.length} servicios distintos ` +
     pipeline,
     registry,
     totals: {
-      agents: records.length,
-      live: records.filter((r) => r.live).length,
-      hireable: records.filter((r) => r.hireable).length,
+      agents: measured.length,
+      live: measured.filter((r) => r.live).length,
+      hireable: measured.filter((r) => r.hireable).length,
       services_checked: serviceTargets.length,
-      quotes: records.filter((r) => r.service?.quote?.accepted).length,
-      cloned: records.filter((r) => r.cluster?.size > 1).length,
-      clusters: [...new Set(records.filter((r) => r.cluster).map((r) => r.cluster.key))].length,
+      quotes: measured.filter((r) => r.service?.quote?.accepted).length,
+      cloned: measured.filter((r) => r.cluster?.size > 1).length,
+      clusters: [...new Set(measured.filter((r) => r.cluster).map((r) => r.cluster.key))].length,
+      /** Cuantos agentes son nuestros. Siempre visible, nunca sumado. */
+      ours,
       endpoints_probed: targets.length,
       endpoints_blocked: records.reduce(
         (n, r) => n + r.probes.filter((p) => p.blocked).length,

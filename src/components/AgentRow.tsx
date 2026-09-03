@@ -98,6 +98,20 @@ export function AgentRow({
           >
             {agent.testnet ? "testnet" : "mainnet"}
           </span>
+          {/* Un agente nuestro se dice, y se dice donde se lee el nombre. No
+              cuenta en ninguna cifra del sitio; esto evita que alguien lo
+              tome por oferta del ecosistema. */}
+          {agent.ours && (
+            <span
+              className="t-data shrink-0 rounded px-1 py-px"
+              style={{
+                color: "var(--warn)",
+                boxShadow: "inset 0 0 0 1px var(--warn)",
+              }}
+            >
+              ours · not counted
+            </span>
+          )}
         </span>
 
         {/* max-w en ch, no en px: limita por número de caracteres, que es lo

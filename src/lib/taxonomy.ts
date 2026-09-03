@@ -144,6 +144,18 @@ export type Agent = {
   /** Card valida Y servicio A2A que responde. Esto es lo que puedes contratar. */
   hireable: boolean;
   service?: Service;
+  /**
+   * Agente publicado por NOSOTROS.
+   *
+   * Existe uno solo, de referencia, para que Health Factor —la categoria mas
+   * delgada del ecosistema— no se quede sin nada que activar si su unico
+   * agente estable de terceros cae durante la evaluacion.
+   *
+   * Se excluye de TODAS las cifras: totales, por categoria y embudo. Un
+   * marketplace que se cuenta a si mismo entre la oferta ha dejado de medir el
+   * ecosistema. Se muestra, se etiqueta, y no suma.
+   */
+  is_ours?: boolean;
   /** Otras identidades registradas que comparten dueno y backend con esta. */
   cluster?: {
     key: string;
@@ -178,6 +190,8 @@ export type AgentListItem = {
   etaSeconds?: number | null;
   /** >1 si comparte dueno y backend con otras identidades registradas. */
   clusterSize?: number;
+  /** Publicado por nosotros: se etiqueta y no cuenta en ninguna cifra. */
+  ours?: boolean;
   /** Ultimas marcas de disponibilidad, una por comprobacion. */
   history?: string;
 };
@@ -400,4 +414,88 @@ export function since(iso: string, now = Date.now()): string {
   const h = Math.round(m / 60);
   if (h < 48) return `${h}h ago`;
   return `${Math.round(h / 24)}d ago`;
+}
+
+/* --- Lectura de la respuesta de un agente -----------------------------------
+
+   Un agente contesta un sobre JSON-RPC, no una frase. Enseñar ese sobre en
+   crudo es correcto y es ilegible: quien pulsa "contratar" recibe 2.600
+   caracteres y no sabe si le han cotizado o le han dicho que no.
+
+   Esto extrae lo que un humano necesita. El JSON sigue estando debajo, porque
+   la prueba es el JSON — pero deja de ser lo primero que se lee. */
+
+export type A2AReading =
+  | { kind: "quote"; accepted: true; price: string | null; currency: string | null; eta: string | null; hash: string | null }
+  | { kind: "refusal"; reason: string; offers: { id: string; name: string; price: string | null }[] }
+  | { kind: "text"; text: string }
+  | null;
+
+/**
+ * Localiza el cuerpo util dentro de una respuesta A2A.
+ *
+ * Hay dos formas en circulacion: unos vendedores la envuelven en
+ * `result.parts[].data.response` y otros la ponen directamente en `result`.
+ * Mirar solo la primera daba por mudos a agentes que contestaban bien.
+ */
+function a2aBody(res: unknown): { body: Record<string, unknown> | null; hash: string | null; text: string | null } {
+  const r = (res as { result?: unknown })?.result;
+  const parts = (r as { parts?: unknown })?.parts;
+  if (Array.isArray(parts)) {
+    const data = parts.find((p) => (p as { kind?: string })?.kind === "data") as
+      | { data?: Record<string, unknown> }
+      | undefined;
+    const txt = parts.find((p) => (p as { kind?: string })?.kind === "text") as
+      | { text?: string }
+      | undefined;
+    const inner = data?.data?.response as Record<string, unknown> | undefined;
+    return {
+      body: inner ?? (data?.data as Record<string, unknown> | undefined) ?? null,
+      hash: (data?.data?.negotiation_hash as string | undefined) ?? null,
+      text: txt?.text ?? null,
+    };
+  }
+  if (r && typeof r === "object") {
+    const o = r as Record<string, unknown>;
+    return { body: o, hash: (o.negotiation_hash as string | undefined) ?? null, text: null };
+  }
+  return { body: null, hash: null, text: null };
+}
+
+/** Traduce una respuesta A2A a algo que se puede leer de un vistazo. */
+export function readA2A(res: unknown): A2AReading {
+  const { body, hash, text } = a2aBody(res);
+
+  if (body) {
+    const terms = body.terms as Record<string, unknown> | undefined;
+    const price = (terms?.price ?? body.price) as string | undefined;
+    if (body.accepted === true || price) {
+      return {
+        kind: "quote",
+        accepted: true,
+        price: formatPrice(price ?? null),
+        currency: (terms?.currency ?? body.currency ?? null) as string | null,
+        eta: formatEta((body.estimated_completion_seconds ?? null) as number | null),
+        hash: hash ?? null,
+      };
+    }
+    if (body.accepted === false) {
+      const raw = Array.isArray(body.services) ? body.services : [];
+      return {
+        kind: "refusal",
+        reason: String(body.reason ?? "The agent declined this request."),
+        offers: raw.slice(0, 5).map((s) => {
+          const o = s as Record<string, unknown>;
+          return {
+            id: String(o.id ?? ""),
+            name: String(o.name ?? o.id ?? ""),
+            price: formatPrice((o.price ?? null) as string | null),
+          };
+        }),
+      };
+    }
+  }
+
+  if (text && text.trim()) return { kind: "text", text: text.trim().slice(0, 600) };
+  return null;
 }

@@ -7,6 +7,7 @@ import {
   envelopeSubject,
   withSubject,
   type Skill,
+  readA2A,
 } from "@/lib/taxonomy";
 
 type Result = {
@@ -52,6 +53,7 @@ export function HireConsole({
   const [busy, setBusy] = useState(false);
   const [result, setResult] = useState<Result | null>(null);
   const [jsonError, setJsonError] = useState<string | null>(null);
+  const [showRaw, setShowRaw] = useState(false);
 
   const selected = skills.find((s) => s.id === skillId);
   // Si el sobre lleva uno de los identificadores de ejemplo, hay que decirlo:
@@ -287,13 +289,92 @@ export function HireConsole({
               )}
             </span>
           </div>
-          <pre className="t-data max-h-96 overflow-auto p-4 leading-relaxed text-t2">
-            {result.response !== undefined && result.response !== null
-              ? JSON.stringify(result.response, null, 2)
-              : (result.raw ?? result.error ?? "no response body")}
-          </pre>
+          {/* Lo que el agente dijo, en un renglon. El sobre JSON-RPC sigue
+              disponible debajo: es la prueba, pero no deberia ser lo primero
+              que hay que descifrar para saber si la contratacion salio bien. */}
+          <Reading reading={readA2A(result.response)} />
+
+          <button
+            onClick={() => setShowRaw((v) => !v)}
+            className="t-data w-full border-t border-line px-4 py-2 text-left text-t3 transition-colors hover:text-t1"
+          >
+            {showRaw ? "Hide" : "Show"} the raw response
+          </button>
+          {showRaw && (
+            <pre className="t-data max-h-96 overflow-auto border-t border-line p-4 leading-relaxed text-t2">
+              {result.response !== undefined && result.response !== null
+                ? JSON.stringify(result.response, null, 2)
+                : (result.raw ?? result.error ?? "no response body")}
+            </pre>
+          )}
         </div>
       )}
     </section>
+  );
+}
+
+/**
+ * La respuesta del agente, dicha en cristiano.
+ *
+ * Si no se reconoce la forma no se inventa nada: no se pinta resumen y queda
+ * el JSON, que es lo honesto. Un resumen equivocado seria peor que ninguno.
+ */
+function Reading({ reading }: { reading: ReturnType<typeof readA2A> }) {
+  if (!reading) return null;
+
+  if (reading.kind === "quote") {
+    return (
+      <div className="border-b border-line px-4 py-3">
+        <p className="t-data" style={{ color: "var(--live)" }}>
+          The agent quoted a price
+        </p>
+        <p className="mt-1 flex flex-wrap items-baseline gap-x-4 gap-y-1">
+          {reading.price && (
+            <span className="t-mono text-[17px] text-t1">
+              {reading.price} {reading.currency ? "$U" : ""}
+            </span>
+          )}
+          {reading.eta && (
+            <span className="t-data text-t2">delivery in ~{reading.eta}</span>
+          )}
+        </p>
+        {reading.hash && (
+          <p className="t-data mt-1.5 truncate text-t3">
+            signed negotiation {reading.hash}
+          </p>
+        )}
+      </div>
+    );
+  }
+
+  if (reading.kind === "refusal") {
+    return (
+      <div className="border-b border-line px-4 py-3">
+        <p className="t-data" style={{ color: "var(--warn)" }}>
+          The agent declined this request
+        </p>
+        <p className="mt-1 text-[12.5px] leading-relaxed text-t2">
+          {reading.reason}
+        </p>
+        {reading.offers.length > 0 && (
+          <div className="mt-2">
+            <p className="t-label">What it does sell</p>
+            {reading.offers.map((o) => (
+              <p key={o.id} className="t-data mt-0.5 text-t2">
+                {o.name}
+                {o.price ? ` — ${o.price} $U` : ""}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+    );
+  }
+
+  return (
+    <div className="border-b border-line px-4 py-3">
+      <p className="t-data text-t3">The agent answered</p>
+      <p className="mt-1 text-[12.5px] leading-relaxed text-t2">{reading.text}</p>
+    </div>
   );
 }

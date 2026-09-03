@@ -269,6 +269,14 @@ thousands of mainnet jobs are stuck in. `scripts/mainnet-demo.mjs` reads
 `disputeWindow()` from the policy instead of copying a constant that happened to
 work on another chain.
 
+Both networks show up in Altana's own key registry — the sessions on
+[mainnet](https://explorer.altana.network/account/0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA) and the fuller record on
+[testnet](https://testnet.altana.network/account/0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA), where 13 keys and 18
+events are recorded. Expect to find them marked **Expired** and **Revoked**:
+sessions are scoped to an hour and revoked once the work is done, so one still
+live would mean authority left lying around. That registry tracks keys, not
+jobs — job 56693 is on BscScan, not there.
+
 One integration note worth writing down: importing this wallet's key into
 MetaMask silently breaks the flow. MetaMask upgrades the account to its own
 EIP-7702 delegator, Altana's relay then simulates against unfamiliar code, and

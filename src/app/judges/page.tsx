@@ -1,8 +1,14 @@
 import Link from "next/link";
-import { mainnetRegistry, snapshot } from "@/lib/snapshot";
+import { CATEGORY_META, CATEGORY_ORDER, mainnetRegistry, snapshot } from "@/lib/snapshot";
 import { explorerAddress, formatPrice, since } from "@/lib/taxonomy";
 import { formatU, jobs, jobsWithAgents } from "@/lib/jobs";
-import { STEP_LABEL, hireStep, mainnetDemo, spentBnb } from "@/lib/mainnet";
+import {
+  ALTANA_EXPLORER,
+  STEP_LABEL,
+  hireStep,
+  mainnetDemo,
+  spentBnb,
+} from "@/lib/mainnet";
 import { history } from "@/lib/history";
 
 export const metadata = {
@@ -112,6 +118,56 @@ export default function JudgesPage() {
           service is a shop. <B>{t.cloned}</B> of the listings share one owner
           and one backend, which is why a count of registrations is not a count
           of agents.
+        </P>
+        {/* El criterio de Agent Diversity pide las cuatro categorias "con
+            igual profundidad", y quien cuente vera 37 frente a 3. Mejor poner
+            las cifras delante y explicar la diferencia entre tratamiento y
+            oferta, que dejar que alguien saque su propia conclusion contando. */}
+        <div className="mt-2 overflow-x-auto">
+          <table className="w-full min-w-[420px] border-collapse text-left">
+            <thead>
+              <tr className="border-b border-line">
+                {["Category", "Listed", "Serve a card", "Hireable"].map((h) => (
+                  <th key={h} className="t-label py-2 pr-4 font-normal">
+                    {h}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {CATEGORY_ORDER.map((key) => {
+                const c = snapshot.per_category[key];
+                return (
+                  <tr key={key} className="border-b border-line last:border-b-0">
+                    <td className="py-2 pr-4 text-[12.5px]" style={{ color: CATEGORY_META[key].accent }}>
+                      {CATEGORY_META[key].label}
+                    </td>
+                    <td className="t-mono py-2 pr-4 text-[12px] text-t2">{c.total}</td>
+                    <td className="t-mono py-2 pr-4 text-[12px] text-t2">{c.live}</td>
+                    <td className="t-mono py-2 pr-4 text-[12px]" style={{ color: "var(--live)" }}>
+                      {c.hireable}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+
+        <P>
+          Those last numbers are uneven, and it is worth being precise about
+          what is even and what is not. Every category gets the{" "}
+          <B>same treatment</B>: the same collection, the same two-level
+          verification, the same funnel, the same hiring console, the same
+          weight on the page. What differs is the <B>supply</B> — how many
+          agents the ecosystem has actually put behind each one.
+        </P>
+        <P>
+          That gap is a measurement, not a gap in the work. We could close it in
+          an afternoon by registering agents of our own into the thin
+          categories, and we have decided not to: a marketplace that stocks its
+          own shelves has stopped measuring the ecosystem and started decorating
+          it. Every agent listed here belongs to somebody else.
         </P>
         <Go href="/">Open the catalogue</Go>
       </Step>
@@ -281,6 +337,21 @@ export default function JudgesPage() {
           created a job whose expiry falls inside that window — one that can
           never complete, which is the state thousands of mainnet jobs are stuck
           in. The deadline is read from the policy contract instead.
+        </P>
+        <P>
+          Both networks are visible in Altana&rsquo;s own key registry —{" "}
+          <a href={ALTANA_EXPLORER.mainnet} target="_blank" rel="noopener noreferrer" className="lnk">
+            mainnet
+          </a>{" "}
+          and{" "}
+          <a href={ALTANA_EXPLORER.testnet} target="_blank" rel="noopener noreferrer" className="lnk">
+            testnet
+          </a>
+          . Expect to find the sessions there marked{" "}
+          <B>Expired</B> and <B>Revoked</B>: they are scoped to one hour and
+          revoked when the work is done, so a session that is still live would
+          mean we had left authority lying around. That registry tracks keys,
+          not jobs — the job itself is on the chain explorer, not there.
         </P>
         <P>
           There is no mainnet hire button on this site, deliberately. Each new

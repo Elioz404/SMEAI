@@ -44,6 +44,11 @@ jobs:
 
       - name: Probe every listed agent
         env:
+          # Direccion desde la que publicamos nuestro agente de referencia.
+          # Es publica a proposito y no es un secreto: la ingesta la usa para
+          # marcar como propios los agentes de ese dueno y EXCLUIRLOS de todas
+          # las cifras. Si algun dia publicamos otro, no hay nada que tocar.
+          SMEAI_OWNER_ADDRESS: "0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA"
           # Opcional. Sin key el script se autolimita a 30 req/min y tarda mas,
           # pero funciona igual: no hay ninguna dependencia de pago.
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
