@@ -100,6 +100,8 @@ export type Service = {
   reachable: boolean;
   speaks_a2a?: boolean;
   requires_auth?: boolean;
+  /** El host nos limito el paso (429): no medido, no defectuoso. */
+  throttled?: boolean;
   blocked?: boolean;
   latency_ms?: number;
   error?: string;
@@ -165,7 +167,7 @@ export type AgentListItem = {
   /** Estado de la agent-card. */
   status: "live" | "partial" | "dead" | "blocked" | "none";
   /** Estado del servicio real, que es lo que decide si se puede contratar. */
-  service: "hireable" | "auth" | "down" | "unknown";
+  service: "hireable" | "auth" | "throttled" | "down" | "unknown";
   latency: number | null;
   score: number;
   categories: CategoryKey[];

@@ -98,9 +98,11 @@ export function toListItem(a: Agent): AgentListItem {
     ? "hireable"
     : a.service?.requires_auth
       ? "auth"
-      : a.service
-        ? "down"
-        : "unknown";
+      : a.service?.throttled
+        ? "throttled"
+        : a.service
+          ? "down"
+          : "unknown";
 
   return {
     id: a.agent_id,

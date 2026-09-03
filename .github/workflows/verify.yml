@@ -49,11 +49,32 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/ingest.mjs
 
+      # El estado del escrow se lee del kernel ERC-8183. Va DESPUES de la
+      # ingesta y con continue-on-error: si el RPC publico falla, la
+      # verificacion del catalogo — que es lo critico — ya esta hecha y
+      # commiteada igual. El script conserva el jobs.json anterior antes que
+      # publicar una version degradada.
+      #
+      # No necesita ningun secreto: la direccion del comprador es publica y la
+      # toma del propio data/jobs.json.
+      # El repo trae pnpm-lock.yaml y package.json declara pnpm@10.28.0, asi
+      # que corepack usa esa version exacta. Solo dependencias de produccion:
+      # el script necesita @altananetwork/sdk y viem, no el tooling de build.
+      - name: Install deps for the on-chain read
+        continue-on-error: true
+        run: |
+          corepack enable
+          pnpm install --prod --frozen-lockfile
+
+      - name: Read what happened to the jobs we funded
+        continue-on-error: true
+        run: node scripts/jobs.mjs
+
       - name: Commit snapshot if it changed
         run: |
           git config user.name "smeai-bot"
           git config user.email "actions@github.com"
-          git add data/snapshot.json data/history.json
+          git add data/snapshot.json data/history.json data/jobs.json
           if git diff --staged --quiet; then
             echo "no change in this run"
           else

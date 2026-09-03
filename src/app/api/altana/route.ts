@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { snapshot } from "@/lib/snapshot";
+import { jobs } from "@/lib/jobs";
 import * as altana from "@/lib/altana";
 import type { Address, Hex } from "viem";
 
@@ -57,6 +58,7 @@ export async function POST(req: Request) {
     publicKey?: string;
     expiry?: number;
     task?: string;
+    jobId?: string;
   };
   try {
     body = await req.json();
@@ -126,6 +128,41 @@ export async function POST(req: Request) {
           );
         }
         return NextResponse.json(await altana.revoke(body.publicKey as Hex));
+      }
+
+      case "reclaim": {
+        const id = String(body.jobId ?? "");
+        if (!/^[0-9]+$/.test(id)) {
+          return NextResponse.json({ error: "jobId required" }, { status: 400 });
+        }
+        // Solo trabajos que sabemos nuestros. Sin esto, cualquiera podria
+        // hacernos gastar gas llamando al kernel con ids arbitrarios.
+        if (!jobs.jobs.some((j) => j.id === id)) {
+          return NextResponse.json(
+            { error: "unknown job" },
+            { status: 400 },
+          );
+        }
+        // El fichero puede llevar hasta 30 minutos de retraso, asi que el
+        // estado se relee de la cadena antes de tocar nada.
+        const state = await altana.readJob(BigInt(id));
+        if (!state.reclaimable) {
+          return NextResponse.json(
+            {
+              error: !state.undelivered
+                ? "This job has a deliverable, so the escrow is not the buyer's to reclaim. Settle it instead."
+                : state.status !== "FUNDED"
+                  ? `This job is ${state.status}; only a FUNDED job holds escrow to reclaim.`
+                  : "This job has not expired yet. The seller still has time to deliver.",
+              job: state,
+            },
+            { status: 400 },
+          );
+        }
+        return NextResponse.json({
+          ...(await altana.reclaim(BigInt(id))),
+          job: state,
+        });
       }
 
       default:

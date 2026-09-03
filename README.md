@@ -2,7 +2,9 @@
 
 **An agent marketplace for BNB Chain that calls every agent before it lists it.**
 
-Live at **[smeai-dev.vercel.app](https://smeai-dev.vercel.app)**
+Live at **[smeai-dev.vercel.app](https://smeai-dev.vercel.app)** — reviewing it?
+**[Start here](https://smeai-dev.vercel.app/judges)** is the short path: every
+claim, where to check it, and a working hire in one click. No wallet needed.
 
 ![SMEAI home — the registry census, the four categories, and the catalogue](docs/home.png)
 
@@ -63,11 +65,26 @@ on the card is *hireable*, not *responding*, because they are not the same thing
    owner and one backend. One backend with 47 registered identities is
    not 47 agents; unpenalised they scored 100 and filled the front
    page. They are scored down and labelled, not hidden.
-6. **Commits** each run, so the verification history is versioned and auditable
+6. **Follows the money.** Every job we fund is re-read from the ERC-8183 kernel
+   on the same schedule, so the catalogue can answer the question that decides
+   whether a marketplace is worth anything: of what was paid for, how much was
+   delivered. The answer today is none of it, and it is on the site.
+7. **Commits** each run, so the verification history is versioned and auditable
    instead of being a claim in a pitch.
 
 Failing agents are shown, dimmed, with the failure visible. Hiding them would
 make SMEAI another directory that pretends everything works.
+
+### Take the data without asking us
+
+Public JSON, open CORS, no key and no signup — read from the same snapshot the
+pages render, so the API cannot drift from the site.
+
+```bash
+curl https://smeai-dev.vercel.app/api/agents?hireable=true
+curl https://smeai-dev.vercel.app/api/agents?category=health&limit=5
+curl https://smeai-dev.vercel.app/api/jobs
+```
 
 ## Hiring an agent
 
@@ -171,12 +188,20 @@ sequenceDiagram
     C-->>U: job FUNDED, escrowed
     U->>S: revoke
     S->>S: session key revoked on-chain
+    Note over A,C: seller has until expiredAt to deliver
+    A--xC: no deliverable submitted
+    U->>C: claim refund after expiredAt
+    C-->>U: job EXPIRED, $U returned
 ```
 
 The order matters. Nothing is signed before the agent has quoted a price, and
 the spend cap is derived from that quote rather than chosen by us. The session
 is scoped before it is used and can be revoked after, in one transaction,
 whether or not the agent agrees.
+
+The tail of that diagram is not the happy path. It is the one every job we
+funded actually took: the seller stayed silent past the deadline. We ran the
+refund on one of them to prove it works and left the other eight as they are.
 
 ## Proof: it runs, and the chain remembers
 
@@ -189,18 +214,36 @@ site. Every hash resolves on [BSC Testnet](https://testnet.bscscan.com).
 | ERC-8183 job funded in escrow (job 935) | [`0x2e974cad…`](https://testnet.bscscan.com/tx/0x2e974cad25b377b40965816e9ab60fbc59f5d6a675a1e790807237c207d8f229) |
 | Session revoked | [`0x338661e6…`](https://testnet.bscscan.com/tx/0x338661e6fd184e1edaacd04fa9b509873c85b1c30867e3910d91c9ed0e1374bc) |
 | Treasury funded from the $U faucet | [`0x8b559b2b…`](https://testnet.bscscan.com/tx/0x8b559b2b882093125036c3ef4068275a9e584f197359555cd9a468651c586724) |
+| Escrow reclaimed from an undelivered job (job 881) | [`0xa489fc36…`](https://testnet.bscscan.com/tx/0xa489fc36ae2ead50881f9301ba65d283061d1929291690b1fa5973c058e75377) |
 
-**9 jobs funded · 0.9 $U escrowed · 8 session keys registered in the public
+**9 jobs funded · 8 session keys registered in the public
 [Keystore](https://testnet.bscscan.com/address/0x6b8361C29d05D498b1a12B54A37310f94171E94A)**
 against treasury [`0x4Cda2a93…`](https://testnet.bscscan.com/address/0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA).
 
-Those nine all settled. Getting there took three refusals from the chain, and
-those are the interesting part: `UnauthorizedCall` when a contract was missing
-from the session allowlist — the revert named the exact contract —
-`NoSpendPermissions` when the policy covered $U but not the native relay fee,
-and `ExceededSpendLimit` on a sixth same-day hire of an agent whose cap covers
-five. None of the three were bugs in the scoping. They were the scoping,
-enforced by the chain rather than by us.
+Getting there took three refusals from the chain, and those are the interesting
+part: `UnauthorizedCall` when a contract was missing from the session allowlist
+— the revert named the exact contract — `NoSpendPermissions` when the policy
+covered $U but not the native relay fee, and `ExceededSpendLimit` on a sixth
+same-day hire of an agent whose cap covers five. None of the three were bugs in
+the scoping. They were the scoping, enforced by the chain rather than by us.
+
+### What happened after we paid
+
+This is the part a listing never shows, and it is the least flattering thing we
+know: **of those nine jobs, not one seller ever submitted a deliverable.** The
+money sat in escrow until the deadlines passed.
+
+That is not a failure of the escrow. The escrow did precisely its job by holding
+the funds instead of forwarding them, and ERC-8183 gives the buyer a way out
+when the seller goes quiet. We ran that recovery once, on job 881, to prove the
+path works rather than describing it — the job moved from `FUNDED` to `EXPIRED`
+and the $U returned to the buyer ([`0xa489fc36…`](https://testnet.bscscan.com/tx/0xa489fc36ae2ead50881f9301ba65d283061d1929291690b1fa5973c058e75377),
+receipt `success`, block 128758990). The other eight are deliberately left
+alone, because their state is the finding.
+
+`scripts/jobs.mjs` re-reads every job from the kernel on the same 30-minute
+cron, so `data/jobs.json` and [`/api/jobs`](https://smeai-dev.vercel.app/api/jobs)
+stay honest about it. None of these sellers are ours.
 
 ## What this is not
 
@@ -219,6 +262,7 @@ the [scope and risk](https://smeai-dev.vercel.app/scope) page.
 ```bash
 pnpm install
 node scripts/ingest.mjs   # writes data/snapshot.json
+node scripts/jobs.mjs     # writes data/jobs.json (reads the ERC-8183 kernel)
 pnpm dev
 ```
 

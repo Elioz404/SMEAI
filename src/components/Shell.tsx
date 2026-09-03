@@ -164,6 +164,9 @@ export function Shell({
             <>
               <p className="t-label px-4 pb-2 pt-6">Reference</p>
               <ul className="flex flex-col gap-0.5 px-2">
+                <SideLink href="/judges" active={pathname === "/judges"}>
+                  Start here
+                </SideLink>
                 <SideLink href="/method" active={pathname === "/method"}>
                   How verification works
                 </SideLink>

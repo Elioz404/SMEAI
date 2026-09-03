@@ -296,7 +296,14 @@ async function probe(ep) {
           .slice(0, 8)
           .map((s) =>
             typeof s === 'string'
-              ? { id: sanitizeText(s, 60), name: sanitizeText(s, 80), description: '' }
+              ? {
+                  // "negotiate - get a quote" -> id "negotiate". El agente
+                  // espera el identificador, no el renglon de documentacion
+                  // entero; mandarselo completo devuelve "unknown skill".
+                  id: sanitizeText((s.match(/^[\w.:-]+/) ?? [s])[0], 60),
+                  name: sanitizeText(s, 80),
+                  description: '',
+                }
               : {
                   id: sanitizeText(s?.id ?? s?.name ?? '', 60),
                   name: sanitizeText(s?.name ?? s?.id ?? '', 80),
@@ -315,7 +322,20 @@ async function probe(ep) {
       valid_card: valid,
       skills: Array.isArray(card?.skills) ? card.skills.length : null,
       skill_list: skillList,
-      service_url: typeof card?.url === 'string' ? card.url : null,
+      // Un agent-card A2A estandar declara su endpoint de servicio en `url`.
+      // Pero muchos vendedores sirven en su lugar un documento de descubrimiento
+      // en el MISMO path que atiende el JSON-RPC, sin campo `url`. Mirando solo
+      // `url` los dabamos por no contratables sin haberlos llamado nunca.
+      //
+      // Si el registro declaro ese endpoint como A2A, el endpoint es el servicio:
+      // eso es precisamente lo que significa declararlo. No es una suposicion
+      // sobre un proveedor concreto, es lo que dice el registro.
+      service_url:
+        typeof card?.url === 'string'
+          ? card.url
+          : ep.kind === 'a2a'
+            ? ep.url
+            : null,
       sample: sanitizeText(body, 220),
       checked_at: new Date().toISOString(),
     };
@@ -372,27 +392,69 @@ function rpcEnvelope(parts) {
   };
 }
 
-async function probeService(serviceUrl, skills) {
+/**
+ * Lee la respuesta util de una contestacion A2A.
+ *
+ * Hay dos formas en circulacion: unos vendedores envuelven la respuesta en
+ * `result.parts[].data.response` y otros la ponen directamente en `result`.
+ * Mirando solo la primera dabamos por mudos a agentes que estaban contestando
+ * perfectamente.
+ */
+function readResponse(json) {
+  const parts = json?.result?.parts;
+  if (Array.isArray(parts)) {
+    const data = parts.find((x) => x.kind === 'data')?.data;
+    if (data?.response) return { body: data.response, hash: data.negotiation_hash ?? null };
+  }
+  const r = json?.result;
+  if (r && typeof r === 'object' && !Array.isArray(r)) {
+    return { body: r, hash: r.negotiation_hash ?? null };
+  }
+  return null;
+}
+
+/**
+ * De un catalogo que el propio vendedor acaba de enumerar, elige el servicio que
+ * mejor encaja con lo que ya sabemos que el agente hace.
+ *
+ * Puntua con el MISMO vocabulario con el que clasificamos el agente, asi que no
+ * hay una tabla de proveedores en ninguna parte: si manana otro vendedor
+ * responde con su catalogo, esto funciona igual. Sin coincidencias se queda con
+ * el primero, que sigue siendo algo que ese agente vende de verdad.
+ */
+function chooseOffered(offered, categories) {
+  const terms = (categories ?? []).flatMap((k) => CATEGORIES[k]?.terms ?? []);
+  let best = null;
+  let bestScore = -1;
+  for (const svc of offered) {
+    const id = typeof svc === 'string' ? svc : svc?.id;
+    if (!id) continue;
+    const text = `${svc?.category ?? ''} ${svc?.name ?? ''} ${id}`.toLowerCase();
+    const score = terms.reduce((n, t) => n + (text.includes(String(t).toLowerCase()) ? 1 : 0), 0);
+    if (score > bestScore) {
+      bestScore = score;
+      best = id;
+    }
+  }
+  return best;
+}
+
+async function probeService(serviceUrl, skills, categories = []) {
   const safe = await checkUrl(serviceUrl);
   if (!safe.ok) {
     return { url: serviceUrl, status: null, reachable: false, blocked: true, error: safe.reason };
   }
 
   const negotiate = (skills ?? []).find((s) => /negotiat/i.test(s.id || s.name));
-  const body = negotiate
-    ? rpcEnvelope([{ kind: 'data', data: { skill: negotiate.id, ...GENERIC_TASK } }])
-    : rpcEnvelope([{ kind: 'text', text: 'status' }]);
 
-  const t0 = Date.now();
-  try {
+  const send = async (parts) => {
     const res = await fetch(serviceUrl, {
       method: 'POST',
       headers: { 'content-type': 'application/json', accept: 'application/json' },
-      body: JSON.stringify(body),
+      body: JSON.stringify(rpcEnvelope(parts)),
       redirect: 'manual',
       signal: AbortSignal.timeout(PROBE_TIMEOUT_MS),
     });
-    const latency = Date.now() - t0;
     const text = await readCapped(res, 8000);
     let json = null;
     try {
@@ -400,17 +462,62 @@ async function probeService(serviceUrl, skills) {
     } catch {
       // el servicio contesto algo que no es JSON
     }
+    return { res, json };
+  };
+
+  const t0 = Date.now();
+  try {
+    const first = await send(
+      negotiate
+        ? [{ kind: 'data', data: { skill: negotiate.id, ...GENERIC_TASK } }]
+        : [{ kind: 'text', text: 'status' }],
+    );
+    let { res, json } = first;
+    const latency = Date.now() - t0;
 
     // 401/403 no es un servicio muerto: es uno que exige credenciales. Para el
     // usuario significa "no puedes contratarlo desde aqui", que es distinto de
     // "no existe", y merece decirse distinto.
+    // 429 no es un servicio caido: es uno que nos ha limitado el paso. Leerlo
+    // como caido convierte una limitacion NUESTRA de medicion en un defecto
+    // AJENO, que es justo la mentira que este proyecto existe para no contar.
+    if (res.status === 429) {
+      return {
+        url: serviceUrl,
+        status: 429,
+        reachable: false,
+        throttled: true,
+        latency_ms: latency,
+        checked_at: new Date().toISOString(),
+      };
+    }
+
     if (res.status === 401 || res.status === 403) {
       return { url: serviceUrl, status: res.status, reachable: true, requires_auth: true, latency_ms: latency };
     }
 
     const speaksA2A = Boolean(json && (json.jsonrpc || json.result || json.error));
-    const data = json?.result?.parts?.find((p) => p.kind === 'data')?.data;
-    const quoted = data?.response;
+    let read = readResponse(json);
+    let quoted = read?.body ?? null;
+
+    // Un rechazo que ADEMAS enumera lo que si esta en venta no es un fallo: es
+    // una contraoferta. Se le vuelve a preguntar por uno de los servicios que el
+    // mismo acaba de listar. Una sola vez, y solo si el nos dio la lista.
+    const offered = Array.isArray(quoted?.services) ? quoted.services : null;
+    if (negotiate && quoted?.accepted === false && offered?.length) {
+      const pick = chooseOffered(offered, categories);
+      if (pick) {
+        const again = await send([
+          { kind: 'data', data: { skill: negotiate.id, service: pick, ...GENERIC_TASK } },
+        ]);
+        const second = readResponse(again.json);
+        if (second?.body) {
+          read = second;
+          quoted = second.body;
+          json = again.json;
+        }
+      }
+    }
 
     const out = {
       url: serviceUrl,
@@ -427,7 +534,7 @@ async function probeService(serviceUrl, skills) {
         price: quoted.terms?.price ?? quoted.price ?? null,
         currency: quoted.terms?.currency ?? quoted.currency ?? null,
         eta_seconds: quoted.estimated_completion_seconds ?? null,
-        negotiation_hash: data?.negotiation_hash ?? null,
+        negotiation_hash: read?.hash ?? null,
       };
     } else if (quoted && quoted.accepted === false) {
       out.quote = { accepted: false, reason: String(quoted.reason ?? '').slice(0, 140) };
@@ -690,12 +797,34 @@ async function main() {
     })
     .filter(Boolean);
 
-  log(`\nComprobando ${serviceTargets.length} endpoints de servicio (no solo la card)...`);
+  // Un backend con N identidades registradas tiene UN servicio, no N. Sondearlo
+  // una vez por identidad repetia 46 veces la misma peticion contra el mismo
+  // host, que acababa devolviendo 429 y haciendonos leer como caido un servicio
+  // que funcionaba: nos denegabamos el servicio a nosotros mismos.
+  //
+  // La clave incluye la categoria porque un mismo endpoint puede vender cosas
+  // distintas segun lo que se le pida -- la negociacion elige el servicio por
+  // categoria -- y colapsar eso a una sola llamada perderia precios reales.
+  const byProbe = new Map();
+  for (const t of serviceTargets) {
+    const key = t.url + '|' + [...(t.rec.categories ?? [])].sort().join(',');
+    if (!byProbe.has(key)) byProbe.set(key, { ...t, shared: [] });
+    byProbe.get(key).shared.push(t.rec);
+  }
+  const unique = [...byProbe.values()];
+
+  log(
+    `
+Comprobando ${unique.length} servicios distintos ` +
+      `(${serviceTargets.length} agentes, ${serviceTargets.length - unique.length} comparten backend)...`,
+  );
   await pool(
-    serviceTargets.map((t) => ({ ...t, ep: { url: t.url } })),
+    unique.map((t) => ({ ...t, ep: { url: t.url } })),
     PROBE_CONCURRENCY,
     async (t) => {
-      t.rec.service = await probeService(t.url, t.skills);
+      const result = await probeService(t.url, t.skills, t.rec.categories);
+      // El mismo hecho medido una vez, atribuido a cada identidad que lo comparte.
+      for (const rec of t.shared) rec.service = result;
       return null;
     },
   );
@@ -791,6 +920,21 @@ async function main() {
   const prev = await readFile('data/snapshot.json', 'utf8')
     .then((t) => JSON.parse(t))
     .catch(() => null);
+
+  // El catalogo puede seguir entero mientras la VERIFICACION se desploma: basta
+  // con que un host grande nos limite el paso. Paso justo eso — 47 identidades
+  // de un backend devolvieron 429 a la vez y los contratables cayeron de 61 a
+  // 19 con el catalogo intacto. Vigilar solo el tamano no lo habria visto.
+  if (prev?.totals?.hireable > 3 && snapshot.totals.hireable < prev.totals.hireable * 0.5) {
+    log(
+      `
+ABORTADO: ${snapshot.totals.hireable} contratables frente a ${prev.totals.hireable} ` +
+        `de la pasada anterior. Probablemente nos han limitado el paso, no que el ecosistema se haya caido.`,
+    );
+    log('El snapshot anterior se conserva intacto.');
+    process.exitCode = 1;
+    return;
+  }
 
   if (prev?.totals?.agents > 0) {
     const before = prev.totals.agents;

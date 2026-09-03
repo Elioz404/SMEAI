@@ -19,8 +19,10 @@ import "server-only";
 import {
   BNB_TESTNET,
   ERC8183_ADDRESSES,
+  buildClaimRefundCall,
   buildHireCalls,
   createClient,
+  getErc8183Job,
   signerFromPrivateKey,
   type Session,
   type Wallet,
@@ -426,6 +428,68 @@ export async function revoke(publicKey: Hex) {
     session: publicKey,
   });
   return { transactionHash: (res as { transactionHash?: Hex }).transactionHash };
+}
+
+/** Estado de un trabajo leido del kernel, listo para mostrar. */
+export type JobState = {
+  id: string;
+  status: string;
+  provider: Address;
+  budget: string;
+  expiredAt: number;
+  submittedAt: number;
+  /** true mientras el vendedor no haya entregado nada. */
+  undelivered: boolean;
+  /** Vencido y aun financiado: el escrow se puede reclamar. */
+  reclaimable: boolean;
+};
+
+/** Lee un trabajo del kernel ERC-8183. Solo lectura, sin clave. */
+export async function readJob(jobId: bigint): Promise<JobState> {
+  const j = await getErc8183Job(BNB_TESTNET, jobId);
+  const expiredAt = Number(j.expiredAt);
+  const undelivered = j.submittedAt === 0n;
+  return {
+    id: String(j.id),
+    status: j.statusName,
+    provider: j.provider,
+    budget: j.budget.toString(),
+    expiredAt,
+    submittedAt: Number(j.submittedAt),
+    undelivered,
+    reclaimable:
+      j.statusName === "FUNDED" &&
+      undelivered &&
+      expiredAt < Math.floor(Date.now() / 1000),
+  };
+}
+
+/**
+ * Recupera el escrow de un trabajo que el vendedor nunca entrego.
+ *
+ * Es el otro final del ciclo de vida, y en este ecosistema es el habitual: de
+ * los trabajos que hemos financiado, ninguno recibio entrega. `settle` libera
+ * el dinero HACIA el vendedor tras la ventana de disputa; esto lo devuelve al
+ * comprador cuando pasa `expiredAt` sin que haya entregado nada.
+ *
+ * Va por la via admin y no por la sesion del agente a proposito: reclamar es un
+ * acto del comprador sobre su propio dinero, no autoridad delegada al vendedor.
+ * Ademas la sesion caduca en una hora y el trabajo tarda dos en vencer, asi que
+ * una sesion nunca estaria viva para hacerlo.
+ */
+export async function reclaim(jobId: bigint) {
+  const { client, wallet, signer } = await getWallet();
+  const call = buildClaimRefundCall(CHAIN_ID, jobId);
+  const res = await client.execute({
+    wallet,
+    signer,
+    calls: [call],
+    chainId: CHAIN_ID,
+  });
+  return {
+    jobId: String(jobId),
+    transactionHash: (res as { transactionHash?: Hex }).transactionHash,
+  };
 }
 
 /**

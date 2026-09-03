@@ -32,6 +32,7 @@ export const SERVICE_META: Record<
 > = {
   hireable: { label: "Hireable", color: "var(--live)" },
   auth: { label: "Needs credentials", color: "var(--warn)" },
+  throttled: { label: "Rate-limited, not measured", color: "var(--muted)" },
   down: { label: "Service down", color: "var(--dead)" },
   unknown: { label: "No service endpoint", color: "var(--muted)" },
 };

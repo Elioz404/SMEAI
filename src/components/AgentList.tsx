@@ -1,6 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { AgentRow } from "./AgentRow";
 import type { AgentListItem } from "@/lib/taxonomy";
 
@@ -15,11 +16,42 @@ type SortKey = "score" | "latency" | "name";
  * defecto seria mas bonito y menos honesto: que la mayoria de agentes del
  * registro no responda es el hallazgo, no un detalle que esconder.
  */
+/** Lee un parametro de la URL solo si es uno de los valores que aceptamos. */
+function pick<T extends string>(raw: string | null, allowed: readonly T[], fallback: T): T {
+  return allowed.includes(raw as T) ? (raw as T) : fallback;
+}
+
+const STATUSES = ["all", "hireable", "issues"] as const;
+const NETS = ["all", "mainnet", "testnet"] as const;
+const SORTS = ["score", "latency", "name"] as const;
+
 export function AgentList({ agents }: { agents: AgentListItem[] }) {
-  const [status, setStatus] = useState<StatusFilter>("all");
-  const [net, setNet] = useState<NetFilter>("all");
-  const [sort, setSort] = useState<SortKey>("score");
-  const [q, setQ] = useState("");
+  const router = useRouter();
+  const params = useSearchParams();
+
+  // El estado arranca desde la URL, no desde los valores por defecto: asi un
+  // enlace a /category/health?net=mainnet abre ya filtrado, sobrevive a una
+  // recarga y se puede mandar a alguien. Antes el filtro existia pero moria
+  // en la pestana de quien lo tocaba.
+  const [status, setStatus] = useState<StatusFilter>(() =>
+    pick(params.get("status"), STATUSES, "all"),
+  );
+  const [net, setNet] = useState<NetFilter>(() => pick(params.get("net"), NETS, "all"));
+  const [sort, setSort] = useState<SortKey>(() => pick(params.get("sort"), SORTS, "score"));
+  const [q, setQ] = useState(() => params.get("q") ?? "");
+
+  // Solo se escribe lo que se aparta del valor por defecto, para que una URL
+  // sin filtrar siga siendo la URL limpia. `replace` y no `push`: filtrar no
+  // deberia llenar el boton de atras.
+  useEffect(() => {
+    const sp = new URLSearchParams();
+    if (status !== "all") sp.set("status", status);
+    if (net !== "all") sp.set("net", net);
+    if (sort !== "score") sp.set("sort", sort);
+    if (q.trim()) sp.set("q", q.trim());
+    const qs = sp.toString();
+    router.replace(qs ? `?${qs}` : window.location.pathname, { scroll: false });
+  }, [status, net, sort, q, router]);
 
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase();

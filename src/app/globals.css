@@ -152,6 +152,24 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* --- Enlace en prosa -------------------------------------------------------
+   El subrayado va en un gris de linea y no en el color del texto: dentro de un
+   parrafo, un subrayado a plena intensidad pesa mas que las propias palabras.
+   Estaba escrito a mano en cada pagina; definirlo una vez evita que tres sitios
+   se separen con el tiempo. */
+
+.lnk {
+  color: var(--text-2);
+  text-decoration-line: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 2px;
+  transition: color 0.15s;
+}
+
+.lnk:hover {
+  color: var(--accent);
+}
+
 /* --- Contenedor -----------------------------------------------------------
    Ancho máximo de lectura. Sin esto, en un monitor ancho las descripciones de
    los agentes se estiran a más de 200 caracteres por línea y el ojo pierde el

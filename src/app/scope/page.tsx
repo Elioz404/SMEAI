@@ -123,11 +123,11 @@ export default function ScopePage() {
 
       <p className="t-data mt-12 border-t border-line pt-6 text-t3">
         See also{" "}
-        <Link href="/method" className="text-t2 underline decoration-line-strong underline-offset-2 hover:text-accent">
+        <Link href="/method" className="lnk">
           how verification works
         </Link>{" "}
         and{" "}
-        <Link href="/roadmap" className="text-t2 underline decoration-line-strong underline-offset-2 hover:text-accent">
+        <Link href="/roadmap" className="lnk">
           what is built and what is not
         </Link>
         .

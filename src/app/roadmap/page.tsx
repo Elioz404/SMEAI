@@ -151,11 +151,11 @@ export default function RoadmapPage() {
         </div>
         <p className="t-data mt-5 text-t3">
           See also{" "}
-          <Link href="/scope" className="text-t2 underline decoration-line-strong underline-offset-2 hover:text-accent">
+          <Link href="/scope" className="lnk">
             scope and risk
           </Link>{" "}
           and{" "}
-          <Link href="/method" className="text-t2 underline decoration-line-strong underline-offset-2 hover:text-accent">
+          <Link href="/method" className="lnk">
             how verification works
           </Link>
           .

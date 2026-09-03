@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { AgentList } from "@/components/AgentList";
 import { SupplyFunnel } from "@/components/SupplyFunnel";
@@ -64,8 +65,13 @@ export default async function CategoryPage({
 
       <SupplyFunnel agents={agents} />
 
+      {/* AgentList lee los filtros de la URL, y eso obliga a un limite de
+          Suspense en una ruta prerenderizada. El fallback es la altura de la
+          barra de filtros para que la lista no salte al montarse. */}
       <div className="mt-12">
-        <AgentList agents={items} />
+        <Suspense fallback={<div className="h-16 border-b border-line" />}>
+          <AgentList agents={items} />
+        </Suspense>
       </div>
     </div>
   );

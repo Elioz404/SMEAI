@@ -1,24 +1,17 @@
-import Link from "next/link";
-import { AgentRow } from "@/components/AgentRow";
+import { Catalogue } from "@/components/Catalogue";
 import { MarketSearch } from "@/components/MarketSearch";
 import {
-  CATEGORY_META,
-  CATEGORY_ORDER,
-  agentsIn,
   mainnetRegistry,
   since,
   snapshot,
   toListItem,
 } from "@/lib/snapshot";
 
-// Cuántos agentes se muestran por categoría en la portada.
-// Es el mismo número para las cuatro, a propósito: el brief exige que las
-// cuatro categorías tengan la misma profundidad, y la maquetación debe
-// afirmarlo antes de que nadie lea un número. Cuatro columnas de 44, 24, 36 y
-// 19 filas dirían lo contrario de un vistazo.
-const PER_CATEGORY = 5;
 
 export default function Home() {
+  // Una sola proyeccion para el buscador y el catalogo: son los mismos agentes
+  // y calcularla dos veces mandaria dos copias del mismo array al navegador.
+  const items = snapshot.agents.map(toListItem);
   const probes = snapshot.agents.flatMap((a) => a.probes);
   const blocked = probes.filter((p) => p.blocked).length;
   const called = probes.length - blocked;
@@ -28,68 +21,11 @@ export default function Home() {
       <Header called={called} blocked={blocked} />
 
       <div className="wrap px-6 pb-20 lg:px-10">
-        <MarketSearch agents={snapshot.agents.map(toListItem)} />
+        <MarketSearch agents={items} />
         <div className="mt-12" />
         <Stats />
 
-        <div className="mt-14 flex flex-col gap-12">
-          {CATEGORY_ORDER.map((key) => {
-            const meta = CATEGORY_META[key];
-            const all = agentsIn(key);
-            const hireable = all.filter((a) => a.hireable).length;
-            const top = all.slice(0, PER_CATEGORY).map(toListItem);
-
-            return (
-              <section key={key}>
-                <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-2 border-b border-line-strong pb-3">
-                  <div className="flex items-center gap-3">
-                    <span
-                      aria-hidden
-                      className="t-mono flex size-7 items-center justify-center rounded text-[10px] font-semibold"
-                      style={{
-                        color: meta.accent,
-                        boxShadow: `inset 0 0 0 1px ${meta.accent}55`,
-                      }}
-                    >
-                      {meta.short}
-                    </span>
-                    <div>
-                      <h2 className="t-h2 text-t1">{meta.label}</h2>
-                      <p className="text-[12px] leading-snug text-t3">
-                        {meta.blurb}
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-5">
-                    <p className="t-data text-t3">
-                      <span
-                        className="text-[15px]"
-                        style={{ color: "var(--live)" }}
-                      >
-                        {hireable}
-                      </span>
-                      <span className="text-[15px] text-t3"> / {all.length}</span>
-                      <span className="ml-1.5">hireable</span>
-                    </p>
-                    <Link
-                      href={`/category/${key}`}
-                      className="t-data rounded border border-line px-2.5 py-1 text-t2 transition-colors hover:border-accent hover:text-accent"
-                    >
-                      View all {all.length}
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="mt-1">
-                  {top.map((a) => (
-                    <AgentRow key={a.id} agent={a} showCategories={false} />
-                  ))}
-                </div>
-              </section>
-            );
-          })}
-        </div>
+        <Catalogue agents={items} />
       </div>
     </div>
   );
