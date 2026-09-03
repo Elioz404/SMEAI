@@ -164,7 +164,7 @@ export function Shell({
             <>
               <p className="t-label px-4 pb-2 pt-6">Reference</p>
               <ul className="flex flex-col gap-0.5 px-2">
-                <SideLink href="/judges" active={pathname === "/judges"}>
+                <SideLink href="/start" active={pathname === "/start"}>
                   Start here
                 </SideLink>
                 <SideLink href="/census" active={pathname === "/census"}>

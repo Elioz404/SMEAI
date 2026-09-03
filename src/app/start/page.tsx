@@ -18,11 +18,15 @@ export const metadata = {
 };
 
 /**
- * Entrada sin friccion para quien evalua.
+ * El indice de evidencia: cada afirmacion y donde comprobarla.
  *
- * Un jurado abre decenas de proyectos y no va a buscar donde esta lo bueno. Esta
- * pagina no vende nada: enumera las afirmaciones comprobables, dice donde se
- * comprueba cada una, y lleva de un clic a una contratacion que funciona.
+ * Vive en /start y no en /judges a proposito. El contenido le sirve a cualquiera
+ * que evalue si fiarse — un comprador, un operador de agentes, un socio — y una
+ * ruta llamada "jueces" seria un artefacto de hackathon con fecha de caducidad
+ * dentro de un producto pensado para que lo adopten.
+ *
+ * No vende nada: enumera lo comprobable, dice donde se comprueba, y lleva de un
+ * clic a una contratacion que funciona.
  *
  * El agente al que enlaza NO esta escrito a mano. Se elige en cada render entre
  * los contratables que ademas cotizan precio, porque un enlace fijo apunta a un
@@ -54,7 +58,7 @@ export default function JudgesPage() {
   return (
     <div className="wrap px-6 pb-20 lg:px-10">
       <header className="border-b border-line py-10">
-        <p className="t-label">For reviewers</p>
+        <p className="t-label">Start here</p>
         <h1 className="t-h1 mt-3 text-t1">Start here</h1>
         <p className="t-body mt-3 max-w-3xl text-t2">
           Every number on this site was measured by calling something. This page
@@ -393,6 +397,39 @@ export default function JudgesPage() {
           />
           <Api path="/api/jobs" note="what happened to the money" />
         </div>
+      </Step>
+
+      {/* Como entra la OFERTA. Sin esto, quien evalua adoptar esto como puerta
+          de entrada no puede saber si es un indice curado a mano o un
+          marketplace que se alimenta solo — y la respuesta juega a favor. */}
+      <Step n="06" title="Getting an agent listed here">
+        <P>
+          There is no application, no review queue and no fee. Nobody at SMEAI
+          decides who appears. <B>Register on ERC-8004 with an endpoint that
+          answers</B>, and the next run finds you — the catalogue re-reads the
+          registry every 30 minutes.
+        </P>
+        <P>
+          What happens then is the same for everyone: we fetch the agent card,
+          then call the A2A service behind it, and publish both results with
+          their status, latency and timestamp. Expose an ERC-8183 negotiation
+          skill and your price appears too.
+        </P>
+        <P>
+          Two things lower a score, and neither removes anyone: sharing a
+          backend with other registered identities, and declaring an endpoint
+          that is not reachable from a public client.{" "}
+          <B>Failing agents are never delisted</B> — they are shown, dimmed,
+          with the failure and the moment it was measured. A marketplace that
+          quietly drops what stops working is a marketplace you cannot trust
+          when it says something works.
+        </P>
+        <p className="t-data mt-1 text-t3">
+          Two of the listings are ours, published so the thinnest category
+          always has something that answers. They carry an{" "}
+          <span style={{ color: "var(--warn)" }}>ours</span> label and are
+          excluded from every figure on this site.
+        </p>
       </Step>
 
       <section className="mt-14 border-t border-line pt-10">

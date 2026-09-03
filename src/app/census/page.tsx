@@ -136,9 +136,9 @@ function ChainBlock({ c, lead = false }: { c: CensusChain; lead?: boolean }) {
               {s.broken_template} of {s.with_endpoint} sampled registrations
               {brokenPct !== null ? ` (${brokenPct}%)` : ""}
             </span>{" "}
-            carry an endpoint URL with an unsubstituted placeholder — a template
-            that was written to the chain with <code className="t-mono">{"{…}"}</code>{" "}
-            still in it. Fetched as registered, they return an error.
+            declare an endpoint URL with an unsubstituted placeholder still in
+            it — <code className="t-mono">{"{…}"}</code> where an identifier
+            should be. Fetched as declared, they return an error.
             {resolvePct !== null && (
               <>
                 {" "}
@@ -152,9 +152,13 @@ function ChainBlock({ c, lead = false }: { c: CensusChain; lead?: boolean }) {
             )}
           </p>
           <p className="t-body mt-3 max-w-3xl text-t2">
-            That distinction matters. These are not abandoned agents. Their
-            on-chain record is wrong, and anyone probing the registry as written
-            — us included, before we checked — counts them as dead.
+            That distinction matters. These are not abandoned agents. To be
+            precise about where the defect lives: the on-chain{" "}
+            <code className="t-mono">tokenURI</code> resolves fine — it points at
+            a registration document. It is that <span className="text-t1">document</span> whose declared
+            endpoints carry the placeholder. Anyone probing the endpoints as
+            declared — us included, before we checked — counts these agents as
+            dead.
           </p>
 
           {c.examples.length > 0 && (

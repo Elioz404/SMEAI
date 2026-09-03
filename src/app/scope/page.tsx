@@ -39,8 +39,8 @@ export default function ScopePage() {
         <P>
           The same flow was run <B>once</B> on BSC Mainnet with real funds, by
           hand, and recorded with its transaction hashes on{" "}
-          <Link href="/judges" className="lnk">
-            the reviewer page
+          <Link href="/start" className="lnk">
+            the evidence index
           </Link>
           . That was a one-off demonstration, not a mode you can trigger: there
           is no mainnet button, because every visitor pressing one would spend
