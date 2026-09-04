@@ -1,11 +1,11 @@
 {
-  "generated_at": "2026-09-04T13:50:44.961Z",
+  "generated_at": "2026-09-04T17:27:32.845Z",
   "chain_id": 97,
   "treasury": "0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA",
   "commerce": "0xa206c0517B6371C6638CD9e4a42Cc9f02A33B0DE",
   "payment_token": "0xc70B8741B8B07A6d61E54fd4B20f22Fa648E5565",
   "explorer": "https://testnet.bscscan.com",
-  "counter": "973",
+  "counter": "990",
   "totals": {
     "jobs": 10,
     "funded": 8,
