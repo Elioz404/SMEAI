@@ -44,7 +44,7 @@ export default function RoadmapPage() {
     },
     {
       title: "Verification history",
-      body: `Every run is committed to the repository. ${history.checks.length} checks recorded so far, growing every 30 minutes. An agent's page shows whether it has been up all along or only when you happened to look.`,
+      body: `Every run is committed to the repository. ${history.checks.length} checks recorded so far, growing with every run. An agent's page shows whether it has been up all along or only when you happened to look.`,
     },
     {
       title: "Agent Advantage Report",
@@ -99,7 +99,7 @@ export default function RoadmapPage() {
         </p>
         <p className="t-data mt-4 text-t3">
           Figures measured {since(snapshot.finished_at)} · the catalogue
-          re-verifies itself every 30 minutes
+          re-verifies itself several times a day
         </p>
       </header>
 

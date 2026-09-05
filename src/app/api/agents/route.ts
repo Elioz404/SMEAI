@@ -19,7 +19,9 @@ export const runtime = "nodejs";
 const CORS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
-  // El snapshot se regenera cada 30 min; media hora de cache es exacta.
+  // El cron pide cada 30 min pero GitHub lo estrangula en repos publicos: en
+  // la practica el snapshot se rehace unas 7 veces al dia. Media hora de cache
+  // es holgada, no ajustada, y por eso no arriesga servir datos futuros.
   "Cache-Control": "public, max-age=300, s-maxage=1800, stale-while-revalidate=3600",
 };
 

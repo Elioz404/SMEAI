@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import {
   CATEGORY_META,
   CATEGORY_ORDER,
+  measuredItems,
   type AgentListItem,
   type CategoryKey,
 } from "@/lib/taxonomy";
@@ -106,10 +107,13 @@ export function MarketSearch({ agents }: { agents: AgentListItem[] }) {
       <div className="mt-3 grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
         {CATEGORY_ORDER.map((key) => {
           const meta = CATEGORY_META[key];
-          const n = agents.filter(
-            (a) => a.categories.includes(key) && a.service === "hireable",
-          ).length;
-          const total = agents.filter((a) => a.categories.includes(key)).length;
+          // Profundidad de la categoria: es una afirmacion sobre el mercado,
+          // asi que los agentes propios no cuentan aqui.
+          const inCat = measuredItems(agents).filter((a) =>
+            a.categories.includes(key),
+          );
+          const n = inCat.filter((a) => a.service === "hireable").length;
+          const total = inCat.length;
           return (
             <Link
               key={key}

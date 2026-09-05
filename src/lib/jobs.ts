@@ -58,7 +58,7 @@ export type JobWithAgent = Job & {
  *
  * El cruce se hace aqui y no en el script a proposito: `data/jobs.json` guarda
  * solo hechos de la cadena, que no caducan. Que un proveedor siga en el
- * catalogo depende del snapshot, que cambia cada 30 minutos.
+ * catalogo depende del snapshot, que se rehace en cada pasada del cron.
  */
 export function jobsWithAgents(): JobWithAgent[] {
   const byAddress = new Map<string, (typeof snapshot.agents)[number]>();

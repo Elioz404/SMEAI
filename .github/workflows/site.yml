@@ -1,0 +1,75 @@
+# Vigilancia del sitio publicado. Va en su PROPIO workflow, no como paso final
+# de `verify agents`, y esa separacion es el punto entero del fichero.
+#
+# Antes vivia al final de la ingesta. El 5 de septiembre esa ingesta se comio
+# los 20 minutos de timeout contra un 8004scan que devolvia 500, la ejecucion
+# se cancelo, y los pasos restantes se saltaron: la unica alarma capaz de
+# avisar de que Vercel estaba caido fue justo lo que se perdio. Una alarma
+# detras del proceso mas lento y mas fragil del repositorio no es una alarma.
+#
+# Aqui no depende de nada: no lee el registro, no necesita secretos, no
+# instala dependencias y termina en segundos. Puede fallar por una sola razon,
+# que es que el sitio no responda, y por eso su rojo significa algo.
+
+name: site uptime
+
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch: {}
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/site.yml"
+
+concurrency:
+  group: site-uptime
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # Cada ruta se comprueba contra el codigo que DEBE devolver, no contra un
+      # 200 universal. /api/hire responde 405 a un GET porque solo acepta POST:
+      # exigirle 200 daria un rojo permanente, y no comprobarla dejaria sin
+      # vigilancia la ruta que de verdad contrata. Un 405 prueba que existe y
+      # que sigue rechazando el metodo equivocado; un 404 seria el fallo real.
+      #
+      # Las paginas de agente quedan fuera a proposito: su id sale del snapshot
+      # y un agente puede desaparecer del registro sin que nada este roto. Se
+      # vigila /category/rebalancing, cuya clave esta fija en categories.mjs.
+      - name: Check every published route
+        run: |
+          base="https://smeai-dev.vercel.app"
+          fail=0
+          for entry in \
+            "|200" \
+            "/start|200" \
+            "/census|200" \
+            "/report|200" \
+            "/method|200" \
+            "/scope|200" \
+            "/roadmap|200" \
+            "/category/rebalancing|200" \
+            "/api/agents?limit=1|200" \
+            "/api/jobs|200" \
+            "/api/census|200" \
+            "/api/altana|200" \
+            "/api/a2a|200" \
+            "/api/a2a/lp|200" \
+            "/api/a2a/grid|200" \
+            "/api/hire|405" \
+          ; do
+            path="${entry%|*}"
+            want="${entry##*|}"
+            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 "$base$path")
+            if [ "$code" != "$want" ]; then
+              echo "CAIDO: ${path:-/} devolvio $code, se esperaba $want"
+              fail=1
+            else
+              echo "ok: ${path:-/} ($code)"
+            fi
+          done
+          exit $fail

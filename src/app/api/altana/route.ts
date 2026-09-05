@@ -143,8 +143,9 @@ export async function POST(req: Request) {
             { status: 400 },
           );
         }
-        // El fichero puede llevar hasta 30 minutos de retraso, asi que el
-        // estado se relee de la cadena antes de tocar nada.
+        // El fichero lo escribe el cron, que pasa varias veces al dia: puede
+        // llevar horas de retraso. El estado se relee de la cadena antes de
+        // tocar nada, asi que ese retraso no decide nada por si mismo.
         const state = await altana.readJob(BigInt(id));
         if (!state.reclaimable) {
           return NextResponse.json(

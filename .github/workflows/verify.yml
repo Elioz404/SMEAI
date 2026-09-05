@@ -11,11 +11,17 @@ name: verify agents
 
 on:
   schedule:
-    # Cada 30 minutos = 48 ejecuciones al dia. Cada commit del snapshot dispara
-    # un deploy de Vercel, y el plan Hobby corta a 100 deploys diarios: a 15
-    # minutos serian 96 y nos quedariamos sin margen justo durante el judging.
-    # GitHub ademas retrasa los cron en horas punta; da igual, porque cada
-    # tarjeta muestra su propio timestamp de verificacion.
+    # Pedimos cada 30 minutos y GitHub concede muchas menos: medidas sobre las
+    # veinte ultimas pasadas programadas, 7,4 al dia, con huecos de 2 a 5 horas
+    # (mediana 3,3). Es lo normal en repos publicos y no se puede forzar desde
+    # aqui. Se deja en 30 para tomar todas las que den.
+    #
+    # El motivo original de no bajar a 15 minutos era el limite de 100 deploys
+    # diarios del plan Hobby de Vercel. Con la cadencia real ese techo queda
+    # lejos y ha dejado de ser el factor que decide.
+    #
+    # Nada de esto degrada el dato: cada cifra publicada lleva la marca de
+    # tiempo de la pasada que la produjo, asi que se lee cuando se midio.
     - cron: "*/30 * * * *"
   workflow_dispatch: {}
   push:
@@ -34,13 +40,38 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    # La ingesta recorre el registro entero contra 8004scan y su duracion la
+    # marca ese upstream, no nosotros: de 2,6 a 18,5 minutos en las ultimas
+    # veinte pasadas, y una del 5 de septiembre murio contra el techo de 20.
+    # 40 deja margen real para un upstream lento sin dejar un runner colgado.
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
           node-version: "22"
+
+      # Va ANTES de la ingesta, y el orden importa.
+      #
+      # La ingesta lee del registro ERC-8004 los agentes de referencia que
+      # publicamos nosotros, y para eso necesita el SDK. Instalando despues,
+      # ese import fallaria en cada pasada y nuestros propios agentes
+      # desaparecerian del catalogo sin que nada se pusiera rojo.
+      #
+      # Sigue con continue-on-error porque nada de lo critico depende de el:
+      # el catalogo de terceros se construye con fetch y modulos locales, y si
+      # el SDK falta la ingesta lo dice y sigue. Lo que se pierde es listar lo
+      # nuestro y leer el escrow, no la verificacion.
+      #
+      # El repo trae pnpm-lock.yaml y package.json declara pnpm@10.28.0, asi
+      # que corepack usa esa version exacta. Solo dependencias de produccion:
+      # hace falta @altananetwork/sdk y viem, no el tooling de build.
+      - name: Install deps for the on-chain reads
+        continue-on-error: true
+        run: |
+          corepack enable
+          pnpm install --prod --frozen-lockfile
 
       - name: Probe every listed agent
         env:
@@ -54,23 +85,14 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/ingest.mjs
 
-      # El estado del escrow se lee del kernel ERC-8183. Va DESPUES de la
-      # ingesta y con continue-on-error: si el RPC publico falla, la
-      # verificacion del catalogo — que es lo critico — ya esta hecha y
-      # commiteada igual. El script conserva el jobs.json anterior antes que
-      # publicar una version degradada.
+      # El estado del escrow se lee del kernel ERC-8183. Va con
+      # continue-on-error: si el RPC publico falla, la verificacion del
+      # catalogo — que es lo critico — ya esta hecha y se commitea igual. El
+      # script conserva el jobs.json anterior antes que publicar una version
+      # degradada.
       #
       # No necesita ningun secreto: la direccion del comprador es publica y la
       # toma del propio data/jobs.json.
-      # El repo trae pnpm-lock.yaml y package.json declara pnpm@10.28.0, asi
-      # que corepack usa esa version exacta. Solo dependencias de produccion:
-      # el script necesita @altananetwork/sdk y viem, no el tooling de build.
-      - name: Install deps for the on-chain read
-        continue-on-error: true
-        run: |
-          corepack enable
-          pnpm install --prod --frozen-lockfile
-
       - name: Read what happened to the jobs we funded
         continue-on-error: true
         run: node scripts/jobs.mjs
@@ -84,29 +106,6 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/census.mjs
 
-      # Vigilancia del sitio publicado.
-      #
-      # La entrega tiene que estar "functional and publicly accessible during
-      # judging", que son dos semanas. Sin esto, si Vercel deja de servir o una
-      # ruta se rompe, nadie se entera: el cron seguiria commiteando datos
-      # felizmente contra un sitio caido.
-      #
-      # Va al final y SIN continue-on-error a proposito: es lo unico del
-      # workflow que debe pintar la ejecucion en rojo y mandar aviso.
-      - name: Check the published site is alive
-        run: |
-          fail=0
-          for path in "" "/start" "/census" "/report" "/api/agents?limit=1" "/api/jobs" "/api/a2a" "/api/a2a/lp"; do
-            code=$(curl -s -o /dev/null -w '%{http_code}' --max-time 25 "https://smeai-dev.vercel.app$path")
-            if [ "$code" != "200" ]; then
-              echo "CAIDO: $path devolvio $code"
-              fail=1
-            else
-              echo "ok: ${path:-/} ($code)"
-            fi
-          done
-          exit $fail
-
       - name: Commit snapshot if it changed
         run: |
           git config user.name "smeai-bot"
@@ -114,7 +113,17 @@ jobs:
           git add data/snapshot.json data/history.json data/jobs.json data/census.json
           if git diff --staged --quiet; then
             echo "no change in this run"
-          else
-            git commit -m "verify: $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
+            exit 0
           fi
+          git commit -m "verify: $(date -u '+%Y-%m-%d %H:%M UTC')"
+          # El push compite con los commits a mano del repo. Dos pasadas del 2
+          # de septiembre murieron justo aqui por non-fast-forward y perdieron
+          # su snapshot. Rebasar y reintentar cuesta tres lineas; el snapshot
+          # son datos anadidos, no un cambio en conflicto.
+          for i in 1 2 3; do
+            if git push; then exit 0; fi
+            echo "push rechazado (intento $i); rebase sobre origin/main y reintento"
+            git pull --rebase --autostash origin main || break
+          done
+          echo "no se pudo publicar el snapshot tras tres intentos"
+          exit 1

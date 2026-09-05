@@ -371,7 +371,7 @@ export default function JudgesPage() {
       {/* 4 — continuidad, que es lo que decide una adopcion. */}
       <Step n="04" title="Check that it keeps itself honest">
         <P>
-          The catalogue re-verifies itself every 30 minutes and each run is
+          The catalogue re-verifies itself several times a day and each run is
           committed to the repository. <B>{history.checks.length}</B> checks are
           recorded so far, so an agent&rsquo;s page shows whether it has been up
           all along or only when you happened to look. A degraded run refuses to
@@ -407,7 +407,7 @@ export default function JudgesPage() {
           There is no application, no review queue and no fee. Nobody at SMEAI
           decides who appears. <B>Register on ERC-8004 with an endpoint that
           answers</B>, and the next run finds you — the catalogue re-reads the
-          registry every 30 minutes.
+          registry several times a day.
         </P>
         <P>
           What happens then is the same for everyone: we fetch the agent card,

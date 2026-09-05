@@ -13,6 +13,7 @@ import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { CATEGORIES, SPAM } from './categories.mjs';
 import { checkUrl, readCapped, sanitizeText } from '../src/lib/net-guard.mjs';
 import { append as appendHistory } from './history.mjs';
+import { OWN_AGENTS } from './own-agents.mjs';
 
 const API = 'https://api.8004scan.io/api/v1';
 const KEY = process.env.SCAN_API_KEY || '';
@@ -33,9 +34,19 @@ const PROBE_CONCURRENCY = 12;
 // RESPONDE, y eso lo re-sondeamos siempre, sin cache.
 //
 // Medido: 112 de las 158 llamadas por ejecucion eran detalles de agentes que ya
-// conociamos — el 71% del trafico, gastado en releer lo mismo. Con 6 horas de
-// frescura y una pasada cada 30 min, todo el catalogo se refresca en 12 pasadas
-// y cada una solo pide los que tocan.
+// conociamos — el 71% del trafico, gastado en releer lo mismo.
+//
+// El calculo original suponia una pasada cada 30 minutos, con lo que estas 6
+// horas cubrian doce pasadas. La cadencia real son 7,4 pasadas al dia —GitHub
+// estrangula los cron en repos publicos— asi que el TTL caduca entre una
+// pasada y la siguiente y el ahorro es mucho menor del que se diseño.
+//
+// Se deja igual a proposito. Alargarlo recuperaria llamadas que no nos hacen
+// falta —vamos a 7.600 de 100.000 al dia— a cambio de servir nombres y
+// endpoints mas viejos durante las dos semanas de evaluacion, que es
+// justamente cuando conviene que el catalogo diga la verdad. El coste real
+// era el tiempo de ejecucion, y eso se resolvio subiendo el timeout del
+// workflow de 20 a 40 minutos.
 const DETAIL_TTL_MS = 6 * 60 * 60 * 1000;
 // Anonimo son 30 req/min; con API key, 500. El gap se ajusta solo.
 const MIN_GAP_MS = KEY ? 130 : 2100;
@@ -227,6 +238,78 @@ function classify(a) {
     if (m) hits.push({ key, evidence: m[0] });
   }
   return hits;
+}
+
+/**
+ * Nuestros agentes de referencia, leidos del registro ERC-8004 EN CADENA.
+ *
+ * No pasan ni por `collect()` ni por `classify()`, y cada exclusion tiene su
+ * motivo:
+ *
+ *   - por descubrimiento no llegan de forma fiable. 8004scan indexa cuando
+ *     puede, y el 5 de septiembre devolvia DATABASE_ERROR en /agents mientras
+ *     dos de los tres nuestros faltaban del catalogo con sus endpoints
+ *     respondiendo 200. Depender del indice de un tercero para listar lo
+ *     nuestro es la unica parte del pipeline que no hace falta que dependa.
+ *   - por clasificacion tampoco. `classify()` mide a terceros por lo que
+ *     escriben; ensanchar sus terminos para que nos reconozca a nosotros
+ *     moveria las cifras que publicamos sobre los demas. Nuestra categoria se
+ *     declara en own-agents.mjs, y por eso viaja junto a `is_ours`.
+ *
+ * De la cadena se lee todo lo que la cadena sabe: dueño, nombre, descripcion y
+ * endpoint vigentes. El fichero local solo aporta el id y la categoria.
+ *
+ * Lo que NO se salta es la verificacion: el endpoint se sondea despues igual
+ * que el de cualquier otro. Ser nuestro exime del descubrimiento, no de tener
+ * que responder.
+ *
+ * Y si el SDK no esta instalado se devuelve vacio. El catalogo de terceros
+ * nunca ha necesitado node_modules para funcionar y no va a empezar a
+ * necesitarlo por culpa de nuestros propios agentes.
+ */
+async function ownAgents(chain) {
+  const mine = Object.values(OWN_AGENTS).filter(
+    (spec) => spec.chainId === chain.id && spec.tokenId,
+  );
+  if (!mine.length) return [];
+
+  const sdk = await import('@altananetwork/sdk').catch(() => null);
+  if (!sdk) {
+    log('  ! sin @altananetwork/sdk: los agentes propios no se listan en esta pasada');
+    return [];
+  }
+  const network = chain.id === 56 ? sdk.BNB : sdk.BNB_TESTNET;
+
+  const out = [];
+  for (const spec of mine) {
+    try {
+      const { owner, agentUri } = await sdk.getErc8004Agent(network, BigInt(spec.tokenId));
+      const rec = sdk.decodeErc8004AgentUri(agentUri);
+      // El registro publica `services` como lista con nombre; `endpointsOf`
+      // los espera indexados por protocolo. A2A es el unico que publicamos.
+      const a2a = rec.services?.find((x) => /a2a/i.test(x.name ?? ''))?.endpoint;
+      if (!a2a) {
+        log('  ! agente propio ' + spec.tokenId + ' sin endpoint A2A en su registro');
+        continue;
+      }
+      out.push({
+        a: {
+          token_id: String(spec.tokenId),
+          owner_address: owner,
+          name: rec.name,
+          description: rec.description,
+          services: { a2a: { endpoint: a2a } },
+          _own: true,
+        },
+        cats: [{ key: spec.category, evidence: 'agente propio, categoria declarada' }],
+      });
+    } catch (err) {
+      // Un fallo aqui no puede tumbar la ingesta: son tres agentes nuestros
+      // frente a un catalogo de trescientos ajenos.
+      log('  ! agente propio ' + spec.tokenId + ' ilegible: ' + String(err.message).slice(0, 100));
+    }
+  }
+  return out;
 }
 
 // ------------------------------------------------- 3. verificacion en vivo
@@ -707,10 +790,19 @@ async function main() {
     const clean = raw.filter((a) => !isSpam(a));
     log('  ' + clean.length + ' tras filtro anti-spam (' + (raw.length - clean.length) + ' descartados)');
 
+    // Los nuestros se anaden aqui y no en `collect()`: si el descubrimiento
+    // ya trajo alguno, gana la version leida de la cadena, porque 8004scan
+    // puede ir por detras del registro y servir un nombre o un endpoint viejo.
+    const own = await ownAgents(chain);
+    const ownTokens = new Set(own.map((x) => x.a.token_id));
     const relevant = clean
       .map((a) => ({ a, cats: classify(a) }))
-      .filter((x) => x.cats.length > 0);
-    log('  ' + relevant.length + ' clasificados en alguna de las 4 categorias');
+      .filter((x) => x.cats.length > 0 && !ownTokens.has(String(x.a.token_id)))
+      .concat(own);
+    log(
+      '  ' + relevant.length + ' clasificados en alguna de las 4 categorias' +
+        (own.length ? ' (' + own.length + ' propios, leidos de la cadena)' : ''),
+    );
 
     for (const { a, cats } of relevant) {
       const agentId = a.agent_id ?? chain.id + ':' + a.token_id;
@@ -752,6 +844,10 @@ async function main() {
         scan_score: d.total_score ?? 0,
         created_at: d.created_at ?? a.created_at ?? null,
         created_tx_hash: d.created_tx_hash ?? null,
+        // Se marca en el ORIGEN, no solo por SMEAI_OWNER_ADDRESS mas abajo: si
+        // esa variable falta en algun entorno, un agente nuestro entraria en
+        // las estadisticas de terceros y nadie lo notaria.
+        is_ours: Boolean(a._own),
         categories: cats.map((c) => c.key),
         category_evidence: Object.fromEntries(cats.map((c) => [c.key, c.evidence])),
         detail_cached_at: detailAt,
@@ -875,12 +971,16 @@ Comprobando ${unique.length} servicios distintos ` +
   }
   records.sort((a, b) => b.trust_score - a.trust_score);
 
-  // Agentes publicados por nosotros.
+  // Agentes publicados por nosotros, segunda red.
   //
-  // Se identifican por DUEÑO y no por un id escrito a mano: si mañana
-  // publicamos otro, o si el token cambia, la exclusion sigue siendo correcta
-  // sin tocar codigo. La direccion es publica, asi que vive en una variable de
-  // entorno normal y no en un secreto.
+  // Los que inyecta `ownAgents()` ya llegan con `is_ours` puesto en el origen.
+  // Esto cubre el resto: cualquier agente de nuestro dueno que aparezca por
+  // descubrimiento sin estar en own-agents.mjs. Se identifica por DUENO y no
+  // por un id escrito a mano, asi que si manana publicamos otro la exclusion
+  // sigue siendo correcta sin tocar codigo. La direccion es publica, asi que
+  // vive en una variable de entorno normal y no en un secreto.
+  //
+  // Solo pone `true`, nunca `false`: no puede deshacer la marca del origen.
   const OURS = (process.env.SMEAI_OWNER_ADDRESS || '').toLowerCase();
   for (const r of records) {
     if (OURS && (r.owner_address || '').toLowerCase() === OURS) r.is_ours = true;

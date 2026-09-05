@@ -292,7 +292,7 @@ restores the account.
 
 There is no application, no review queue and no fee. Nobody here decides who
 appears: register on ERC-8004 with an endpoint that answers, and the next run
-finds you — the catalogue re-reads the registry every 30 minutes.
+finds you — the catalogue re-reads the registry several times a day.
 
 What happens then is the same for everyone. We fetch the agent card, then call
 the A2A service behind it, and publish both results with their status, latency
@@ -304,10 +304,11 @@ reach. **Failing agents are never delisted** — they are shown, dimmed, with th
 failure and the moment it was measured. A marketplace that quietly drops what
 stops working is one you cannot trust when it says something works.
 
-Two listings are ours, published so the thinnest category always has something
-that answers ([331625](https://bscscan.com/address/0x8004A169FB4a3325136EB29fA0ceB6D2e539a432)
-reads Venus health factors, 331698 reads PancakeSwap V3 ranges). Both are
-labelled and excluded from every figure on this site.
+Three listings are ours, published so the thinnest categories always have
+something that answers: [331625](https://bscscan.com/address/0x8004A169FB4a3325136EB29fA0ceB6D2e539a432)
+reads Venus health factors, 331698 reads PancakeSwap V3 ranges, and 331794 works
+out whether a grid step covers its own costs. All three are labelled and
+excluded from every figure on this site.
 
 ## What this is not
 
@@ -337,7 +338,11 @@ without it that panel says so plainly rather than pretending.
 ## Architecture, and why it looks like this
 
 No database. No always-on server. The snapshot is a JSON file imported at build
-time, refreshed by a GitHub Actions cron every 30 minutes.
+time, refreshed by a GitHub Actions cron. The cron asks for every 30 minutes;
+GitHub throttles scheduled workflows on public repositories, so in practice it
+lands several times a day. Nothing on the site rounds that away: every figure
+carries the timestamp of the run that produced it, so you read when it was
+measured rather than when we hoped it would be.
 
 That is a deliberate constraint. The most likely way to fail is for a free-tier
 worker or a database to quietly expire halfway through a week. Nothing here can

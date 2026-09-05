@@ -34,6 +34,7 @@ import { ERC8183_ADDRESSES } from '@altananetwork/sdk';
 import { createPublicClient, http } from 'viem';
 import { privateKeyToAccount } from 'viem/accounts';
 import { bsc } from 'viem/chains';
+import { OWN_AGENTS } from './own-agents.mjs';
 
 const CHAIN_ID = 56;
 const CONFIRM = process.argv.includes('--confirm');
@@ -43,31 +44,20 @@ const CONFIRM = process.argv.includes('--confirm');
 // apuntar al sitio equivocado no se corrige, se vuelve a registrar.
 const BASE = (process.env.SMEAI_PUBLIC_URL || 'https://smeai-dev.vercel.app').replace(/\/$/, '');
 
-// Los agentes de referencia que publicamos. Uno por categoria delgada, cada uno
-// con su identidad ERC-8004 propia: un agente hace un trabajo, y mezclar dos en
-// una identidad haria imposible clasificarlo o valorarlo por separado.
-const AGENTS = {
-  health: {
-    path: '/api/a2a',
-    name: 'SMEAI Reference Health Factor Monitor',
-    description:
-      "Reads a wallet's Venus position on BSC mainnet and returns its real health factor — weighted collateral over debt, priced by the Venus oracle. Published by SMEAI as a free reference implementation so the health-factor category always has something that answers. Excluded from every statistic SMEAI publishes.",
-  },
-  lp: {
-    path: '/api/a2a/lp',
-    name: 'SMEAI Reference PancakeSwap LP Monitor',
-    description:
-      'Reads a PancakeSwap V3 liquidity position on BSC mainnet and reports whether it is still in range, how far the price can move before it stops earning fees, and what fees sit uncollected. Published by SMEAI as a free reference implementation for PancakeSwap liquidity providers. Excluded from every statistic SMEAI publishes.',
-  },
-  grid: {
-    path: '/api/a2a/grid',
-    name: 'SMEAI Reference Grid Viability Checker',
-    description:
-      'Reads a PancakeSwap V3 pool on BSC mainnet and works out whether a proposed grid step covers its own costs — a full cycle pays the pool fee twice, so any step below that loses money every time it completes. Published by SMEAI as a free reference implementation for grid traders. It does not predict prices. Excluded from every statistic SMEAI publishes.',
-  },
-};
+// Los agentes de referencia que publicamos viven en './own-agents.mjs', que
+// comparten este script y la ingesta. Estaban duplicados: acuñar por una lista
+// y listar por otra garantizaba que algun dia el catalogo y el registro
+// dijeran cosas distintas del mismo agente.
+//
+// Uno por categoria delgada y cada uno con su identidad ERC-8004 propia: un
+// agente hace un trabajo, y mezclar dos en una identidad haria imposible
+// clasificarlo o valorarlo por separado.
+const AGENTS = OWN_AGENTS;
 
-const WHICH = process.argv.find((a) => AGENTS[a]) ?? 'health';
+// `Object.hasOwn` y no `AGENTS[a]`: con el acceso directo, pasar "constructor"
+// como argumento resolveria a una funcion del prototipo y el script creeria
+// tener un agente que no existe.
+const WHICH = process.argv.find((a) => Object.hasOwn(AGENTS, a)) ?? 'health';
 const AGENT = AGENTS[WHICH];
 const ENDPOINT = BASE + AGENT.path;
 

@@ -4,9 +4,10 @@
 // con "use client" que importe algo de aqui como valor arrastra ese JSON al
 // navegador. Si lo necesitas en cliente, cogelo de `@/lib/taxonomy`.
 //
-// El snapshot lo produce `scripts/ingest.mjs` y lo refresca GitHub Actions cada
-// 30 minutos. Se importa como JSON estatico a proposito: sin base de datos y sin
-// servidor encendido, la app no puede caerse durante la ventana de judging.
+// El snapshot lo produce `scripts/ingest.mjs` y lo refresca un cron de GitHub
+// Actions varias veces al dia. Se importa como JSON estatico a proposito: sin
+// base de datos y sin servidor encendido, la app no puede caerse durante la
+// ventana de judging.
 
 import raw from "../../data/snapshot.json";
 import { recentMarks } from "./history";
@@ -17,6 +18,7 @@ import {
   type AgentListItem,
   type CategoryKey,
   bestProbe,
+  measured,
 } from "./taxonomy";
 
 export type {
@@ -34,6 +36,8 @@ export {
   explorerTx,
   formatEta,
   formatPrice,
+  measured,
+  measuredItems,
   safeHref,
   since,
 } from "./taxonomy";
@@ -140,10 +144,16 @@ export function findAgent(chainId: number, tokenId: string): Agent | undefined {
   );
 }
 
-/** Conteos por categoria para la navegacion lateral. */
+/**
+ * Conteos por categoria para la navegacion lateral.
+ *
+ * Sobre `measured`: la nav afirma cuanta oferta hay en cada categoria, asi que
+ * los agentes propios no entran. Si entraran, la barra lateral contradiria a
+ * los totales del propio snapshot.
+ */
 export function navCounts() {
   return CATEGORY_ORDER.map((key) => {
-    const all = snapshot.agents.filter((a) => a.categories.includes(key));
+    const all = measured(snapshot.agents).filter((a) => a.categories.includes(key));
     return {
       key,
       label: CATEGORY_META[key].label,

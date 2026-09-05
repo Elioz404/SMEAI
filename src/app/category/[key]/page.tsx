@@ -7,6 +7,7 @@ import {
   CATEGORY_ORDER,
   type CategoryKey,
   agentsIn,
+  measuredItems,
   since,
   snapshot,
   toListItem,
@@ -26,9 +27,15 @@ export default async function CategoryPage({
   const meta = CATEGORY_META[cat];
   const agents = agentsIn(cat);
   const items = agents.map(toListItem);
-  const hireable = items.filter((a) => a.service === "hireable").length;
-  const withCard = items.filter((a) => a.status === "live").length;
-  const fastest = items
+  // `items` se LISTA entero, con los nuestros etiquetados. Las metricas se
+  // calculan sobre `counted`, que los deja fuera: dicen cuanta oferta hay en
+  // esta categoria, y contarnos seria contar nuestra propia infraestructura
+  // como si fuera del ecosistema. Por lo mismo, el agente mas rapido no puede
+  // ser uno nuestro.
+  const counted = measuredItems(items);
+  const hireable = counted.filter((a) => a.service === "hireable").length;
+  const withCard = counted.filter((a) => a.status === "live").length;
+  const fastest = counted
     .filter((a) => a.latency !== null)
     .sort((a, b) => a.latency! - b.latency!)[0];
 
@@ -52,7 +59,7 @@ export default async function CategoryPage({
         <p className="t-body mt-3 max-w-2xl text-t2">{meta.blurb}.</p>
 
         <dl className="mt-7 flex flex-wrap gap-x-10 gap-y-4">
-          <Metric value={String(agents.length)} label="listed" />
+          <Metric value={String(counted.length)} label="listed" />
           <Metric value={String(withCard)} label="serve a card" tone="var(--warn)" />
           <Metric value={String(hireable)} label="hireable now" tone="var(--live)" />
           <Metric

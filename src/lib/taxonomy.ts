@@ -147,9 +147,9 @@ export type Agent = {
   /**
    * Agente publicado por NOSOTROS.
    *
-   * Existe uno solo, de referencia, para que Health Factor —la categoria mas
-   * delgada del ecosistema— no se quede sin nada que activar si su unico
-   * agente estable de terceros cae durante la evaluacion.
+   * Son tres, de referencia, uno por cada categoria delgada: si el unico
+   * agente estable de terceros de una categoria cae durante la evaluacion, esa
+   * categoria se queda sin nada que activar y no podemos intervenir.
    *
    * Se excluye de TODAS las cifras: totales, por categoria y embudo. Un
    * marketplace que se cuenta a si mismo entre la oferta ha dejado de medir el
@@ -195,6 +195,26 @@ export type AgentListItem = {
   /** Ultimas marcas de disponibilidad, una por comprobacion. */
   history?: string;
 };
+
+/**
+ * Lo que CUENTA.
+ *
+ * `scripts/ingest.mjs` ya excluye nuestros agentes de los totales que escribe
+ * en el snapshot. Esto es lo que mantiene alineada con esos totales cualquier
+ * cifra que la web calcule por su cuenta: sin ello el sitio decia 263 agentes
+ * mientras su propio total publicado decia 262.
+ *
+ * La linea es esta. Un numero que afirma algo sobre el MERCADO los excluye:
+ * totales por categoria, el embudo de oferta, la profundidad de cada
+ * categoria. Una etiqueta que solo describe la LISTA visible no los excluye
+ * —el contador de un filtro dice cuantas filas vas a ver, no cuantos agentes
+ * hay en BSC— porque hacerlo daria un control que promete 262 y enseña 263.
+ */
+export const measured = (list: Agent[]): Agent[] =>
+  list.filter((a) => a.is_ours !== true);
+
+export const measuredItems = (list: AgentListItem[]): AgentListItem[] =>
+  list.filter((a) => a.ours !== true);
 
 /**
  * Sobre de peticion listo para enviar, prerrellenado para la skill elegida.

@@ -1,4 +1,4 @@
-import type { Agent } from "@/lib/taxonomy";
+import { measured, type Agent } from "@/lib/taxonomy";
 
 /**
  * De cuántos agentes registrados sale uno contratable, y dónde se pierden los
@@ -14,21 +14,25 @@ import type { Agent } from "@/lib/taxonomy";
  * real no es igual.
  */
 export function SupplyFunnel({ agents }: { agents: Agent[] }) {
-  const total = agents.length;
+  // El embudo describe de cuantos agentes REGISTRADOS sale uno contratable.
+  // Los nuestros no son oferta del ecosistema, asi que no entran en ninguno de
+  // los escalones ni en el total del que se parte.
+  const list = measured(agents);
+  const total = list.length;
   if (!total) return null;
 
-  const noEndpoint = agents.filter((a) => a.probes.length === 0).length;
-  const privateOnly = agents.filter(
+  const noEndpoint = list.filter((a) => a.probes.length === 0).length;
+  const privateOnly = list.filter(
     (a) => a.probes.length > 0 && a.probes.every((p) => p.blocked),
   ).length;
-  const cardDown = agents.filter(
+  const cardDown = list.filter(
     (a) =>
       !a.live &&
       a.probes.length > 0 &&
       !a.probes.every((p) => p.blocked),
   ).length;
-  const serviceDown = agents.filter((a) => a.live && !a.hireable).length;
-  const hireable = agents.filter((a) => a.hireable).length;
+  const serviceDown = list.filter((a) => a.live && !a.hireable).length;
+  const hireable = list.filter((a) => a.hireable).length;
 
   const rows = [
     {

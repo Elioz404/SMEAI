@@ -4,8 +4,8 @@
 // Por que existe, y por que es SEPARADO del catalogo:
 //
 // El catalogo verifica en profundidad los agentes de las cuatro categorias del
-// brief, cada 30 minutos. Eso deja sin responder una pregunta legitima: y los
-// otros 25.000 que declaran A2A en mainnet, que son?
+// brief, varias veces al dia. Eso deja sin responder una pregunta legitima: y
+// los otros 25.000 que declaran A2A en mainnet, que son?
 //
 // Responderla del todo no se puede. 8004scan no pagina fiablemente mas alla de
 // unos pocos miles de offset — devuelve 500 o se queda colgada — asi que una
