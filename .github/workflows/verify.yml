@@ -165,3 +165,30 @@ jobs:
           echo "El snapshot anterior se conserva intacto y los datos de cadena si se han guardado."
           echo "Causa habitual: 8004scan degradado. Revisa el log del paso 'Probe every listed agent'."
           exit 1
+
+  # Segundo disparador de la comprobacion del sitio, deliberadamente duplicado.
+  #
+  # Es un JOB aparte y sin `needs`: corre en paralelo al de la ingesta y no le
+  # afecta que aquel agote su timeout. Esa independencia es la razon de que este
+  # aqui y no como un paso mas.
+  #
+  # Y esta duplicado porque el 6 de septiembre el workflow site.yml paso cuatro
+  # horas sin ejecutarse mientras este corria dos veces: GitHub entrega los cron
+  # cuando puede. Dos disparadores distintos para una comprobacion que dura doce
+  # segundos es un seguro barato sobre la unica alarma que importa durante la
+  # evaluacion.
+  site:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # La lista de rutas y los codigos esperados viven en el script, no aqui:
+      # esta comprobacion se dispara desde dos workflows y tenerla escrita dos
+      # veces garantizaba que un dia se separaran.
+      - name: Check every published route
+        run: node scripts/site-check.mjs
