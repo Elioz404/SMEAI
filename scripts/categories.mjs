@@ -23,7 +23,18 @@ export const CATEGORIES = {
   grid: {
     label: 'Grid Trading',
     blurb: 'Places and manages automated grid orders',
-    terms: ['grid trading', 'grid bot', 'ladder', 'DCA'],
+    // 'grid' a secas va primero, y es una correccion de un desajuste real:
+    // `must` acepta la palabra suelta pero ninguna consulta la buscaba, asi que
+    // un agente cuya descripcion dice "grid" sin decir "grid trading" era
+    // invisible aunque el clasificador lo hubiera aceptado. Lo destapo el
+    // GridBand Observer (321995), que existe en el registro, clasifica bien y
+    // no aparecia en el catalogo.
+    //
+    // Medido antes de anadirlo: "grid trading" devuelve 15 agentes y no incluye
+    // ese; "grid" devuelve 24, los 24 clasifican, y 7 eran nuevos. Se probaron
+    // tambien APY, restake, LTV y loan por el mismo motivo y no aportaban
+    // ninguno, asi que no estan.
+    terms: ['grid', 'grid trading', 'grid bot', 'ladder', 'DCA'],
     queries: [
       'grid trading bot places buy and sell orders in a bounded range',
       'automated grid strategy PancakeSwap pair levels',
