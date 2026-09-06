@@ -51,7 +51,6 @@ const SPOTRIQ = 'https://spotriq-production.up.railway.app/v1/reference-agents';
 // --- direcciones reales en BSC TESTNET -------------------------------------
 const NPM = '0x427bF5b37357632377eCbEC9de3626C71A5396c1'; // PancakeSwap V3 positions
 const FACTORY = '0x0BFbCF9fa4f9C56B0F40a671Ad40E0805A091865';
-const COMPTROLLER = '0x94d1820b2D1c7c7452A163983Dc888CEC546b77D'; // Venus testnet
 
 const npmAbi = parseAbi([
   'function positions(uint256 tokenId) view returns (uint96 nonce, address operator, address token0, address token1, uint24 fee, int24 tickLower, int24 tickUpper, uint128 liquidity, uint256 f0, uint256 f1, uint128 owed0, uint128 owed1)',

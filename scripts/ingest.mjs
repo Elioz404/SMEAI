@@ -1156,6 +1156,14 @@ ABORTADO: ${snapshot.totals.hireable} contratables frente a ${prev.totals.hireab
   log('  CONTRATABLES (servicio responde): ' + snapshot.totals.hireable);
   log('  con cotizacion firmada: ' + snapshot.totals.quotes);
   log('  identidades clonadas   : ' + snapshot.totals.cloned + ' en ' + snapshot.totals.clusters + ' grupos');
+  // Coste de la pasada. Se contaba desde siempre pero no se imprimia, y es el
+  // dato que hizo falta la noche del 5 de septiembre para entender por que las
+  // pasadas se comian el timeout: sin el, la unica pista era el reloj.
+  log(
+    'coste: ' + apiCalls + ' llamadas a 8004scan · ' + cacheHits +
+      ' detalles servidos de cache' +
+      (upstreamDown ? ' · se dejo de llamar antes de terminar' : ''),
+  );
   for (const [k, v] of Object.entries(perCategory)) {
     log(
       '  ' +

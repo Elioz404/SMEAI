@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState, useSyncExternalStore } from "react";
 
 export type NavItem = {
   key: string;
@@ -15,6 +15,61 @@ export type NavItem = {
 };
 
 const STORAGE_KEY = "smeai:sidebar-collapsed";
+
+/**
+ * La preferencia de barra plegada, como store externo.
+ *
+ * Antes se leia de `localStorage` dentro de un `useEffect` que llamaba a
+ * `setCollapsed`. Funcionaba, pero encadena dos renders por cada montaje: uno
+ * con el valor por defecto y otro con el real. `useSyncExternalStore` existe
+ * exactamente para esto — leer estado que vive fuera de React — y ademas
+ * resuelve solo el problema dificil de aqui, que es la hidratacion: el
+ * servidor no tiene `localStorage`, asi que devuelve el valor de servidor
+ * durante la hidratacion y el real justo despues, sin desajuste.
+ *
+ * El valor se cachea porque `getSnapshot` se llama en cada render y no
+ * conviene tocar `localStorage` sincronamente tantas veces.
+ */
+const listeners = new Set<() => void>();
+let cachedCollapsed: boolean | null = null;
+
+function subscribeCollapsed(onChange: () => void) {
+  listeners.add(onChange);
+  return () => {
+    listeners.delete(onChange);
+  };
+}
+
+function collapsedSnapshot() {
+  if (cachedCollapsed === null) {
+    try {
+      cachedCollapsed = localStorage.getItem(STORAGE_KEY) === "1";
+    } catch {
+      // navegador sin acceso a storage: nos quedamos con el valor por defecto
+      cachedCollapsed = false;
+    }
+  }
+  return cachedCollapsed;
+}
+
+function writeCollapsed(next: boolean) {
+  cachedCollapsed = next;
+  try {
+    localStorage.setItem(STORAGE_KEY, next ? "1" : "0");
+  } catch {
+    // sin persistencia, pero la sesion actual funciona igual
+  }
+  // El evento `storage` del navegador no se dispara en la pestana que
+  // escribe, asi que la notificacion la damos nosotros.
+  for (const notify of listeners) notify();
+}
+
+/* Identidades estables a proposito: `useSyncExternalStore` las recibe en cada
+   render y una funcion nueva cada vez le haria resuscribirse sin motivo. */
+const collapsedOnServer = () => false;
+const noopSubscribe = () => () => {};
+const onClient = () => true;
+const onServer = () => false;
 
 /**
  * Chrome persistente de la aplicacion.
@@ -31,36 +86,32 @@ export function Shell({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const [collapsed, setCollapsed] = useState(false);
+  const collapsed = useSyncExternalStore(
+    subscribeCollapsed,
+    collapsedSnapshot,
+    collapsedOnServer,
+  );
+  // `ready` evita que la barra "salte" de ancho en el primer pintado: es falso
+  // mientras se hidrata y cierto despues, que es justo lo que distingue a los
+  // dos snapshots. No hace falta un efecto para saberlo.
+  const ready = useSyncExternalStore(noopSubscribe, onClient, onServer);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [ready, setReady] = useState(false);
 
-  // La preferencia se lee despues del montaje para no romper la hidratacion.
-  // `ready` evita que la barra "salte" de ancho en el primer pintado.
-  useEffect(() => {
-    try {
-      setCollapsed(localStorage.getItem(STORAGE_KEY) === "1");
-    } catch {
-      // navegador sin acceso a storage: nos quedamos con el valor por defecto
-    }
-    setReady(true);
-  }, []);
-
-  function toggle() {
-    setCollapsed((c) => {
-      const next = !c;
-      try {
-        localStorage.setItem(STORAGE_KEY, next ? "1" : "0");
-      } catch {
-        // sin persistencia, pero la sesion actual funciona igual
-      }
-      return next;
-    });
+  // Cerrar el menu movil al navegar.
+  //
+  // Se ajusta DURANTE el render comparando con el pathname anterior, que es el
+  // patron que React documenta para esto, y no en un efecto. Un efecto pinta
+  // primero el menu abierto sobre la pagina nueva y lo cierra en un segundo
+  // render, que es un parpadeo visible en movil.
+  const [navPath, setNavPath] = useState(pathname);
+  if (navPath !== pathname) {
+    setNavPath(pathname);
+    setMobileOpen(false);
   }
 
-  useEffect(() => {
-    setMobileOpen(false);
-  }, [pathname]);
+  function toggle() {
+    writeCollapsed(!collapsed);
+  }
 
   const width = collapsed ? "var(--sidebar-w-collapsed)" : "var(--sidebar-w)";
 

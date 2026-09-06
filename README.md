@@ -18,13 +18,15 @@ follows. No narration, no mock-ups.
 
 The BSC agent registry doesn't have a discovery problem. It has a trust problem.
 
-Measured 3 September 2026 — the live site always shows current figures:
+Measured 6 September 2026 — the live site always shows current figures, and
+the registry grows by roughly 4,500 identities a day, so treat these as a
+snapshot rather than a constant:
 
 | | |
 |---|---|
-| Agents in the ERC-8004 identity registry on BSC mainnet | **300,318** |
+| Agents in the ERC-8004 identity registry on BSC mainnet | **304,787** |
 | Of those, marked by 8004scan as having a verified endpoint | **5** |
-| Agents on BSC testnet, where most Agent Studio builders register | 2,026 |
+| Agents on BSC testnet, where most Agent Studio builders register | 2,132 |
 | Of those, verified | **0** |
 
 A marketplace that lists everything buries the user in registration spam. One
@@ -40,13 +42,13 @@ agents serving a flawless card whose A2A endpoint returned `404`.
 Checking the card is checking the shop window and calling it a shop. So every
 run does both:
 
-| | Measured 3 Sep 2026 |
+| | Measured 6 Sep 2026 |
 |---|---|
-| Classified into the four categories | 262 |
-| Serve a valid agent card | 79 |
-| **Whose service actually answers — hireable** | **62** |
+| Classified into the four categories | 330 |
+| Serve a valid agent card | 84 |
+| **Whose service actually answers — hireable** | **69** |
 
-17 agents would have been listed as working by a card-only check. The word
+15 agents would have been listed as working by a card-only check. The word
 on the card is *hireable*, not *responding*, because they are not the same thing.
 
 ## What it does
@@ -156,7 +158,7 @@ charges, still a real limit, with room to actually use it.
 Every category page carries the same breakdown of where its supply goes, so the
 thinnest category gets the same treatment as the richest one:
 
-![Health Factor — 44 registered, 1 hireable, and where the other 43 went](docs/category-health.png)
+![Health Factor — 56 registered, 5 hireable, and where the other 51 went](docs/category-health.png)
 
 ## Does hiring an agent actually beat doing it yourself?
 
@@ -247,8 +249,7 @@ and the $U returned to the buyer ([`0xa489fc36…`](https://testnet.bscscan.com/
 receipt `success`, block 128758990). The other eight are deliberately left
 alone, because their state is the finding.
 
-`scripts/jobs.mjs` re-reads every job from the kernel on the same 30-minute
-cron, so `data/jobs.json` and [`/api/jobs`](https://smeai-dev.vercel.app/api/jobs)
+`scripts/jobs.mjs` re-reads every job from the kernel on the same cron, so `data/jobs.json` and [`/api/jobs`](https://smeai-dev.vercel.app/api/jobs)
 stay honest about it. None of these sellers are ours.
 
 ### And once on mainnet, with real funds
@@ -314,7 +315,7 @@ excluded from every figure on this site.
 
 - **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
 - **Not a correctness check.** We verify that an agent answers, not that its answer is right. A fast, confident, wrong agent passes every check here.
-- **Not a full sweep of the registry.** We verify the agents we list, not all 300,318 entries on BSC.
+- **Not a full sweep of the registry.** We verify the agents we list, not the 304,787 entries on BSC — a number that grows every day.
 - **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.
 - **Not audited.**
 
