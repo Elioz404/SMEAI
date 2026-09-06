@@ -64,8 +64,51 @@ let apiCalls = 0;
 // minutos en un runner para acabar fallando igual.
 let dailyQuotaExhausted = false;
 
+// Cortacircuitos para un upstream degradado.
+//
+// El 5 de septiembre 8004scan no fallaba rapido: tardaba 10-16 segundos por
+// llamada y ademas devolvia 500. Con cuatro intentos y sus esperas, cada
+// llamada fallida costaba unos 47 segundos, y como `collect()` hace cerca de
+// cien por pasada, la ingesta agotaba el timeout del workflow —primero el de
+// 20 minutos, luego el de 40— sin llegar a escribir nada. Cinco ejecuciones
+// seguidas canceladas, ningun commit, y los datos del sitio congelados.
+//
+// Insistir contra un servicio caido no lo levanta. Al sexto fallo seguido se
+// deja de llamar y la pasada termina en seguida con lo que tenga; el freno de
+// mano del final decide entonces si eso se publica o se conserva el snapshot
+// anterior, que es exactamente la decision que ya sabia tomar.
+let consecutiveFailures = 0;
+let upstreamDown = false;
+const FAILURE_STREAK = 6;
+
+// Y un presupuesto de reloj, que ataca un modo de fallo DISTINTO.
+//
+// La racha de arriba solo salta si el servicio esta caido del todo. El 5 de
+// septiembre por la noche no lo estaba: respondia a medias y tardaba 10-16
+// segundos por llamada, con lo que cada exito reiniciaba la racha y el
+// cortacircuitos no llegaba a saltar nunca. Pero a esa latencia, cien
+// llamadas son veinte minutos aunque salgan todas bien. El coste dominante
+// ahi no son los fallos, es la lentitud, y contra eso el unico freno posible
+// es el reloj.
+//
+// 15 minutos: las pasadas sanas medidas van de 2,6 a 9,8, asi que deja mas de
+// un 50% de margen sobre la mas lenta de ellas. Por encima de eso la pasada
+// ya no va a terminar en un catalogo publicable —el freno de mano de abajo lo
+// rechazaria por degradado— y seguir esperando solo gasta minutos de runner
+// para llegar al mismo sitio mas tarde.
+const BUDGET_MS = 15 * 60 * 1000;
+const DEADLINE = Date.now() + BUDGET_MS;
+
 async function scan(path, params = {}) {
-  if (dailyQuotaExhausted) return null;
+  if (dailyQuotaExhausted || upstreamDown) return null;
+  if (Date.now() > DEADLINE) {
+    upstreamDown = true;
+    log(
+      `\n  PRESUPUESTO AGOTADO: ${(BUDGET_MS / 60000).toFixed(0)} minutos consultando 8004scan.` +
+        '\n  Se deja de llamar y se sigue con lo que haya.',
+    );
+    return null;
+  }
   apiCalls++;
   const url = new URL(API + path);
   for (const [k, v] of Object.entries(params)) {
@@ -98,10 +141,22 @@ async function scan(path, params = {}) {
         continue;
       }
       if (!res.ok) throw new Error('HTTP ' + res.status);
+      // Una respuesta buena reinicia la racha: lo que importa es que el
+      // servicio este caido AHORA, no cuantas veces fallo a lo largo del dia.
+      consecutiveFailures = 0;
       return await res.json();
     } catch (err) {
       if (attempt === 3) {
         log('  ! ' + path + ' fallo: ' + err.message);
+        consecutiveFailures++;
+        if (consecutiveFailures >= FAILURE_STREAK) {
+          upstreamDown = true;
+          log(
+            `\n  UPSTREAM CAIDO: ${FAILURE_STREAK} llamadas seguidas fallidas contra 8004scan.` +
+              '\n  Se deja de llamar. La pasada sigue con los candidatos que ya tenga y' +
+              '\n  el freno de mano decidira si se publica o se conserva el snapshot anterior.',
+          );
+        }
         return null;
       }
       await sleep(1200 * (attempt + 1));

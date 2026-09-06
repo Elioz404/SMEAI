@@ -73,7 +73,18 @@ jobs:
           corepack enable
           pnpm install --prod --frozen-lockfile
 
+      # `continue-on-error` NO significa que de igual si falla: la ultima etapa
+      # del workflow pone la ejecucion en rojo si esta no salio bien. Significa
+      # que su fallo no puede llevarse por delante a los pasos siguientes.
+      #
+      # El 5 de septiembre esa diferencia costo un dia entero de datos. Con
+      # 8004scan degradado la ingesta agotaba el timeout, se cancelaba, y
+      # arrastraba consigo la lectura del escrow y el commit — que no dependen
+      # de 8004scan para nada. Resultado: ni catalogo ni datos de cadena, y el
+      # repositorio sin un solo commit en veintiuna horas.
       - name: Probe every listed agent
+        id: probe
+        continue-on-error: true
         env:
           # Direccion desde la que publicamos nuestro agente de referencia.
           # Es publica a proposito y no es un secreto: la ingesta la usa para
@@ -85,11 +96,11 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/ingest.mjs
 
-      # El estado del escrow se lee del kernel ERC-8183. Va con
-      # continue-on-error: si el RPC publico falla, la verificacion del
-      # catalogo — que es lo critico — ya esta hecha y se commitea igual. El
-      # script conserva el jobs.json anterior antes que publicar una version
-      # degradada.
+      # El estado del escrow se lee del kernel ERC-8183, contra el RPC de BSC.
+      # No toca 8004scan, asi que sigue funcionando cuando el catalogo no
+      # puede: es lo que mantiene el repositorio vivo durante una caida del
+      # indexador. Con continue-on-error porque el script conserva el jobs.json
+      # anterior antes que publicar una version degradada.
       #
       # No necesita ningun secreto: la direccion del comprador es publica y la
       # toma del propio data/jobs.json.
@@ -106,6 +117,9 @@ jobs:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/census.mjs
 
+      # Se commitea SIEMPRE que algo haya cambiado, aunque la ingesta no haya
+      # podido refrescar el catalogo: jobs.json viene de la cadena y no tiene
+      # por que perderse porque un tercero este caido.
       - name: Commit snapshot if it changed
         run: |
           git config user.name "smeai-bot"
@@ -126,4 +140,17 @@ jobs:
             git pull --rebase --autostash origin main || break
           done
           echo "no se pudo publicar el snapshot tras tres intentos"
+          exit 1
+
+      # El color de la ejecucion lo decide el catalogo, y va al final para que
+      # todo lo demas se haya guardado antes de que esto la tumbe. Sin este
+      # paso, `continue-on-error` en la ingesta dejaria las pasadas en verde y
+      # una caida prolongada del indexador pasaria desapercibida durante la
+      # evaluacion, que es cuando menos podemos permitirnoslo.
+      - name: Fail if the catalogue could not refresh
+        if: steps.probe.outcome == 'failure'
+        run: |
+          echo "La ingesta no pudo refrescar el catalogo."
+          echo "El snapshot anterior se conserva intacto y los datos de cadena si se han guardado."
+          echo "Causa habitual: 8004scan degradado. Revisa el log del paso 'Probe every listed agent'."
           exit 1
