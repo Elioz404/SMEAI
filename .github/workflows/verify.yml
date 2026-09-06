@@ -141,16 +141,43 @@ jobs:
             exit 0
           fi
           git commit -m "verify: $(date -u '+%Y-%m-%d %H:%M UTC')"
-          # El push compite con los commits a mano del repo. Dos pasadas del 2
-          # de septiembre murieron justo aqui por non-fast-forward y perdieron
-          # su snapshot. Rebasar y reintentar cuesta tres lineas; el snapshot
-          # son datos anadidos, no un cambio en conflicto.
+
+          # El push compite con la pasada anterior y con los commits a mano.
+          #
+          # El primer intento de arreglo fue rebasar, y estaba mal. El 6 de
+          # septiembre a las 08:49 una pasada perdio su publicacion asi: la
+          # anterior habia empujado veintitres segundos despues de nuestro
+          # checkout, el push salio rechazado, y `git pull --rebase` intento
+          # fusionar data/jobs.json LINEA A LINEA. Un JSON que se regenera
+          # entero en cada pasada no se fusiona: conflicto, rebase abortado,
+          # commit perdido.
+          #
+          # Estos ficheros son artefactos, no ediciones. No hay nada que
+          # reconciliar: los nuestros son mas recientes y los reemplazan. Asi
+          # que se toma el historial remoto y se vuelve a apoyar nuestro commit
+          # encima, sin merge de contenido.
+          #
+          # El precio, dicho claramente: si la otra pasada anadio una marca al
+          # historial entre nuestro checkout y este punto, esa marca se pierde.
+          # Es una comprobacion de menos frente a no publicar nada, y solo
+          # ocurre en la ventana de segundos en que dos pasadas se solapan.
           for i in 1 2 3; do
             if git push; then exit 0; fi
-            echo "push rechazado (intento $i); rebase sobre origin/main y reintento"
-            git pull --rebase --autostash origin main || break
+            echo "push rechazado (intento $i); rehaciendo el commit sobre origin/main"
+            tmp=$(mktemp -d)
+            cp data/snapshot.json data/history.json data/jobs.json data/census.json "$tmp"/ 2>/dev/null || true
+            git fetch origin main
+            git reset --hard origin/main
+            cp "$tmp"/*.json data/ 2>/dev/null || true
+            rm -rf "$tmp"
+            git add data/snapshot.json data/history.json data/jobs.json data/census.json
+            if git diff --staged --quiet; then
+              echo "lo remoto ya contiene estos datos; nada que publicar"
+              exit 0
+            fi
+            git commit -m "verify: $(date -u '+%Y-%m-%d %H:%M UTC')"
           done
-          echo "no se pudo publicar el snapshot tras tres intentos"
+          echo "no se pudo publicar tras tres intentos"
           exit 1
 
       # El color de la ejecucion lo decide el catalogo, y va al final para que
