@@ -91,12 +91,18 @@ const FAILURE_STREAK = 6;
 // ahi no son los fallos, es la lentitud, y contra eso el unico freno posible
 // es el reloj.
 //
-// 15 minutos: las pasadas sanas medidas van de 2,6 a 9,8, asi que deja mas de
-// un 50% de margen sobre la mas lenta de ellas. Por encima de eso la pasada
-// ya no va a terminar en un catalogo publicable —el freno de mano de abajo lo
-// rechazaria por degradado— y seguir esperando solo gasta minutos de runner
-// para llegar al mismo sitio mas tarde.
-const BUDGET_MS = 15 * 60 * 1000;
+// El numero salio mal a la primera y conviene dejar escrito por que.
+//
+// Primero fueron 15 minutos, medidos sobre pasadas sanas de 2,6 a 9,8. Pero
+// esas se midieron cuando 8004scan iba rapido. Con el upstream lento, la
+// pasada del 5 de septiembre a las 23:34 TUVO EXITO y su sondeo tardo 17,7
+// minutos: el presupuesto de 15 habria tumbado una pasada perfectamente
+// buena, y de hecho tumbo la siguiente.
+//
+// 22 deja un 25% sobre esos 17,7. Es el equilibrio real: por debajo se
+// rechazan pasadas que iban a publicar, y por encima se gastan minutos para
+// acabar igualmente en un catalogo que el freno de mano va a rechazar.
+const BUDGET_MS = 22 * 60 * 1000;
 const DEADLINE = Date.now() + BUDGET_MS;
 
 async function scan(path, params = {}) {

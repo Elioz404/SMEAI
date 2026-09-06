@@ -40,11 +40,16 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    # La ingesta recorre el registro entero contra 8004scan y su duracion la
-    # marca ese upstream, no nosotros: de 2,6 a 18,5 minutos en las ultimas
-    # veinte pasadas, y una del 5 de septiembre murio contra el techo de 20.
-    # 40 deja margen real para un upstream lento sin dejar un runner colgado.
-    timeout-minutes: 40
+    # Este techo tiene que quedar por ENCIMA de la suma de los topes de los
+    # pasos, y esa es toda su logica.
+    #
+    # Sondeo 22 + censo 25 + el resto son unos 48 minutos en el peor caso. La
+    # diferencia importa: cuando un PASO agota su tope, falla y la pasada
+    # continua hasta el commit; cuando lo agota el JOB, se cancela entero y se
+    # pierden los datos de cadena que ya estaban leidos. El 5 de septiembre eso
+    # costo veintiuna horas sin un solo commit, asi que el techo del job se
+    # pone donde no se pueda alcanzar por acumulacion.
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
 
@@ -111,8 +116,14 @@ jobs:
       # El censo se rehace una vez al dia; el propio script lo decide leyendo
       # el `generated_at` del JSON anterior, asi que aqui no hay condicion que
       # mantener sincronizada con el cron.
+      # El censo no tiene tope de reloj propio, solo timeouts por peticion, y
+      # con el upstream lento se fue a 18,1 minutos el 5 de septiembre. El tope
+      # va aqui y no dentro del script porque lo que hay que acotar no es el
+      # muestreo sino el paso: si se pasa, se corta y la pasada sigue. Con
+      # continue-on-error, cortarlo no se lleva por delante el commit.
       - name: Sample the wider registry (about once a day)
         continue-on-error: true
+        timeout-minutes: 25
         env:
           SCAN_API_KEY: ${{ secrets.SCAN_API_KEY }}
         run: node scripts/census.mjs
