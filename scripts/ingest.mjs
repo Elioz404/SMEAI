@@ -12,7 +12,7 @@
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { CATEGORIES, SPAM } from './categories.mjs';
 import { checkUrl, readCapped, sanitizeText } from '../src/lib/net-guard.mjs';
-import { append as appendHistory } from './history.mjs';
+import { append as appendHistory, appendUnmeasured } from './history.mjs';
 import { OWN_AGENTS } from './own-agents.mjs';
 
 const API = 'https://api.8004scan.io/api/v1';
@@ -1105,6 +1105,31 @@ ${ours} agente(s) propio(s) excluido(s) de todas las cifras`);
     .then((t) => JSON.parse(t))
     .catch(() => null);
 
+  /**
+   * Deja constancia de una pasada que no llego a medir.
+   *
+   * Conservar el snapshot anterior es lo correcto, pero hasta ahora ademas se
+   * salia sin escribir NADA, y eso dejaba un hueco mudo en el historial: el 5
+   * de septiembre, veintitres horas y media en las que las fichas de los
+   * agentes simplemente dejaron de crecer. Un hueco asi no se distingue de que
+   * no hubieramos mirado, y esa ambiguedad es la contraria de lo que este
+   * proyecto afirma hacer.
+   *
+   * Se anota '?' en todos los agentes conocidos. La serie sigue alineada y la
+   * ficha muestra una banda visible que dice lo que paso: hubo pasada, no hubo
+   * medida. El snapshot no se toca.
+   */
+  async function anotarSinMedir() {
+    await mkdir('data', { recursive: true });
+    const history = await readFile('data/history.json', 'utf8')
+      .then((t) => JSON.parse(t))
+      .catch(() => ({ checks: [], agents: {} }));
+    appendUnmeasured(history, snapshot.finished_at);
+    await writeFile('data/history.json', JSON.stringify(history));
+    log('historial: pasada anotada como NO MEDIDA · ' + history.checks.length + ' comprobaciones');
+    process.exitCode = 1;
+  }
+
   // El catalogo puede seguir entero mientras la VERIFICACION se desploma: basta
   // con que un host grande nos limite el paso. Paso justo eso — 47 identidades
   // de un backend devolvieron 429 a la vez y los contratables cayeron de 61 a
@@ -1116,7 +1141,7 @@ ABORTADO: ${snapshot.totals.hireable} contratables frente a ${prev.totals.hireab
         `de la pasada anterior. Probablemente nos han limitado el paso, no que el ecosistema se haya caido.`,
     );
     log('El snapshot anterior se conserva intacto.');
-    process.exitCode = 1;
+    await anotarSinMedir();
     return;
   }
 
@@ -1129,7 +1154,7 @@ ABORTADO: ${snapshot.totals.hireable} contratables frente a ${prev.totals.hireab
           `(caida de ${Math.round((1 - now / before) * 100)}%).`,
       );
       log('El snapshot anterior se conserva intacto. Revisa si el upstream esta caido.');
-      process.exitCode = 1;
+      await anotarSinMedir();
       return;
     }
   }

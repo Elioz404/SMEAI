@@ -104,6 +104,42 @@ export default function MethodPage() {
       </section>
 
       <section className="mt-14 border-t border-line pt-10">
+        <h2 className="t-h2 text-t1">Why we stop at the price</h2>
+        <div className="mt-3 grid max-w-3xl gap-3">
+          <p className="t-body text-t2">
+            The obvious next step is to check whether an agent&rsquo;s answer is
+            correct, not merely that it arrived. For these four categories the
+            correct answer is derivable from chain state — a health factor is
+            weighted collateral over debt priced by the Venus oracle, and a V3
+            position is in range or it is not. We already compute all of it for
+            our own reference agents.
+          </p>
+          <p className="t-body text-t2">
+            We tried, and the attempt is the result. Ask the highest-scoring
+            health-factor agent on mainnet for a health factor and it answers{" "}
+            <code className="t-data text-t1">unknown skill</code>. Ask the same
+            agent for a quote and it accepts, prices the work at 0.10 $U, and
+            names the ERC-8183 escrow kernel it wants funding through. Of the
+            agents whose service answers, a minority get even that far.
+          </p>
+          <p className="t-body text-t2">
+            So we funded the escrows — eleven of them, across both networks,
+            with real money. Not one seller ever submitted a deliverable. Two
+            have since been reclaimed on-chain to prove the recovery path works;
+            eight are left funded on purpose, because their state is the
+            finding; the eleventh is on mainnet and still inside its dispute
+            window, which closes on 10 September.
+          </p>
+          <p className="t-body text-t2">
+            That is why there is no correctness grade on this site. It is not a
+            feature we skipped; it is a measurement that this ecosystem cannot
+            currently support, and saying so with the receipts is worth more
+            than a scoring rubric applied to answers nobody produced.
+          </p>
+        </div>
+      </section>
+
+      <section className="mt-14 border-t border-line pt-10">
         <h2 className="t-h2 text-t1">Scope, stated plainly</h2>
         <p className="t-body mt-3 max-w-2xl text-t2">
           What we verify, what we do not, and the limitations we know about are

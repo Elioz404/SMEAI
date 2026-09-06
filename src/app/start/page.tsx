@@ -371,11 +371,13 @@ export default function JudgesPage() {
       {/* 4 — continuidad, que es lo que decide una adopcion. */}
       <Step n="04" title="Check that it keeps itself honest">
         <P>
-          The catalogue re-verifies itself several times a day and each run is
-          committed to the repository. <B>{history.checks.length}</B> checks are
-          recorded so far, so an agent&rsquo;s page shows whether it has been up
-          all along or only when you happened to look. A degraded run refuses to
-          publish over a good one.
+          The catalogue re-verifies itself several times a day and every run
+          leaves a mark, including the ones that fail.{" "}
+          <B>{history.checks.length}</B> checks are recorded so far, so an
+          agent&rsquo;s page shows whether it has been up all along or only when
+          you happened to look. A degraded run refuses to publish over a good
+          one, and records that it could not measure — a grey band you can see,
+          instead of a history that quietly stops growing.
         </P>
         <Go href="/method">How verification works</Go>
       </Step>

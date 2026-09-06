@@ -44,7 +44,7 @@ export default function RoadmapPage() {
     },
     {
       title: "Verification history",
-      body: `Every run is committed to the repository. ${history.checks.length} checks recorded so far, growing with every run. An agent's page shows whether it has been up all along or only when you happened to look.`,
+      body: `Every run leaves a mark, including the ones that fail. ${history.checks.length} checks recorded so far. When the registry cannot be reached the run records that it could not measure, rather than guessing or going quiet, so a grey band in an agent's history is a real outage and not missing data.`,
     },
     {
       title: "Agent Advantage Report",

@@ -57,7 +57,7 @@ export type Skill = { id: string; name: string; description: string };
  * Vive aqui y no en history.ts porque las listas del cliente la pintan, y
  * history.ts importa el JSON del historial, que no debe viajar al navegador.
  */
-export type Mark = "h" | "c" | "d" | "b" | "-";
+export type Mark = "h" | "c" | "d" | "b" | "-" | "?";
 
 export const MARK_META: Record<Mark, { color: string; label: string }> = {
   h: { color: "var(--live)", label: "hireable" },
@@ -65,6 +65,11 @@ export const MARK_META: Record<Mark, { color: string; label: string }> = {
   d: { color: "var(--dead)", label: "not responding" },
   b: { color: "var(--muted)", label: "not publicly reachable" },
   "-": { color: "var(--line)", label: "not listed yet" },
+  // Una pasada que no pudo leer el registro. Se pinta en un gris CLARO, y esa
+  // eleccion es deliberada: si quedara casi negra como "-", el historial
+  // pareceria interrumpirse sin mas y volveriamos a la ambiguedad que esta
+  // marca existe para romper. Tiene que verse la banda.
+  "?": { color: "var(--text-3)", label: "not measured — the registry was unreachable" },
 };
 
 export type Probe = {

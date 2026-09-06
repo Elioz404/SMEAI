@@ -49,7 +49,11 @@ export function uptimeOf(agentId: string, limit = 60): Uptime {
   const slice = marks.slice(from);
   const atSlice = at.slice(from);
 
-  const observed = slice.filter((m) => m !== "-").length;
+  // Fuera de la cuenta van tanto "no estaba en el catalogo" como "no pudimos
+  // medir". Contar una caida de 8004scan como indisponibilidad del agente
+  // convertiria un fallo del proveedor en que TODOS nuestros agentes parezcan
+  // peores, que es precisamente el dato inflado que este producto denuncia.
+  const observed = slice.filter((m) => m !== "-" && m !== "?").length;
   const hireable = slice.filter((m) => m === "h").length;
 
   let lastDrop: string | null = null;

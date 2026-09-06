@@ -314,7 +314,7 @@ excluded from every figure on this site.
 ## What this is not
 
 - **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
-- **Not a correctness check.** We verify that an agent answers, not that its answer is right. A fast, confident, wrong agent passes every check here.
+- **Not a correctness check — and the reason is a finding, not an omission.** Checking that an answer is *right* requires having the answer. The agents that quote do not hand one over: ask the highest-scoring health-factor agent on mainnet for a health factor and it replies `unknown skill`; ask it for a quote and it accepts, prices the work at 0.10 $U and requires an ERC-8183 escrow first. We funded eleven of those escrows across both networks. **Not one seller ever submitted a deliverable.** There is no corpus of answers to grade, so we grade what exists: whether the service responds, and whether it will name a price. A fast, confident, wrong agent would still pass every check here.
 - **Not a full sweep of the registry.** We verify the agents we list, not the 304,787 entries on BSC — a number that grows every day.
 - **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.
 - **Not audited.**

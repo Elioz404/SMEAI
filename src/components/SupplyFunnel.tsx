@@ -1,5 +1,10 @@
 import { measured, type Agent } from "@/lib/taxonomy";
 
+/** Enfasis en linea, para no arrastrar una dependencia por una palabra. */
+function B({ children }: { children: React.ReactNode }) {
+  return <strong className="font-medium text-t1">{children}</strong>;
+}
+
 /**
  * De cuántos agentes registrados sale uno contratable, y dónde se pierden los
  * demás.
@@ -32,7 +37,19 @@ export function SupplyFunnel({ agents }: { agents: Agent[] }) {
       !a.probes.every((p) => p.blocked),
   ).length;
   const serviceDown = list.filter((a) => a.live && !a.hireable).length;
+
+  // El ultimo escalon se parte en dos, y la distincion no es cosmetica.
+  //
+  // "Contratable" significaba que el servicio contesta. Pero contestar y
+  // vender no son lo mismo: de los que contestan, solo una minoria llega a
+  // nombrar un precio cuando se le pide una cotizacion firmada. El resto habla
+  // el protocolo y ahi se queda.
+  //
+  // Las dos filas siguen siendo excluyentes entre si, asi que el embudo sigue
+  // sumando exactamente el total de la categoria.
+  const quoting = list.filter((a) => a.hireable && a.service?.quote?.accepted).length;
   const hireable = list.filter((a) => a.hireable).length;
+  const answeringNoPrice = hireable - quoting;
 
   const rows = [
     {
@@ -60,9 +77,15 @@ export function SupplyFunnel({ agents }: { agents: Agent[] }) {
       tone: "var(--warn)",
     },
     {
-      n: hireable,
-      label: "answer on both, and can be hired",
-      hint: "",
+      n: answeringNoPrice,
+      label: "answer on both, but never name a price",
+      hint: "the service works; asked for a signed quote, it does not produce one",
+      tone: "var(--text-2)",
+    },
+    {
+      n: quoting,
+      label: "answer, and quote a price when asked",
+      hint: "the full commercial path, as far as it can be walked without paying",
       tone: "var(--live)",
     },
   ].filter((r) => r.n > 0);
@@ -106,6 +129,16 @@ export function SupplyFunnel({ agents }: { agents: Agent[] }) {
           </div>
         ))}
       </div>
+
+      {quoting > 0 && (
+        <p className="t-body mt-3 max-w-2xl text-t2">
+          A quote is where the trail goes cold. Across both networks we funded
+          eleven of these jobs through the ERC-8183 escrow and{" "}
+          <B>not one seller ever submitted a deliverable</B>. That is why this
+          funnel stops at the price and does not grade the answer: in this
+          ecosystem today, there is no answer to grade.
+        </p>
+      )}
 
       {hireable <= 2 && (
         <p className="t-body mt-3 max-w-2xl text-t2">

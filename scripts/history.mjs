@@ -13,6 +13,12 @@
 //   d  caido         (declara endpoint publico y no contesta)
 //   b  inalcanzable  (loopback o red privada: nunca fue contratable)
 //   -  ausente       (no estaba en el catalogo en esa pasada)
+//   ?  sin medir     (la pasada no pudo leer el registro y no inventa un dato)
+//
+// La ultima existe porque un hueco y una caida no son lo mismo. Cuando 8004scan
+// se cayo doce horas el 5 de septiembre, el historial simplemente dejo de
+// crecer: indistinguible de que no hubieramos mirado. Anotar '?' convierte ese
+// silencio en un dato — no pudimos medir, y lo decimos.
 //
 // Una cadena de 500 caracteres son 500 bytes por agente. Para 113 agentes y una
 // semana de historial a 48 pasadas diarias, el fichero entero pesa menos que
@@ -30,6 +36,9 @@ const FILE = 'data/history.json';
 const SNAPSHOT = 'data/snapshot.json';
 /** Tope de comprobaciones guardadas. A 48/dia son ~10 dias. */
 export const MAX_CHECKS = 500;
+
+/** Marca de una pasada que no llego a medir. */
+export const UNMEASURED = '?';
 
 /** Marca de un agente en una pasada concreta. */
 export function markOf(agent) {
@@ -68,14 +77,41 @@ export function append(history, snapshot) {
     if (!present.has(id)) history.agents[id] = history.agents[id].padEnd(n, '-');
   }
 
-  // Poda por el principio cuando se pasa del tope.
-  if (history.checks.length > MAX_CHECKS) {
-    const drop = history.checks.length - MAX_CHECKS;
-    history.checks = history.checks.slice(drop);
-    for (const id of Object.keys(history.agents)) {
-      history.agents[id] = history.agents[id].slice(drop);
-    }
+  prune(history);
+  return history;
+}
+
+/** Poda por el principio cuando se pasa del tope. */
+function prune(history) {
+  if (history.checks.length <= MAX_CHECKS) return;
+  const drop = history.checks.length - MAX_CHECKS;
+  history.checks = history.checks.slice(drop);
+  for (const id of Object.keys(history.agents)) {
+    history.agents[id] = history.agents[id].slice(drop);
   }
+}
+
+/**
+ * Anota una pasada que NO pudo medir.
+ *
+ * Se llama cuando un freno rechaza publicar: hubo pasada, pero el resultado no
+ * era digno de creerse. Todos los agentes conocidos reciben '?', asi que la
+ * serie sigue alineada —el caracter N sigue siendo la comprobacion N— y en las
+ * fichas aparece una banda visible en vez de que el historial deje de crecer
+ * sin explicacion.
+ *
+ * No se anotan agentes nuevos: sin snapshot valido no sabemos cuales son, y
+ * inventar la lista seria exactamente lo que esta marca existe para evitar.
+ */
+export function appendUnmeasured(history, at) {
+  if (!at || history.checks.includes(at)) return history;
+
+  history.checks.push(at);
+  const n = history.checks.length;
+  for (const id of Object.keys(history.agents)) {
+    history.agents[id] = history.agents[id].padEnd(n - 1, '-') + UNMEASURED;
+  }
+  prune(history);
   return history;
 }
 
