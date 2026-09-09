@@ -12,6 +12,7 @@
 import { writeFile, mkdir, readFile } from 'node:fs/promises';
 import { CATEGORIES, SPAM } from './categories.mjs';
 import { checkUrl, readCapped, sanitizeText } from '../src/lib/net-guard.mjs';
+import { probeMcp } from '../src/lib/mcp.mjs';
 import { append as appendHistory, appendUnmeasured } from './history.mjs';
 import { OWN_AGENTS } from './own-agents.mjs';
 
@@ -407,6 +408,34 @@ async function probe(ep) {
     };
   }
 
+  // MCP no se pregunta con un GET. Se le habla en JSON-RPC o no se le ha
+  // preguntado nada: el porque y lo medido estan en `src/lib/mcp.mjs`.
+  // Va DESPUES del guardia: un endpoint MCP lo declara un desconocido igual
+  // que cualquier otro, y hablarle antes de validarlo seria saltarse el filtro
+  // por la puerta nueva.
+  if (ep.kind === 'mcp') {
+    const m = await probeMcp(ep.url);
+    return {
+      kind: 'mcp',
+      url: ep.url,
+      ok: m.ok,
+      status: m.status,
+      latency_ms: m.latency_ms,
+      // Un servidor que se identifica y enumera lo que sabe hacer ha dicho de
+      // si mismo todo lo que una agent-card dice, y ademas contestando.
+      valid_card: m.ok,
+      skills: m.tool_count,
+      skill_list: m.tools,
+      // El endpoint MCP ES el servicio: no hay card que declare otra URL.
+      service_url: m.ok ? ep.url : null,
+      mcp_server: m.server_name ?? null,
+      mcp_protocol: m.protocol_version ?? null,
+      sample: m.tools ? sanitizeText(m.tools.map((t) => t.id).join(', '), 220) : null,
+      error: m.error,
+      checked_at: new Date().toISOString(),
+    };
+  }
+
   try {
     const res = await fetch(ep.url, {
       headers: { accept: 'application/json, */*' },
@@ -497,6 +526,7 @@ async function probe(ep) {
     };
   }
 }
+
 
 /**
  * Sondea en paralelo pero como maximo una peticion en vuelo por host.
@@ -749,7 +779,14 @@ function trustScore(rec) {
   const svc = rec.service;
   if (svc?.reachable) {
     s += 20;
-    why.push('its A2A service answers, not just its card');
+    // El protocolo se nombra, no se da por supuesto: decirle "su servicio A2A
+    // responde" a un servidor MCP es describir mal justo lo que acabamos de
+    // medir bien, y quien lea la razon del score no puede comprobarla.
+    why.push(
+      svc.protocol === 'mcp'
+        ? `its MCP server completed a handshake and listed ${svc.tools ?? 'its'} tools`
+        : 'its A2A service answers, not just its card',
+    );
     if (svc.quote?.accepted) {
       s += 8;
       why.push('returned a signed price quote on request');
@@ -947,9 +984,13 @@ async function main() {
 
   // Segunda vuelta: solo tiene sentido llamar al servicio de los agentes cuya
   // card se sirve y declara una URL de servicio.
+  //
+  // Los MCP quedan fuera de esta vuelta: su servicio ya se comprobo en el
+  // handshake. Mandarles el JSON-RPC de A2A seria hablarles en un idioma que no
+  // hablan y apuntar su silencio como averia suya.
   const serviceTargets = records
     .map((rec) => {
-      const card = rec.probes.find((p) => p.valid_card && p.service_url);
+      const card = rec.probes.find((p) => p.kind !== 'mcp' && p.valid_card && p.service_url);
       return card ? { rec, url: card.service_url, skills: card.skill_list } : null;
     })
     .filter(Boolean);
@@ -985,6 +1026,27 @@ Comprobando ${unique.length} servicios distintos ` +
       return null;
     },
   );
+
+  // Un agente cuyo A2A no contesta pero cuyo MCP si, contesta.
+  //
+  // Va DESPUES de la vuelta de A2A y solo rellena lo que quedo sin responder,
+  // asi que ningun agente cambia de estado por haber añadido MCP: solo dejan de
+  // figurar como mudos los que si hablaban, en el unico protocolo que
+  // declaraban. Quedarse con el fallo del A2A seria reportar como caido a quien
+  // atiende, por haber mirado primero el protocolo equivocado.
+  for (const rec of records) {
+    if (rec.service?.reachable) continue;
+    const mcp = rec.probes.find((p) => p.kind === 'mcp' && p.ok);
+    if (!mcp) continue;
+    rec.service = {
+      url: mcp.url,
+      protocol: 'mcp',
+      status: mcp.status,
+      reachable: true,
+      latency_ms: mcp.latency_ms,
+      tools: mcp.skills,
+    };
+  }
 
   // Deteccion de identidades clonadas.
   //

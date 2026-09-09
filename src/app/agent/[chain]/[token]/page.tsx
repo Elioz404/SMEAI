@@ -36,6 +36,10 @@ export default async function AgentPage({
   const item = toListItem(agent);
   const st = displayStatus(item);
   const a2a = agent.probes.find((p) => p.kind === "a2a" && p.valid_card);
+  // Un servidor MCP no tiene consola de contratacion, pero si tiene una lista
+  // de lo que sabe hacer, y sin ella la pagina dice "22 tools" sin decir cuales.
+  const mcp = agent.probes.find((p) => p.kind === "mcp" && p.ok);
+  const mcpTools = (mcp?.skill_list ?? []).filter((t) => t.id || t.name);
   const uptime = uptimeOf(agent.agent_id);
 
   return (
@@ -211,11 +215,20 @@ export default async function AgentPage({
             <div className="mt-12">
               <Section
                 title="Service check"
-                hint="The agent card is the shop window. This is the shop: the A2A endpoint you would actually hire through."
+                hint={
+                  agent.service.protocol === "mcp"
+                    ? "The agent card is the shop window. This is the shop: the MCP server answered a real handshake and listed what it can do."
+                    : "The agent card is the shop window. This is the shop: the A2A endpoint you would actually hire through."
+                }
               >
                 <div className="overflow-hidden rounded-panel border border-line bg-raised">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5">
-                    <span className="t-data uppercase text-t2">a2a service</span>
+                    <span className="t-data uppercase text-t2">
+                      {agent.service.protocol === "mcp" ? "mcp server" : "a2a service"}
+                      {agent.service.protocol === "mcp" && agent.service.tools
+                        ? ` · ${agent.service.tools} tools`
+                        : ""}
+                    </span>
                     <span className="t-data">
                       <span
                         style={{
@@ -309,6 +322,39 @@ export default async function AgentPage({
                 endpoint={a2a.url}
                 skills={(a2a.skill_list ?? []).filter((s) => s.id || s.name)}
               />
+            </div>
+          )}
+
+          {!a2a && mcpTools.length > 0 && (
+            <div className="mt-12">
+              <Section
+                title="What it can do"
+                hint="The tools this server named when we asked it for its list — not a description it wrote about itself. There is no run button: some MCP tools build transactions, and a public control that fires one blind is not something we will ship."
+              >
+                <div className="overflow-hidden rounded-panel border border-line bg-raised">
+                  {mcpTools.map((tool, i) => (
+                    <div
+                      key={tool.id || i}
+                      className="border-b border-line px-4 py-3 last:border-b-0"
+                    >
+                      <code className="t-mono text-[12.5px] text-t1">
+                        {tool.id || tool.name}
+                      </code>
+                      {tool.description && (
+                        <p className="t-body mt-1 text-[12.5px] leading-snug text-t3">
+                          {tool.description}
+                        </p>
+                      )}
+                    </div>
+                  ))}
+                </div>
+                {typeof agent.service?.tools === "number" &&
+                  agent.service.tools > mcpTools.length && (
+                    <p className="t-data mt-2 text-t3">
+                      Showing {mcpTools.length} of {agent.service.tools}.
+                    </p>
+                  )}
+              </Section>
             </div>
           )}
 

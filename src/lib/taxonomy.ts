@@ -103,6 +103,17 @@ export type Service = {
   url: string;
   status: number | null;
   reachable: boolean;
+  /**
+   * En que idioma contesto el servicio. Ausente significa A2A, que era el
+   * unico hasta que empezamos a hablar MCP.
+   *
+   * Se guarda porque la pagina lo dice en voz alta: etiquetar como "a2a
+   * service" a un servidor MCP seria describir mal justo lo que acabamos de
+   * medir bien.
+   */
+  protocol?: "a2a" | "mcp";
+  /** Herramientas que enumero un servidor MCP en `tools/list`. */
+  tools?: number | null;
   speaks_a2a?: boolean;
   requires_auth?: boolean;
   /** El host nos limito el paso (429): no medido, no defectuoso. */

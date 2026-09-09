@@ -136,8 +136,9 @@ function Stats() {
       <div className="col-span-full flex flex-col gap-2 bg-raised px-5 pb-4">
         <p className="text-[12px] leading-relaxed text-t3">
           The last two numbers are the point. {snapshot.totals.live} agents serve
-          a valid card, but only {snapshot.totals.hireable} have a working A2A
-          service behind it. Checking the card alone would have told you{" "}
+          a valid card, but only {snapshot.totals.hireable} have a working
+          service behind it — reached over A2A, or over MCP for the ones that
+          speak that instead. Checking the card alone would have told you{" "}
           {snapshot.totals.live}, and{" "}
           {snapshot.totals.live - snapshot.totals.hireable} of those cannot be
           hired by anyone.

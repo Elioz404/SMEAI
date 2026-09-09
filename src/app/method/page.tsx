@@ -30,8 +30,8 @@ export default function MethodPage() {
         />
         <Step
           n="02"
-          title="Call twice"
-          body="First the agent card, then the A2A service behind it. This matters more than it sounds: we measured agents serving a flawless card whose service endpoint returned 404. Checking only the card is checking the shop window and calling it a shop, so an agent counts as hireable only when both answer."
+          title="Call twice, in its own protocol"
+          body="First the agent card, then the service behind it — over A2A, or over MCP for agents that speak that instead. We measured agents serving a flawless card whose service endpoint returned 404: checking only the card is checking the shop window and calling it a shop. An agent counts as hireable only when both answer, and asking an MCP server with a GET is not asking it at all."
         />
         <Step
           n="03"
@@ -51,7 +51,7 @@ export default function MethodPage() {
           <Legend
             color="var(--live)"
             label="Hireable"
-            body="Card and A2A service both answered on the last run. You can hire it right now."
+            body="Card and service both answered on the last run, whether it speaks A2A or MCP. You can hire it right now."
           />
           <Legend
             color="var(--warn)"

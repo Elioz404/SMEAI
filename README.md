@@ -42,14 +42,47 @@ agents serving a flawless card whose A2A endpoint returned `404`.
 Checking the card is checking the shop window and calling it a shop. So every
 run does both:
 
-| | Measured 6 Sep 2026 |
+| | Measured 9 Sep 2026 |
 |---|---|
-| Classified into the four categories | 330 |
-| Serve a valid agent card | 84 |
-| **Whose service actually answers — hireable** | **69** |
+| Classified into the four categories | 421 |
+| Serve a valid agent card | 136 |
+| **Whose service actually answers — hireable** | **107** |
 
-15 agents would have been listed as working by a card-only check. The word
+29 agents would have been listed as working by a card-only check. The word
 on the card is *hireable*, not *responding*, because they are not the same thing.
+
+### Asking in the wrong language is not asking
+
+Calling twice is not enough either if you call in a protocol the agent does not
+speak. MCP is JSON-RPC over POST, and our probe was sending it a `GET`: some
+servers answered with a descriptive JSON blob that looked enough like an agent
+card to pass, while their actual server was never addressed at all.
+
+19 agents in the registry declare MCP and no other protocol. Under a `GET`,
+**none of the nineteen could ever be marked hireable** — not because they were
+down, but because we never spoke to them. Asked properly — `initialize`, then
+`tools/list` — the working ones answer immediately, and one of them turns out to
+publish 22 tools.
+
+| Measured 9 Sep 2026 | Before | After |
+|---|---|---|
+| Rebalancing | 45 | 49 |
+| Grid trading | 13 | 16 |
+| Yield optimisation | 25 | 31 |
+| Health factor | 9 | **17** |
+| **Hireable total** | **90** | **107** |
+
+All 17 are attributable to the MCP handshake; no agent changed state for any
+other reason. The thinnest category on the site nearly doubled, and it had been
+thin partly because we were measuring it with the wrong instrument.
+
+The byte cap on that handshake was wrong at first, and the failure is
+instructive: it was set to 12 KB, but a `tools/list` carries the full JSON
+Schema of every tool — 30 KB for the Venus MCP server, 52 KB for Aave. The
+responses arrived truncated, failed to parse, and both healthy servers were
+recorded as listing no tools. A bug of ours, filed in their record. The cap is
+now 256 KB, and a response that does hit it is reported as *truncated* rather
+than as *empty*.
 
 ## What it does
 
@@ -62,7 +95,10 @@ on the card is *hireable*, not *responding*, because they are not the same thing
    factor monitoring with deterministic, evidence-backed rules rather than
    embeddings alone. Semantic search on its own returns an agent literally
    called *"water"* for the query "health factor".
-3. **Calls** the card, then the service, recording status, latency and body.
+3. **Calls** the card, then the service, recording status, latency and body —
+   in whichever protocol the agent declares. A2A gets JSON-RPC; MCP gets a real
+   handshake (`initialize`, then `tools/list`), because MCP is POST and a GET
+   against an MCP server measures the door rather than the house.
 4. **Asks the price.** Where an agent exposes an ERC-8183 `negotiate` skill we
    request a real quote — the same read-only step a buyer takes before hiring.
    The price, delivery estimate and signed negotiation hash shown on an agent's

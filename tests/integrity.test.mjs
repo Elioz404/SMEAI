@@ -169,6 +169,37 @@ test('el deliverable publicado sigue reproduciendo el hash de la cadena', () => 
   );
 });
 
+test('un agente MCP contratable lo es por haber contestado, no por declararlo', () => {
+  // La regla del sitio es la misma para los dos protocolos: card valida Y
+  // servicio que responde. Lo que cambia es el idioma en que se pregunta, no la
+  // vara. Si esto se relajara, "contratable" pasaria a significar "lo dice el
+  // registro", que es exactamente el dato inflado que medimos en otros.
+  const mcp = others.filter((a) => a.service?.protocol === 'mcp');
+  assert.ok(mcp.length > 0, 'sin agentes MCP este aserto no protege nada');
+
+  for (const a of mcp) {
+    const probe = a.probes.find((p) => p.kind === 'mcp');
+    assert.ok(probe, `${a.name}: servicio MCP sin sonda MCP detras`);
+    assert.equal(probe.ok, true, `${a.name}: servicio alcanzable con sonda fallida`);
+    assert.ok(
+      Array.isArray(probe.skill_list) && probe.skill_list.length > 0,
+      `${a.name}: alcanzable pero sin una sola herramienta enumerada`,
+    );
+    if (a.hireable) {
+      assert.equal(a.live, true, `${a.name}: contratable sin estar vivo`);
+    }
+  }
+});
+
+test('a un servidor MCP no se le atribuye una conversacion A2A', () => {
+  // El paso de servicio A2A manda un JSON-RPC que un servidor MCP no entiende.
+  // Si un MCP apareciera con `speaks_a2a`, seria que se le hablo en el idioma
+  // equivocado y se apunto el resultado igualmente.
+  for (const a of others.filter((x) => x.service?.protocol === 'mcp')) {
+    assert.notEqual(a.service.speaks_a2a, true, `${a.name}: marcado como hablante de A2A`);
+  }
+});
+
 test('cada cifra publicada lleva la marca de cuando se midio', () => {
   // El sitio dice "hace 4h", no "ahora". Sin estas fechas esa frase se
   // inventaria sola.
