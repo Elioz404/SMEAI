@@ -375,11 +375,18 @@ without it that panel says so plainly rather than pretending.
 ### Checks
 
 ```bash
-pnpm test       # 24 assertions, about a second, no network required
-pnpm typecheck
+pnpm test       # 37 assertions, a few seconds, no network required
+pnpm typecheck  # runs `next typegen` first — see below
 pnpm lint
 pnpm build
 ```
+
+`typecheck` generates route types before running `tsc`, and that is not
+decoration. `PageProps` and `LayoutProps` are written by Next into `.next/types`,
+so on a clean checkout — which is what CI gets — `tsc` sees three names that do
+not exist. It passed locally only because a stale build happened to be lying
+around. Running `next typegen` inside the script means the check does not depend
+on what a machine happens to have left over.
 
 All four run on every push and pull request. The build is in there for a
 specific failure this repository could not otherwise see: when a commit breaks

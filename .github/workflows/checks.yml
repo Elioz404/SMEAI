@@ -63,6 +63,12 @@ jobs:
       - name: Tests
         run: pnpm test
 
+      # `typecheck` genera sus propios tipos antes de comprobar (`next typegen`),
+      # y no es un adorno: `PageProps` y `LayoutProps` los escribe Next en
+      # .next/types, asi que en un checkout limpio —donde no hay .next— `tsc`
+      # solo veia tres nombres inexistentes. En local pasaba porque quedaba un
+      # build viejo por ahi. Corre aqui, ANTES del build, para que el orden de
+      # los pasos no vuelva a ser lo que decide si el tipado compila.
       - name: Typecheck
         run: pnpm typecheck
 
