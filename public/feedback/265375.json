@@ -1,0 +1,33 @@
+{
+  "schema": "smeai/agent-uptime-feedback@1",
+  "issuer": {
+    "name": "SMEAI",
+    "site": "https://smeai-dev.vercel.app",
+    "agent_page": "https://smeai-dev.vercel.app/agent/56/265375"
+  },
+  "subject": {
+    "chain_id": 56,
+    "agent_id": "265375",
+    "name": "BNB LP Range Rebalancer",
+    "endpoint": "https://bnb-lp.172-104-171-139.nip.io/",
+    "protocol": "a2a"
+  },
+  "measurement": {
+    "claim": "reachability",
+    "checks_observed": 53,
+    "checks_reachable": 53,
+    "uptime_ratio": 1,
+    "first_check": "2026-09-02T05:06:45.862Z",
+    "last_check": "2026-09-09T05:33:27.807Z",
+    "method": "Each run fetches the agent card declared on-chain, then calls the service behind it — JSON-RPC for A2A, an initialize/tools-list handshake for MCP — and records the status, latency and body. A run counts as reachable only when both answer."
+  },
+  "known_defects": [
+    "Point-in-time only: an agent that answered on every run so far can be down now.",
+    "Reachability is not correctness. We verify that the service answers and, where it offers one, that it quotes a price. We do not grade the content of its answers.",
+    "Identity, not operator: this backend serves one registered identity.",
+    "Runs are not evenly spaced. GitHub throttles scheduled workflows on public repositories, so the interval between checks varies from minutes to hours.",
+    "Self-reported: SMEAI both measures and publishes this. The full history is on the agent page and the raw snapshot is versioned in git, so the claim can be audited rather than trusted."
+  ],
+  "identities_sharing_backend": 1,
+  "generated_at": "2026-09-09T05:52:20.253Z"
+}

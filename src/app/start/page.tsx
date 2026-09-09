@@ -16,6 +16,7 @@ import {
   lifecyclePaidU,
   lifecycleSteps,
 } from "@/lib/lifecycle";
+import { feedback, identitiesCovered, publishedFeedback } from "@/lib/feedback";
 
 export const metadata = {
   title: "Start here — SMEAI",
@@ -356,6 +357,72 @@ export default function JudgesPage() {
             </code>
             , the hash the kernel holds for job #{lifecycle.job_id}.
           </p>
+        </Step>
+      )}
+
+      {/* Lo unico de esta pagina que no habla de nosotros. Va despues de las
+          pruebas porque solo se sostiene sobre ellas: sin las 53 pasadas
+          registradas, escribir en el registro de otro seria una opinion. */}
+      {publishedFeedback.length > 0 && (
+        <Step n="03c" title="And give the measurement back">
+          <P>
+            The registry is not short of agents. It is short of signal: of the{" "}
+            {(reg.registered ?? 0).toLocaleString("en-US")} identities
+            on BSC, its own indexer marks six as having a verified endpoint. We
+            have been calling these endpoints for a week and keeping every
+            result, and until now that record lived only here.
+          </P>
+          <P>
+            So we wrote it back. <B>{publishedFeedback.length}</B> feedback
+            records are on the ERC-8004 Reputation Registry at{" "}
+            <a
+              href={`${feedback.explorer}/address/${feedback.registry}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lnk"
+            >
+              {feedback.registry.slice(0, 12)}&hellip;
+            </a>
+            , each one an agent that answered on <B>every</B> run we observed it,
+            never fewer than {feedback.min_checks}. Each record points at a
+            document carrying the method that produced it and the five ways that
+            method can be wrong.
+          </P>
+          <P>
+            Two things we deliberately did not do. We published nothing negative:
+            a permanent record saying someone&apos;s agent was down on a Tuesday
+            does not heal when they fix it, and the failures are already on this
+            site with their timestamps, where the next run corrects them. And we
+            wrote <B>one record per backend</B>, not per identity —{" "}
+            {identitiesCovered()} registrations qualified, but they resolve to{" "}
+            {publishedFeedback.length} operators, and filing{" "}
+            {identitiesCovered()} records would have been us doing the exact
+            thing this site exists to measure.
+          </P>
+
+          <div className="mt-2 flex flex-col gap-1">
+            {publishedFeedback.map((r) => (
+              <a
+                key={r.agent_id}
+                href={`${feedback.explorer}/tx/${r.tx}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line py-2 last:border-b-0 hover:text-accent"
+              >
+                <span className="t-data w-52 shrink-0 text-t2">
+                  #{r.agent_id} · {r.observed} runs, no misses
+                </span>
+                <code className="t-mono text-[12px] text-t1">
+                  {r.tx!.slice(0, 18)}&hellip;
+                </code>
+                {r.identities > 1 && (
+                  <span className="t-data text-t3">
+                    covers {r.identities} identities on one backend
+                  </span>
+                )}
+              </a>
+            ))}
+          </div>
         </Step>
       )}
 

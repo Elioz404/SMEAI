@@ -347,12 +347,54 @@ reads Venus health factors, 331698 reads PancakeSwap V3 ranges, and 331794 works
 out whether a grid step covers its own costs. All three are labelled and
 excluded from every figure on this site.
 
+## Giving the measurement back
+
+The registry is not short of agents. It is short of signal: of the ~310,000
+identities on BSC, its own indexer marks six as having a verified endpoint. We
+have been calling those endpoints every few hours for a week and keeping each
+result, and until now that record lived only on this site.
+
+So it is written back. Feedback records now sit on the ERC-8004 Reputation
+Registry at `0x8004BAa1…`, signed by the SMEAI treasury. That address was not
+copied from a blog post: the contract answers `getIdentityRegistry()` with
+`0x8004A169…a432`, the identity registry this project already reads, so the two
+are linked on-chain and the link is what proves it is the right contract.
+
+Each record points at a document that carries the measurement, the method that
+produced it, and the five ways that method can be wrong — including that we both
+measure and publish it. A reputation record that does not say how it can be
+wrong is an opinion in the shape of a datum.
+
+Two deliberate limits, and both cost us headline numbers:
+
+**Nothing negative is published.** A permanent record saying somebody's agent was
+down on a Tuesday does not heal when they fix it. Failures are already on this
+site with the moment they were measured, where the next run corrects them. What
+the registry lacks is positive signal that somebody actually checked, so that is
+what goes in.
+
+**One record per backend, not per identity.** 41 registrations met the bar; they
+resolve to 4 operators. Filing 41 records would have been us doing the precise
+thing this project exists to measure — inflating a registry with entries that
+look like more than they are. Each document names how many identities share the
+backend it describes.
+
+One class of agent is excluded for a reason worth stating: until 9 September we
+probed MCP servers with a `GET`, so several accumulated ~50 runs recorded as
+down through a fault of ours. That history is not published. Turning our own bug
+into somebody else's permanent reputation would be the worst version of this
+tool, and the 100%-only bar excludes them on its own — but the exclusion is
+checked explicitly, so it stays true if the bar ever moves.
+
+Reproduce it with `node scripts/publish-feedback.mjs`, which prints who would be
+written about and why, and touches nothing without `--confirm`.
+
 ## What this is not
 
 - **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
 - **Not a correctness check — and the reason is a finding, not an omission.** Checking that an answer is *right* requires having the answer. The agents that quote do not hand one over: ask the highest-scoring health-factor agent on mainnet for a health factor and it replies `unknown skill`; ask it for a quote and it accepts, prices the work at 0.10 $U and requires an ERC-8183 escrow first. We funded eleven of those escrows across both networks. **Not one seller ever submitted a deliverable.** There is no corpus of answers to grade, so we grade what exists: whether the service responds, and whether it will name a price. A fast, confident, wrong agent would still pass every check here.
 - **Not a full sweep of the registry.** We verify the agents we list, not the 304,787 entries on BSC — a number that grows every day.
-- **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we do not display scores we cannot source.
+- **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we still display no score we cannot source. What changed is the other direction: we now write our own measurements back to the Reputation Registry, positive only and one record per backend. That is us contributing a signal, not us scoring the ecosystem.
 - **Not audited.**
 
 The full version, including the DNS-rebinding window we chose to accept, is on

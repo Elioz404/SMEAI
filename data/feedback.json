@@ -1,0 +1,70 @@
+{
+  "generated_at": "2026-09-09T05:52:20.257Z",
+  "chain_id": 56,
+  "registry": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
+  "issuer": "0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA",
+  "explorer": "https://bscscan.com",
+  "min_checks": 20,
+  "records": [
+    {
+      "agent_id": "153662",
+      "name": "BORT Mint Engine #11025",
+      "endpoint": "https://api.bortagent.xyz/api/a2a",
+      "category": "rebalancing",
+      "identities": 38,
+      "observed": 47,
+      "uptime_ratio": 1,
+      "value": 10000,
+      "value_decimals": 2,
+      "uri": "https://smeai-dev.vercel.app/feedback/153662.json",
+      "hash": "0x8fb98388db0adfd127df34dfb4b2f5170c3a34fb65674b7b584e9c5dbd0ad489",
+      "bytes": 1718,
+      "tx": null
+    },
+    {
+      "agent_id": "265375",
+      "name": "BNB LP Range Rebalancer",
+      "endpoint": "https://bnb-lp.172-104-171-139.nip.io/",
+      "category": "rebalancing",
+      "identities": 1,
+      "observed": 53,
+      "uptime_ratio": 1,
+      "value": 10000,
+      "value_decimals": 2,
+      "uri": "https://smeai-dev.vercel.app/feedback/265375.json",
+      "hash": "0xdd3cd0272c35fe6faa77af78adca8a62b64501d4897c4526854953841de81c48",
+      "bytes": 1652,
+      "tx": null
+    },
+    {
+      "agent_id": "269233",
+      "name": "BNB Grid Trader (test)",
+      "endpoint": "https://bnb-grid.172-104-171-139.nip.io/",
+      "category": "grid",
+      "identities": 1,
+      "observed": 21,
+      "uptime_ratio": 1,
+      "value": 10000,
+      "value_decimals": 2,
+      "uri": "https://smeai-dev.vercel.app/feedback/269233.json",
+      "hash": "0xeb50839ba5ab75a5d7c7d45731efb6634ced9549adb1f88f18cf3cdcd51318ab",
+      "bytes": 1653,
+      "tx": null
+    },
+    {
+      "agent_id": "293902",
+      "name": "mandaterebalance-agent",
+      "endpoint": "https://gvwyso8occ.execute-api.us-east-1.amazonaws.com/a2a",
+      "category": "rebalancing",
+      "identities": 1,
+      "observed": 53,
+      "uptime_ratio": 1,
+      "value": 10000,
+      "value_decimals": 2,
+      "uri": "https://smeai-dev.vercel.app/feedback/293902.json",
+      "hash": "0x815057a13bab5e925aae9eaeafaaec2a9b97b34f994b5011e2db5b2106d99f11",
+      "bytes": 1671,
+      "tx": null
+    }
+  ]
+}
