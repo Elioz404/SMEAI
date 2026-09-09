@@ -336,6 +336,34 @@ pnpm dev
 longer. `ALTANA_ADMIN_KEY` (a funded BSC Testnet key) enables on-chain hiring;
 without it that panel says so plainly rather than pretending.
 
+### Checks
+
+```bash
+pnpm test       # 24 assertions, about a second, no network required
+pnpm typecheck
+pnpm lint
+pnpm build
+```
+
+All four run on every push and pull request. The build is in there for a
+specific failure this repository could not otherwise see: when a commit breaks
+the build, Vercel's deploy fails and **the previous deployment stays up**, so
+every route still answers 200 and the uptime check goes green over a repository
+that no longer publishes. During a two-week judging window nobody is watching
+for that.
+
+The tests are not about clicking through pages — `scripts/site-check.mjs`
+already calls all 16 published routes every half hour. They assert the claim the
+rest of the site rests on: that the agents we publish ourselves are counted
+nowhere. That guarantee has broken once. On 9 September the completed-lifecycle
+job landed in `data/jobs.json`, because the filter matched on the buyer and the
+buyer was our treasury either way, and for a few minutes the site read *"11 jobs
+against agents we do not control, 1 produced a deliverable"* — presenting our own
+delivery as a stranger's. It was caught by hand. The assertion that catches it
+now is checked against that exact file.
+
+Writing them found a live bug too, described below.
+
 ## Architecture, and why it looks like this
 
 No database. No always-on server. The snapshot is a JSON file imported at build
@@ -381,6 +409,25 @@ This costs no catalogue depth. Every blocked endpoint was cleartext HTTP
 pointing at a private address, and no responding agent relied on one. An agent
 whose endpoint is `localhost` was never hireable by anyone, so it is shown as
 *not publicly reachable* rather than mislabelled as down.
+
+That guard had a hole in it, and the first run of the new tests found it.
+IPv4-mapped IPv6 addresses were being waved through: the check looked for the
+dotted form `::ffff:127.0.0.1`, but `new URL()` normalises the host to
+compressed hex, so what actually reached the comparison was `::ffff:7f00:1`. It
+matched nothing, fell through to the public branch, and was allowed.
+
+| Endpoint an attacker could register | Host after `new URL()` | Was |
+|---|---|---|
+| `https://[::ffff:127.0.0.1]/` | `[::ffff:7f00:1]` | allowed |
+| `https://[::ffff:169.254.169.254]/` | `[::ffff:a9fe:a9fe]` | allowed |
+| `https://[::ffff:10.0.0.1]/` | `[::ffff:a00:1]` | allowed |
+
+The second row is the cloud metadata endpoint on AWS, GCP and Azure, reachable
+by anyone willing to register an ERC-8004 agent pointing at it. Both notations
+are now decoded, and a `::ffff:` suffix that cannot be parsed is refused rather
+than assumed public — an address we cannot read is not an address we can call
+safe. The five cases are asserted in
+[`tests/net-guard.test.mjs`](tests/net-guard.test.mjs).
 
 ## Why a verification is not a guarantee
 

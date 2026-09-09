@@ -1,0 +1,72 @@
+# Que el codigo compile y que las cifras publicadas sigan midiendo lo que dicen.
+#
+# POR QUE HACIA FALTA UN WORKFLOW MAS
+#
+# Hasta ahora nada comprobaba que el proyecto CONSTRUYE. `verify agents` ejecuta
+# los scripts de ingesta y `site uptime` mira que el sitio responda, pero ninguno
+# llama a `next build`. Ese hueco tiene una forma concreta y silenciosa:
+#
+#   1. un commit rompe el build;
+#   2. el despliegue de Vercel falla;
+#   3. Vercel DEJA SERVIDO el despliegue anterior, que sigue sano;
+#   4. `site-check.mjs` pide las rutas, recibe 200 en todas y da verde.
+#
+# El resultado es un repositorio roto con el sitio en pie y todas las alarmas en
+# verde. Durante las dos semanas de evaluacion, en las que no intervenimos, eso
+# significa que el trabajo deja de publicarse y nadie se entera.
+#
+# Los tests van en el mismo job a proposito: son 24 y tardan un segundo, asi que
+# separarlos solo añadiria una cola de CI y un sitio mas donde mirar.
+#
+# No toca la cadena, no necesita secretos y no escribe nada. Puede fallar por dos
+# razones —el codigo no compila, o una cifra publicada dejo de cuadrar— y las dos
+# significan que no hay que desplegar.
+
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: {}
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      # Van en este orden por lo que cuesta cada fallo: los tests tardan un
+      # segundo y cazan datos incoherentes, el typecheck tarda poco y caza
+      # firmas rotas, y el build es el mas lento. Fallar pronto ahorra la espera.
+      - name: Tests
+        run: pnpm test
+
+      - name: Typecheck
+        run: pnpm typecheck
+
+      - name: Lint
+        run: pnpm lint
+
+      # El que cierra el agujero: si esto se pone rojo, el despliegue que Vercel
+      # esta sirviendo es viejo aunque conteste 200 a todo.
+      - name: Build
+        run: pnpm build

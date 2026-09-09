@@ -98,6 +98,10 @@ export default function ScopePage() {
         <List
           items={[
             [
+              "An SSRF bypass we shipped, and closed",
+              "Until 9 September the network guard let IPv4-mapped IPv6 addresses through. It compared against the dotted form ::ffff:127.0.0.1, but new URL() rewrites the host to compressed hex, so the value actually checked was ::ffff:7f00:1 — it matched no rule and was treated as public. Loopback, the three private ranges and 169.254.169.254, the cloud metadata endpoint, were all reachable by registering an ERC-8004 agent that pointed at them. The first run of the new test suite found it. Both notations are decoded now, an unparseable ::ffff: suffix is refused rather than assumed public, and the five cases are regression-tested. We have no evidence anyone used it; we are writing it down because a security note that only lists the holes we did not ship is not a security note.",
+            ],
+            [
               "DNS rebinding window",
               "Between our DNS check and the actual request there is a gap, because fetch re-resolves on its own. Closing it fully means connecting by IP and overriding the Host header, which breaks TLS. We send no credentials and no internal headers, so the residual exposure is reading a public response. We judged that acceptable and would rather write it down than hide it.",
             ],
