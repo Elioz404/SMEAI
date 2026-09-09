@@ -20,6 +20,10 @@
     "tx": "0xe4af646d3a5011518ec100302a76c87fb98d7da0cfcdbc02f9a7552eae9ef232",
     "at": "2026-09-09T04:19:54.270Z"
   },
-  "settle": null,
-  "updated_at": "2026-09-09T04:19:54.270Z"
+  "settle": {
+    "tx": "0xabadd1e16f96df24ccce0c8d9087aa988d55cf8a6c2ba8c10d8ebdea956ada04",
+    "status": "COMPLETED",
+    "paid_raw": "100000000000000000"
+  },
+  "updated_at": "2026-09-09T04:37:50.257Z"
 }

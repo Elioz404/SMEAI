@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { snapshot } from "@/lib/snapshot";
+import { lifecycle } from "@/lib/lifecycle";
 
 export const metadata = {
   title: "How verification works — SMEAI",
@@ -124,11 +125,31 @@ export default function MethodPage() {
           </p>
           <p className="t-body text-t2">
             So we funded the escrows — eleven of them, across both networks,
-            with real money. Not one seller ever submitted a deliverable. Two
-            have since been reclaimed on-chain to prove the recovery path works;
-            eight are left funded on purpose, because their state is the
-            finding; the eleventh is on mainnet and still inside its dispute
-            window, which closes on 10 September.
+            with real money. Not one third-party seller ever submitted a
+            deliverable. Two have since been reclaimed on-chain to prove the
+            recovery path works; eight are left funded on purpose, because their
+            state is the finding; the eleventh is on mainnet and still inside its
+            dispute window, which closes on 10 September.
+          </p>
+          <p className="t-body text-t2">
+            Eleven silences raise a question the catalogue cannot answer by
+            looking at itself: is the rail broken, or are the sellers absent?
+            Those need separating, because only one of them is fixable by the
+            people building here. So we became the seller once — job{" "}
+            <Link className="underline" href="/start">
+              #{lifecycle.job_id}
+            </Link>{" "}
+            went funded, delivered, through its dispute window, settled, and the
+            provider was paid, with the deliverable being our reference
+            monitor&apos;s real answer for a real Venus borrower. The rail
+            completes. What this market is short of is sellers who turn up.
+          </p>
+          <p className="t-body text-t2">
+            That job is not on the marketplace and cannot be. Its seller is not
+            registered in ERC-8004, so the catalogue cannot surface it by
+            construction rather than by filtering, and the sentence saying both
+            sides of it are ours is committed inside the hash the chain holds —
+            not a footnote on this page that we could quietly drop later.
           </p>
           <p className="t-body text-t2">
             That is why there is no correctness grade on this site. It is not a

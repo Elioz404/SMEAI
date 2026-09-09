@@ -134,9 +134,16 @@ export function SupplyFunnel({ agents }: { agents: Agent[] }) {
         <p className="t-body mt-3 max-w-2xl text-t2">
           A quote is where the trail goes cold. Across both networks we funded
           eleven of these jobs through the ERC-8183 escrow and{" "}
-          <B>not one seller ever submitted a deliverable</B>. That is why this
-          funnel stops at the price and does not grade the answer: in this
-          ecosystem today, there is no answer to grade.
+          <B>not one third-party seller ever submitted a deliverable</B>. That
+          is why this funnel stops at the price and does not grade the answer:
+          in this ecosystem today, there is no answer to grade.
+          <br />
+          <br />
+          The escrow itself is not what fails. We proved that separately, by
+          putting up a seller of our own and driving one job through the whole
+          rail — funded, delivered, settled, paid. It is not in this funnel and
+          never will be: that seller is not registered in ERC-8004, so it is not
+          supply. What is missing from this market is sellers, not plumbing.
         </p>
       )}
 

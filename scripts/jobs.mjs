@@ -50,6 +50,30 @@ function treasury(prev) {
   return prev?.treasury ?? null;
 }
 
+/**
+ * Vendedores nuestros, que NO cuentan como entregas del mercado.
+ *
+ * Este fichero mide una sola cosa: de lo que pagamos a gente que no
+ * controlamos, cuanto se entrego. El ciclo completo de
+ * `scripts/lifecycle-demo.mjs` tiene a la tesoreria como comprador, asi que el
+ * filtro por cliente lo recoge igual que a los demas — y contarlo convertiria
+ * "un vendedor entrego" en una frase que se sostiene solo porque el vendedor
+ * eramos nosotros. Es exactamente el maquillaje que este proyecto documenta en
+ * otros, cometido en nuestra propia cifra.
+ *
+ * Se lee del registro que dejo el script en vez de fijar la direccion aqui:
+ * una constante duplicada es una que algun dia dira algo distinto que su
+ * fuente.
+ */
+async function ourSellers() {
+  try {
+    const raw = JSON.parse(await readFile('data/lifecycle-demo.json', 'utf8'));
+    return new Set([raw.seller?.toLowerCase()].filter(Boolean));
+  } catch {
+    return new Set();
+  }
+}
+
 async function pool(items, n, fn) {
   const out = [];
   let i = 0;
@@ -107,9 +131,15 @@ async function main() {
   log(`contador ${counter} · ventana ${from}..${counter} · conocidos ${prev?.jobs?.length ?? 0}`);
 
   const mine = me.toLowerCase();
+  const ours = await ourSellers();
+  if (ours.size) log(`excluidos ${ours.size} vendedores propios del recuento`);
+
   const found = await pool([...ids], CONCURRENCY, async (id) => {
     const j = await getErc8183Job(BNB_TESTNET, BigInt(id));
     if (j.client.toLowerCase() !== mine) return null;
+    // Comprado por nosotros Y vendido por nosotros: prueba del riel, no
+    // actividad del mercado. Se mide en data/lifecycle-demo.json, no aqui.
+    if (ours.has(j.provider.toLowerCase())) return null;
     return {
       id: String(j.id),
       provider: j.provider,

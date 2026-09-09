@@ -10,6 +10,12 @@ import {
   spentBnb,
 } from "@/lib/mainnet";
 import { history } from "@/lib/history";
+import {
+  lifecycle,
+  lifecycleCompleted,
+  lifecyclePaidU,
+  lifecycleSteps,
+} from "@/lib/lifecycle";
 
 export const metadata = {
   title: "Start here — SMEAI",
@@ -183,7 +189,7 @@ export default function JudgesPage() {
           not control, {formatU(jobs.totals.paid_raw)} $U in total.{" "}
           {delivered === 0 ? (
             <>
-              <B>Not one seller submitted a deliverable.</B>
+              <B>Not one of those sellers submitted a deliverable.</B>
             </>
           ) : (
             <>
@@ -285,6 +291,73 @@ export default function JudgesPage() {
           · BSC Testnet, every job readable on-chain by its id
         </p>
       </Step>
+
+      {/* El control del experimento. Va justo despues de los silencios porque
+          solo significa algo al lado de ellos: aislado pareceria una demo, y lo
+          que es en realidad es la variable que separa "el riel no funciona" de
+          "los vendedores no aparecen". */}
+      {lifecycleCompleted && (
+        <Step n="03a" title="Then check whether the rail itself works">
+          <P>
+            Eleven silences raise a question this catalogue cannot answer by
+            looking at itself: is the escrow broken, or are the sellers simply
+            absent? Only one of those is fixable by the people building here, so
+            it is worth separating. We separated it the only way available — by
+            being the seller once.
+          </P>
+          <P>
+            Job <B>#{lifecycle.job_id}</B> went funded, delivered, through its{" "}
+            {lifecycle.dispute_window_seconds / 60}-minute dispute window,
+            settled, and the provider was paid {lifecyclePaidU()} $U. The
+            deliverable is our reference monitor&apos;s real answer for a real
+            Venus borrower — the same wallet where a third-party agent returned
+            an empty position, which is the one answer that gets someone
+            liquidated.
+          </P>
+          <P>
+            <B>Both sides of this job are ours</B>, and it is not on the
+            marketplace. The seller is not registered in ERC-8004, so the
+            catalogue cannot surface it by construction rather than by
+            filtering; it is in no statistic on this site; and the sentence
+            saying it is ours is committed inside the hash the chain holds, not
+            just written here. It proves the rail, not the market.
+          </P>
+
+          <div className="mt-2 flex flex-col gap-1">
+            {lifecycleSteps().map((s) => (
+              <a
+                key={s.tx}
+                href={`${lifecycle.explorer}/tx/${s.tx}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex flex-wrap items-baseline gap-x-3 gap-y-1 border-b border-line py-2 last:border-b-0 hover:text-accent"
+              >
+                <span className="t-data w-52 shrink-0 text-t2">{s.label}</span>
+                <code className="t-mono text-[12px] text-t1">
+                  {s.tx.slice(0, 18)}&hellip;
+                </code>
+              </a>
+            ))}
+          </div>
+
+          <p className="t-data mt-3 text-t3">
+            Verify it yourself: fetch{" "}
+            <a
+              href={lifecycle.deliverable_url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="lnk"
+            >
+              the deliverable
+            </a>{" "}
+            and keccak256 the raw bytes. It must equal{" "}
+            <code className="t-mono text-[12px] text-t1">
+              {lifecycle.deliverable.slice(0, 18)}&hellip;
+            </code>
+            , the hash the kernel holds for job #{lifecycle.job_id}.
+          </p>
+        </Step>
+      )}
 
       {/* Mainnet. Va DENTRO del paso del dinero y no como titular aparte: es
           una demostracion registrada, no una operacion en marcha, y separarla
