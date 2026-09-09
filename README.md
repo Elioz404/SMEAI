@@ -347,6 +347,48 @@ reads Venus health factors, 331698 reads PancakeSwap V3 ranges, and 331794 works
 out whether a grid step covers its own costs. All three are labelled and
 excluded from every figure on this site.
 
+## Is the answer right?
+
+Everything above measures whether an agent *responds*. The harder question is
+whether it is *correct*, and for most of this catalogue it still cannot be
+asked: the agents that take payment never delivered anything to grade.
+
+MCP changed that for the part of the catalogue that speaks it. An MCP server
+answers on the spot and for free, so there are finally answers to grade. Each
+check asks an agent something whose correct answer we read ourselves, from the
+contract, at the same moment — never against an opinion, and never against
+another agent.
+
+The first comparison is why there is more than one sample, and it is worth
+writing down. The Venus MCP server reported a borrow limit of `623.59` while the
+Comptroller said `643.13` — a 3% error, and a single-shot check would have
+published exactly that. Three samples later the same agent matched the chain
+**to the cent**. It was not wrong. It was serving cache.
+
+So a verdict is drawn from every observation kept, not from the last run:
+
+| Verdict | Means |
+|---|---|
+| `match` | Agreed with the chain in every observation |
+| `stale` | Matched exactly at least once, so the arithmetic is right; other times it served a cached value, and we report how far behind |
+| `divergent` | Never came within tolerance of the chain |
+
+One exact match is enough to rule out bad arithmetic — hitting the chain to the
+cent does not happen by accident. Publishing that first 3% reading as a failure
+would have been our own measurement error, filed as somebody else's defect.
+
+A cached answer is not a wrong answer and this site will not call it one. It
+still matters: on a liquidation-risk question, a figure a few percent behind the
+chain is the difference between acting and not.
+
+The checks are written by hand, one per line, and every tool named in them is a
+read. These MCP servers expose `borrow`, `repay` and `mintToken` in the same
+list as the getters; discovering tools and calling them to see what happens is
+how you lose somebody else's money. A test asserts that no write operation can
+appear in the table.
+
+Reproduce with `node scripts/outcome-check.mjs`.
+
 ## Giving the measurement back
 
 The registry is not short of agents. It is short of signal: of the ~310,000
@@ -392,7 +434,7 @@ written about and why, and touches nothing without `--confirm`.
 ## What this is not
 
 - **Not a mainnet product.** The hiring console on this site is BSC Testnet end to end, and pressing it costs nothing. The same flow was run once on mainnet with real funds, by hand, and recorded below — there is no mainnet button, because every visitor pressing one would spend our money.
-- **Not a correctness check — and the reason is a finding, not an omission.** Checking that an answer is *right* requires having the answer. The agents that quote do not hand one over: ask the highest-scoring health-factor agent on mainnet for a health factor and it replies `unknown skill`; ask it for a quote and it accepts, prices the work at 0.10 $U and requires an ERC-8183 escrow first. We funded eleven of those escrows across both networks. **Not one seller ever submitted a deliverable.** There is no corpus of answers to grade, so we grade what exists: whether the service responds, and whether it will name a price. A fast, confident, wrong agent would still pass every check here.
+- **Not a correctness check for most of the catalogue — and the reason is a finding, not an omission.** Checking that an answer is *right* requires having the answer. The agents that quote do not hand one over: ask the highest-scoring health-factor agent on mainnet for a health factor and it replies `unknown skill`; ask it for a quote and it accepts, prices the work at 0.10 $U and requires an ERC-8183 escrow first. We funded eleven of those escrows across both networks. **Not one seller ever submitted a deliverable.** Where an agent *does* hand an answer over — which now means the MCP servers — we grade it against the chain; see below. For everyone else, a fast, confident, wrong agent would still pass every check here.
 - **Not a full sweep of the registry.** We verify the agents we list, not the 304,787 entries on BSC — a number that grows every day.
 - **Not a reputation system.** Almost no agent on BSC carries on-chain feedback, so we still display no score we cannot source. What changed is the other direction: we now write our own measurements back to the Reputation Registry, positive only and one record per backend. That is us contributing a signal, not us scoring the ecosystem.
 - **Not audited.**

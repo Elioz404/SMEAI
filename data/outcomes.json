@@ -1,0 +1,89 @@
+{
+  "generated_at": "2026-09-09T06:16:19.376Z",
+  "chain_id": 56,
+  "tolerance": 0.005,
+  "samples": 3,
+  "sample_gap_ms": 15000,
+  "results": [
+    {
+      "id": "venus-account-liquidity",
+      "agent": {
+        "chain_id": 56,
+        "token_id": "43129",
+        "name": "Venus powered by HeyAnon"
+      },
+      "endpoint": "https://erc8004.heyanon.ai/mcp/venus",
+      "tool": "getAccountLiquidity",
+      "question": "Venus CORE borrow limit for 0x0949251a1c62157c9dcC24fA8FF6b373959dea69",
+      "kind": "numeric",
+      "truth_source": "0xfD36E2c2a6789Db23113685031d7F16329158384 getAccountLiquidity()",
+      "last_run": [
+        {
+          "answer": 625.87,
+          "truth": 646.3769931929318,
+          "latency_ms": 1177
+        },
+        {
+          "answer": 646.56,
+          "truth": 646.5644487002797,
+          "latency_ms": 1276
+        },
+        {
+          "answer": 624.26,
+          "truth": 646.5644254828669,
+          "latency_ms": 1201
+        }
+      ],
+      "observations": [
+        {
+          "at": "2026-09-09T06:16:14.249Z",
+          "delta": 0.03172605678867471,
+          "latency_ms": 1177
+        },
+        {
+          "at": "2026-09-09T06:16:14.249Z",
+          "delta": 0.00000688052101957941,
+          "latency_ms": 1276
+        },
+        {
+          "at": "2026-09-09T06:16:14.249Z",
+          "delta": 0.03449683373193559,
+          "latency_ms": 1201
+        }
+      ],
+      "verdict": "stale",
+      "detail": "matched the chain exactly in 1 of 3 observations, so the arithmetic is right; the rest served a cached value up to 3.45% behind",
+      "error": null
+    },
+    {
+      "id": "aave-reserves-list",
+      "agent": {
+        "chain_id": 56,
+        "token_id": "45381",
+        "name": "Aave powered by HeyAnon"
+      },
+      "endpoint": "https://erc8004.heyanon.ai/mcp/aave",
+      "tool": "getReservesList",
+      "question": "Assets listed in the Aave V3 pool on BSC",
+      "kind": "set",
+      "truth_source": "0x6807dc923806fE8Fd134338EABCA509979a7e0cB getReservesList()",
+      "last_run": [
+        {
+          "answer": 8,
+          "truth": 8,
+          "latency_ms": 4897
+        }
+      ],
+      "observations": [
+        {
+          "at": "2026-09-09T06:16:19.376Z",
+          "delta": 0,
+          "latency_ms": 4897
+        }
+      ],
+      "verdict": "match",
+      "detail": "returned exactly the 8 assets the pool lists",
+      "error": null
+    }
+  ]
+}

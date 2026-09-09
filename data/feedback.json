@@ -19,7 +19,9 @@
       "uri": "https://smeai-dev.vercel.app/feedback/153662.json",
       "hash": "0x8fb98388db0adfd127df34dfb4b2f5170c3a34fb65674b7b584e9c5dbd0ad489",
       "bytes": 1718,
-      "tx": null
+      "tx": "0xc1fe8824e54423d194f899762cc21bfcfb720217645fc8d357a0de992aae198a",
+      "block": 120826869,
+      "gas_used": 196728
     },
     {
       "agent_id": "265375",
@@ -34,7 +36,9 @@
       "uri": "https://smeai-dev.vercel.app/feedback/265375.json",
       "hash": "0xdd3cd0272c35fe6faa77af78adca8a62b64501d4897c4526854953841de81c48",
       "bytes": 1652,
-      "tx": null
+      "tx": "0x48cc9580daac986f3d7d2c52df68e275dce740e9709f87e7b3b5b9efa4b907f3",
+      "block": 120826873,
+      "gas_used": 196788
     },
     {
       "agent_id": "269233",
@@ -49,7 +53,9 @@
       "uri": "https://smeai-dev.vercel.app/feedback/269233.json",
       "hash": "0xeb50839ba5ab75a5d7c7d45731efb6634ced9549adb1f88f18cf3cdcd51318ab",
       "bytes": 1653,
-      "tx": null
+      "tx": "0x63a0c4948a725745269359c768eda267ca03d6f57f38f361b98e75672c16aa48",
+      "block": 120826880,
+      "gas_used": 196728
     },
     {
       "agent_id": "293902",
@@ -64,7 +70,10 @@
       "uri": "https://smeai-dev.vercel.app/feedback/293902.json",
       "hash": "0x815057a13bab5e925aae9eaeafaaec2a9b97b34f994b5011e2db5b2106d99f11",
       "bytes": 1671,
-      "tx": null
+      "tx": "0x9c86714667fb31a2134dde7a6673447f44c90d2f36ca667cfe41e5a10c4d8c20",
+      "block": 120826884,
+      "gas_used": 197028
     }
-  ]
+  ],
+  "updated_at": "2026-09-09T06:03:01.638Z"
 }

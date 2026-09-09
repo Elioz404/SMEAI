@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { snapshot } from "@/lib/snapshot";
 import { lifecycle } from "@/lib/lifecycle";
+import { gradedAgents } from "@/lib/outcomes";
 
 export const metadata = {
   title: "How verification works — SMEAI",
@@ -152,10 +153,35 @@ export default function MethodPage() {
             not a footnote on this page that we could quietly drop later.
           </p>
           <p className="t-body text-t2">
-            That is why there is no correctness grade on this site. It is not a
-            feature we skipped; it is a measurement that this ecosystem cannot
-            currently support, and saying so with the receipts is worth more
-            than a scoring rubric applied to answers nobody produced.
+            That paragraph used to end here, with no correctness grade on this
+            site and the reason why: grading an answer requires having one, and
+            nobody handed one over. What changed is not the ecosystem. It is
+            that we started speaking MCP, where an agent answers on the spot and
+            for free — so for the part of the catalogue that speaks it, there
+            are finally answers to grade.
+          </p>
+          <p className="t-body text-t2">
+            We grade them against the chain, never against an opinion:{" "}
+            <strong className="font-medium text-t1">{gradedAgents}</strong> agents so far, each asked something whose
+            correct answer we read ourselves from the contract at the same
+            moment. The first comparison is the reason there is more than one
+            sample. It came back 3% off, which read as an error — and three
+            samples later the same agent matched the chain to the cent. It was
+            not wrong; it was serving cache. Publishing that first reading as a
+            failure would have been our own measurement error, filed as
+            somebody else&apos;s defect.
+          </p>
+          <p className="t-body text-t2">
+            So a verdict is drawn from every observation we have, not the last
+            one. One exact match is enough to rule out bad arithmetic — hitting
+            the chain to the cent does not happen by accident — and what remains
+            to report is how far behind the cached answers run.{" "}
+            <Link className="underline" href="/report">
+              The results are on the report page
+            </Link>
+            . This still covers a small part of the catalogue, and the reason is
+            the finding above: the agents that take payment are the ones that
+            never delivered anything to grade.
           </p>
         </div>
       </section>

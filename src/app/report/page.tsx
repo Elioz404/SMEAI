@@ -1,5 +1,6 @@
 import report from "../../../data/advantage-report.json";
 import { since } from "@/lib/taxonomy";
+import { VERDICT_LABEL, outcomes } from "@/lib/outcomes";
 
 export const metadata = {
   title: "Agent Advantage Report — SMEAI",
@@ -257,6 +258,71 @@ export default function ReportPage() {
             doing after the pitch is over.
           </p>
         </div>
+      </section>
+
+      <section className="mt-14 border-t border-line pt-10">
+        <h2 className="t-h2 text-t1">Is the answer right?</h2>
+        <p className="t-body mt-3 max-w-3xl text-t2">
+          The three tasks above measure whether hiring an agent beats doing the
+          job yourself. They do not answer the harder question: when the agent
+          answers, is it <em>correct</em>? For most of this catalogue that cannot
+          be measured — the agents that take payment never delivered anything to
+          grade. But an MCP server answers on the spot and for free, so for those
+          the question is finally askable.
+        </p>
+        <p className="t-body mt-3 max-w-3xl text-t2">
+          Each check below asks an agent something whose correct answer we read
+          ourselves, from the contract, at the same moment. Sampled{" "}
+          {outcomes.samples} times {outcomes.sample_gap_ms / 1000}s apart, and
+          judged over every observation kept rather than the last one — because
+          the first comparison we ever ran looked like a 3% error and turned out
+          to be a cached value from an agent whose arithmetic was exact.
+        </p>
+
+        <div className="mt-5 flex flex-col gap-4">
+          {outcomes.results.map((r) => (
+            <div
+              key={r.id}
+              className="overflow-hidden rounded-panel border border-line bg-raised"
+            >
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-line px-4 py-2.5">
+                <span className="t-data text-t2">
+                  {r.agent.name} · {r.tool}
+                </span>
+                <span
+                  className="t-data"
+                  style={{
+                    color:
+                      r.verdict === "match"
+                        ? "var(--live)"
+                        : r.verdict === "stale"
+                          ? "var(--warn)"
+                          : "var(--dead)",
+                  }}
+                >
+                  {VERDICT_LABEL[r.verdict]}
+                </span>
+              </div>
+              <div className="px-4 py-3.5">
+                <p className="t-body text-[13px] text-t2">{r.question}</p>
+                <p className="t-body mt-2 text-[13px] text-t3">{r.detail}</p>
+                <p className="t-data mt-2 text-t3">
+                  ground truth read from {r.truth_source} ·{" "}
+                  {r.observations.length} observation
+                  {r.observations.length === 1 ? "" : "s"} kept
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <p className="t-body mt-4 max-w-3xl text-t3">
+          A cached answer is not a wrong answer, and this site will not call it
+          one. It still matters: for a liquidation-risk question, a figure a few
+          percent behind the chain is the difference between acting and not.
+          Reproduce with{" "}
+          <span className="t-mono">node scripts/outcome-check.mjs</span>.
+        </p>
       </section>
 
       <section className="mt-14 border-t border-line pt-10">
