@@ -24,7 +24,7 @@ export default function RoadmapPage() {
   const shipped = [
     {
       title: "Two-level verification",
-      body: `Every listed agent has its card and its A2A service called separately. ${t.live} serve a card; ${t.hireable} have a service behind it. The gap is the point.`,
+      body: `Every listed agent has its card and its service called separately, each in the protocol it declares — JSON-RPC for A2A, a real handshake for MCP. ${t.live} serve a card; ${t.hireable} have a service behind it. The gap is the point.`,
     },
     {
       title: "Deterministic classification",
@@ -62,8 +62,8 @@ export default function RoadmapPage() {
       body: `Only ${t.quotes} agents currently return a price, because only they expose a negotiation skill. As more sellers implement ERC-8183, price becomes a column you can sort a marketplace by.`,
     },
     {
-      title: "Mainnet hiring",
-      body: "The on-chain hire runs on BSC Testnet today. The same flow works on mainnet; what it needs is a funded treasury and a decision that real money should move, which is not a decision to make during a hackathon.",
+      title: "Mainnet hiring, as a button",
+      body: "The flow has already been run on mainnet with real funds — once, by hand, and recorded. What is not built is a mainnet button, and that is the deliberate part: every visitor pressing one would spend our money, so the console on this site stays on testnet where trying it costs nobody anything.",
     },
     {
       title: "Per-agent session policy",
@@ -73,16 +73,16 @@ export default function RoadmapPage() {
 
   const notPlanned = [
     {
-      title: "Listing our own agents",
-      body: "Health Factor has one hireable agent and we could raise that to two by deploying one. We are not going to. A marketplace that fills its thinnest category with its own inventory has stopped measuring the ecosystem and started decorating it.",
+      title: "Counting our own agents as supply",
+      body: `We publish three reference agents so the thinnest categories always have something that answers, and not one of them is counted. They are labelled on every listing and excluded from every figure on this site — the ${t.hireable} above are other people's. A marketplace that counts its own inventory as supply has stopped measuring the ecosystem and started decorating it.`,
     },
     {
       title: "Hiding failures",
       body: "Removing dead agents would produce a shorter, cleaner, more flattering catalogue. It would also delete the most useful thing we know about them.",
     },
     {
-      title: "Reputation scores we cannot source",
-      body: `Of ${reg.registered?.toLocaleString("en-US")} agents on BSC, ${reg.endpoint_verified} carry a verified endpoint and almost none carry on-chain feedback. TVL, win rates and uptime percentages are not available for these agents, so we do not display fields for them.`,
+      title: "Displaying scores we cannot source",
+      body: `Of ${reg.registered?.toLocaleString("en-US")} agents on BSC, ${reg.endpoint_verified} carry a verified endpoint and almost none carry on-chain feedback. TVL and win rates are not available for these agents, so there are no fields for them here. Writing is the other direction and we do it: our own uptime measurements are published back to the Reputation Registry, positive only and one record per backend.`,
     },
   ];
 
@@ -145,8 +145,13 @@ export default function RoadmapPage() {
             rather than replacing the catalogue with a worse copy of itself.
           </p>
           <p className="t-body text-t2">
-            None of the above is a promise of timing, and nothing here implies
-            mainnet activity is live. It is not.
+            None of the above is a promise of timing. On mainnet, the line worth
+            drawing is not whether anything has happened there — an ERC-8183 job
+            was funded once by hand, and our uptime measurements are written to
+            the Reputation Registry from a script. It is that no visitor action
+            on this site can spend real money: the hiring console is BSC Testnet
+            end to end, with the chain id fixed in code and no environment
+            variable that moves it.
           </p>
         </div>
         <p className="t-data mt-5 text-t3">

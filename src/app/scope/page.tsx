@@ -62,7 +62,7 @@ export default function ScopePage() {
         <P>
           For every agent we list: that its declared endpoint resolves to a
           public address, that it serves a parseable agent card, and that the
-          A2A service behind that card answers. We record the status code, the
+          service behind that card answers, in whichever protocol it declares. We record the status code, the
           latency and the response body of each attempt, and keep the history.
         </P>
         <P>

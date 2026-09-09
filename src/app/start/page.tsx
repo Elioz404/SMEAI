@@ -47,11 +47,21 @@ export default function JudgesPage() {
 
   // Mejor candidato para una demostracion: contratable, con precio cotizado y
   // el mayor trust score. Si ninguno cotiza, vale cualquiera contratable.
+  //
+  // La consola de tareas exige una card A2A, asi que el candidato tambien.
+  // Sin ese filtro el paso prometia "el primer clic manda una tarea real" y
+  // podia enlazar a un servidor MCP, que no tiene consola: hoy el elegido es
+  // A2A por casualidad, con dos MCP empatados a 100 justo detras. El catalogo
+  // se rehace varias veces al dia durante dos semanas de evaluacion, y una
+  // promesa que depende de que orden salga hoy no es una promesa.
+  const canBeAsked = (a: (typeof snapshot.agents)[number]) =>
+    a.hireable && a.probes.some((p) => p.kind === "a2a" && p.valid_card);
+
   const quoted = snapshot.agents
-    .filter((a) => a.hireable && a.service?.quote?.price)
+    .filter((a) => canBeAsked(a) && a.service?.quote?.price)
     .sort((a, b) => b.trust_score - a.trust_score);
   const anyHireable = snapshot.agents
-    .filter((a) => a.hireable)
+    .filter(canBeAsked)
     .sort((a, b) => b.trust_score - a.trust_score);
   const pick = quoted[0] ?? anyHireable[0] ?? null;
   const price = pick ? formatPrice(pick.service?.quote?.price ?? null) : null;
@@ -84,7 +94,7 @@ export default function JudgesPage() {
         {pick ? (
           <>
             <P>
-              <B>{pick.name}</B> answered its A2A service on the last check
+              <B>{pick.name}</B> answered its service on the last check
               {price ? (
                 <>
                   {" "}
@@ -553,7 +563,7 @@ export default function JudgesPage() {
         </P>
         <P>
           What happens then is the same for everyone: we fetch the agent card,
-          then call the A2A service behind it, and publish both results with
+          then call the service behind it, and publish both results with
           their status, latency and timestamp. Expose an ERC-8183 negotiation
           skill and your price appears too.
         </P>

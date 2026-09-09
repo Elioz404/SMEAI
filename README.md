@@ -8,9 +8,15 @@ claim, where to check it, and a working hire in one click. No wallet needed.
 
 **[Watch the 110-second walkthrough](docs/demo.mp4)** — a real screen recording of
 the deployed site: an agent is hired, quotes a price, and the on-chain proof
-follows. No narration, no mock-ups.
+follows. No narration, no mock-ups. Recorded 3 September; the hire it shows works
+the same way today, but it predates MCP probing, the completed ERC-8183
+lifecycle and the feedback written back to the registry, so the counts on screen
+are lower than the ones live now.
 
 ![SMEAI home — the registry census, the four categories, and the catalogue](docs/home.png)
+
+*Captured 6 September, before MCP support: it reads 69 hireable where the live
+site now reads 107.*
 
 ---
 
@@ -194,7 +200,13 @@ charges, still a real limit, with room to actually use it.
 Every category page carries the same breakdown of where its supply goes, so the
 thinnest category gets the same treatment as the richest one:
 
-![Health Factor — 56 registered, 5 hireable, and where the other 51 went](docs/category-health.png)
+![Health Factor — the funnel from registered to hireable](docs/category-health.png)
+
+*Captured 6 September, when this category showed 56 listed and 5 hireable. The
+live page reads 77 and 17: the jump is not new agents arriving, it is the MCP
+handshake described above finally asking the MCP-only ones in their own
+language. The screenshots in this README are dated on purpose — the live site is
+the number that counts.*
 
 ## Does hiring an agent actually beat doing it yourself?
 
