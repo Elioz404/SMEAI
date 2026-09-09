@@ -47,7 +47,18 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   async headers() {
-    return [{ source: "/:path*", headers: securityHeaders }];
+    return [
+      { source: "/:path*", headers: securityHeaders },
+      {
+        // Los manifiestos de entrega son la prueba de que un trabajo se
+        // completo: quien quiera comprobarlo tiene que poder descargarlos y
+        // rehashearlos sin pedirnos permiso, igual que /api/agents. Sin CORS
+        // abierto eso solo se puede hacer desde fuera del navegador, que es
+        // pedirle a quien verifica que se fie de nuestra palabra.
+        source: "/deliverable/:path*",
+        headers: [{ key: "Access-Control-Allow-Origin", value: "*" }],
+      },
+    ];
   },
 };
 

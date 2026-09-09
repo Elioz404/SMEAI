@@ -1,0 +1,25 @@
+{
+  "generated_at": "2026-09-09T04:19:54.270Z",
+  "chain_id": 97,
+  "explorer": "https://testnet.bscscan.com",
+  "buyer": "0x4Cda2a93054F2Ab639b4A95C261874a77A0Af6FA",
+  "seller": "0xC3312fD8171dC65788D9f77c86804Be6c0037997",
+  "commerce": "0xa206c0517B6371C6638CD9e4a42Cc9f02A33B0DE",
+  "job_id": "1164",
+  "price_raw": "100000000000000000",
+  "task": "Report the Venus health factor for 0x0949251a1c62157c9dcC24fA8FF6b373959dea69 on BSC mainnet: weighted collateral, debt, health factor, and how far collateral can fall before liquidation.",
+  "subject_wallet": "0x0949251a1c62157c9dcC24fA8FF6b373959dea69",
+  "deliverable": "0x0ddb4f008dcc306905131824003fa886a67fa0c2adf3d7849d592a6f92036e69",
+  "deliverable_url": "https://smeai-dev.vercel.app/deliverable/1164.json",
+  "dispute_window_seconds": 900,
+  "expired_at": 1788933883,
+  "hire": {
+    "tx": "0x6e882978d3d36dcf0a07f9a97b533823afb6744db04b67a7a0fdd74f80ba2af2"
+  },
+  "submit": {
+    "tx": "0xe4af646d3a5011518ec100302a76c87fb98d7da0cfcdbc02f9a7552eae9ef232",
+    "at": "2026-09-09T04:19:54.270Z"
+  },
+  "settle": null,
+  "updated_at": "2026-09-09T04:19:54.270Z"
+}
