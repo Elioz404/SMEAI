@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-09-12T08:09:14.934Z",
+  "generated_at": "2026-09-13T05:46:27.546Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 313968,
-        "declares_a2a": 30027,
-        "declares_mcp": 5788
+        "registered": 314417,
+        "declares_a2a": 30078,
+        "declares_mcp": 5855
       },
       "sample": {
         "size": 120,
         "strata": [
           0,
-          600,
-          1801,
-          3603,
-          6005,
-          9608
+          601,
+          1804,
+          3609,
+          6015,
+          9624
         ],
         "strata_planned": 10,
         "strata_failed": [
-          13211,
-          18016,
-          22820,
-          28525
+          13234,
+          18046,
+          22859,
+          28574
         ],
-        "deepest_offset": 9608,
+        "deepest_offset": 9624,
         "covers_fraction": 0.321,
         "per_stratum": 20,
         "with_endpoint": 120,
@@ -49,19 +49,19 @@
       },
       "examples": [
         {
-          "token_id": "345434",
+          "token_id": "345872",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "345430",
+          "token_id": "345868",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "345428",
+          "token_id": "345867",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
