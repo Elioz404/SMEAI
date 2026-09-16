@@ -1,71 +1,71 @@
 {
-  "generated_at": "2026-09-15T06:31:14.866Z",
+  "generated_at": "2026-09-16T07:19:20.245Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 318905,
-        "declares_a2a": 33264,
-        "declares_mcp": 5962
+        "registered": 320065,
+        "declares_a2a": 33325,
+        "declares_mcp": 6057
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          665,
-          1995,
-          3991,
-          6652
+          666,
+          1999,
+          3999,
+          6665
         ],
         "strata_planned": 10,
         "strata_failed": [
-          10644,
-          14636,
-          19958,
-          25280,
-          31600
+          10664,
+          14663,
+          19995,
+          25327,
+          31658
         ],
-        "deepest_offset": 6652,
+        "deepest_offset": 6665,
         "covers_fraction": 0.201,
         "per_stratum": 20,
         "with_endpoint": 100,
-        "broken_template": 97,
-        "template_resolves": 97,
-        "distinct_hosts": 2,
+        "broken_template": 100,
+        "template_resolves": 100,
+        "distinct_hosts": 1,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
-            "count": 97
-          },
-          {
-            "host": "api.bortagent.xyz",
-            "count": 3
+            "count": 100
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 97
+            "count": 99
+          },
+          {
+            "status": "ONLINE/online/endpoint:no/skills:0",
+            "count": 1
           }
         ]
       },
       "examples": [
         {
-          "token_id": "350387",
+          "token_id": "351592",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "350373",
+          "token_id": "351591",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "350370",
+          "token_id": "351582",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -76,8 +76,8 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2400,
-        "declares_a2a": 856,
+        "registered": 2404,
+        "declares_a2a": 857,
         "declares_mcp": 83
       },
       "sample": {
@@ -88,15 +88,15 @@
           51,
           102,
           171,
-          273,
-          376,
-          513,
-          650,
-          813
+          274,
+          377,
+          514,
+          651,
+          814
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 813,
+        "deepest_offset": 814,
         "covers_fraction": 0.973,
         "per_stratum": 20,
         "with_endpoint": 200,
@@ -114,7 +114,7 @@
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 16
+            "count": 18
           },
           {
             "host": "bedrock-agentcore.us-east-1.amazonaws.com",
@@ -133,15 +133,15 @@
             "count": 6
           },
           {
-            "host": "marque.trade",
-            "count": 4
-          },
-          {
             "host": "agent3-market-production.up.railway.app",
             "count": 4
           },
           {
             "host": "hevo-agents.fly.dev",
+            "count": 3
+          },
+          {
+            "host": "api.themisverdict.xyz",
             "count": 3
           }
         ],
