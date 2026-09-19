@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-09-18T06:23:01.412Z",
+  "generated_at": "2026-09-19T03:27:21.791Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 321793,
-        "declares_a2a": 33499,
-        "declares_mcp": 6149
+        "registered": 322385,
+        "declares_a2a": 33537,
+        "declares_mcp": 6176
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          669,
-          2009,
-          4019,
-          6699
+          670,
+          2012,
+          4024,
+          6707
         ],
         "strata_planned": 10,
         "strata_failed": [
-          10719,
-          14739,
-          20099,
-          25459,
-          31824
+          10731,
+          14756,
+          20122,
+          25488,
+          31860
         ],
-        "deepest_offset": 6699,
+        "deepest_offset": 6707,
         "covers_fraction": 0.201,
         "per_stratum": 20,
         "with_endpoint": 100,
@@ -53,19 +53,19 @@
       },
       "examples": [
         {
-          "token_id": "353269",
+          "token_id": "353926",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "353237",
+          "token_id": "353920",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "353228",
+          "token_id": "353917",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -76,8 +76,8 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2407,
-        "declares_a2a": 860,
+        "registered": 2410,
+        "declares_a2a": 861,
         "declares_mcp": 83
       },
       "sample": {
@@ -91,41 +91,41 @@
           275,
           378,
           516,
-          653,
+          654,
           817
         ],
         "strata_planned": 10,
         "strata_failed": [],
         "deepest_offset": 817,
-        "covers_fraction": 0.973,
+        "covers_fraction": 0.972,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 55,
-        "template_resolves": 52,
-        "distinct_hosts": 59,
+        "broken_template": 56,
+        "template_resolves": 53,
+        "distinct_hosts": 57,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
-            "count": 52
+            "count": 53
           },
           {
             "host": "localhost",
-            "count": 31
+            "count": 30
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 19
+            "count": 20
           },
           {
             "host": "bedrock-agentcore.us-east-1.amazonaws.com",
             "count": 12
           },
           {
-            "host": "sidekick.example",
-            "count": 8
+            "host": "www.testnet.app.bitagent.io",
+            "count": 9
           },
           {
-            "host": "www.testnet.app.bitagent.io",
+            "host": "sidekick.example",
             "count": 8
           },
           {
@@ -148,11 +148,11 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 49
+            "count": 51
           },
           {
             "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 3
+            "count": 2
           }
         ]
       },
