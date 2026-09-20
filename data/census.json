@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-09-19T03:27:21.791Z",
+  "generated_at": "2026-09-20T01:27:06.715Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 322385,
-        "declares_a2a": 33537,
-        "declares_mcp": 6176
+        "registered": 322912,
+        "declares_a2a": 33610,
+        "declares_mcp": 6199
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          670,
-          2012,
-          4024,
-          6707
+          672,
+          2016,
+          4033,
+          6722
         ],
         "strata_planned": 10,
         "strata_failed": [
-          10731,
-          14756,
-          20122,
-          25488,
-          31860
+          10755,
+          14788,
+          20166,
+          25543,
+          31929
         ],
-        "deepest_offset": 6707,
+        "deepest_offset": 6722,
         "covers_fraction": 0.201,
         "per_stratum": 20,
         "with_endpoint": 100,
@@ -43,29 +43,25 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 99
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 1
+            "count": 100
           }
         ]
       },
       "examples": [
         {
-          "token_id": "353926",
+          "token_id": "354517",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "353920",
+          "token_id": "354515",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "353917",
+          "token_id": "354510",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -76,7 +72,7 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2410,
+        "registered": 2413,
         "declares_a2a": 861,
         "declares_mcp": 83
       },
