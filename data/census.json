@@ -1,61 +1,61 @@
 {
-  "generated_at": "2026-10-03T22:21:15.526Z",
+  "generated_at": "2026-10-04T21:15:56.563Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 331345,
-        "declares_a2a": 35531,
-        "declares_mcp": 6693
+        "registered": 332170,
+        "declares_a2a": 35584,
+        "declares_mcp": 6738
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          710,
-          2131,
-          4263,
-          7106
+          711,
+          2135,
+          4270,
+          7116
         ],
         "strata_planned": 10,
         "strata_failed": [
-          11369,
-          15633,
-          21318,
-          27003,
-          33754
+          11386,
+          15656,
+          21350,
+          27043,
+          33804
         ],
-        "deepest_offset": 7106,
+        "deepest_offset": 7116,
         "covers_fraction": 0.201,
         "per_stratum": 20,
         "with_endpoint": 100,
         "broken_template": 97,
-        "template_resolves": 95,
-        "distinct_hosts": 3,
+        "template_resolves": 96,
+        "distinct_hosts": 4,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
             "count": 97
           },
           {
-            "host": "app.singularry.org",
-            "count": 2
+            "host": "jensenai.vercel.app",
+            "count": 1
           },
           {
-            "host": "tanned-retriever-swimsuit.ngrok-free.dev",
+            "host": "agent.brainonbnb.com",
+            "count": 1
+          },
+          {
+            "host": "bedrock-agentcore.eu-central-1.amazonaws.com",
             "count": 1
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 92
-          },
-          {
-            "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 2
+            "count": 95
           },
           {
             "status": "ONLINE/online/endpoint:no/skills:0",
@@ -65,19 +65,19 @@
       },
       "examples": [
         {
-          "token_id": "363249",
+          "token_id": "364028",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "363247",
+          "token_id": "363989",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "363246",
+          "token_id": "363974",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -88,9 +88,9 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2512,
-        "declares_a2a": 906,
-        "declares_mcp": 85
+        "registered": 2517,
+        "declares_a2a": 911,
+        "declares_mcp": 86
       },
       "sample": {
         "size": 200,
@@ -98,54 +98,54 @@
           0,
           18,
           54,
-          108,
-          181,
-          289,
-          398,
-          543,
-          688,
-          860
+          109,
+          182,
+          291,
+          400,
+          546,
+          692,
+          865
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 860,
+        "deepest_offset": 865,
         "covers_fraction": 0.971,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 61,
-        "template_resolves": 54,
+        "broken_template": 60,
+        "template_resolves": 53,
         "distinct_hosts": 64,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
-            "count": 52
-          },
-          {
-            "host": "localhost",
-            "count": 19
+            "count": 51
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 17
+            "count": 20
+          },
+          {
+            "host": "localhost",
+            "count": 18
           },
           {
             "host": "api.agentsouk.xyz",
-            "count": 14
+            "count": 15
           },
           {
             "host": "bedrock-agentcore.us-east-1.amazonaws.com",
-            "count": 11
+            "count": 8
           },
           {
             "host": "www.testnet.app.bitagent.io",
             "count": 8
           },
           {
-            "host": "marque.trade",
-            "count": 6
+            "host": "testnet-api.bitagent.io",
+            "count": 7
           },
           {
-            "host": "testnet-api.bitagent.io",
+            "host": "marque.trade",
             "count": 6
           },
           {
@@ -160,7 +160,7 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 52
+            "count": 51
           },
           {
             "status": "UNBOUND/offline/endpoint:si/skills:0",
@@ -176,13 +176,13 @@
           "corrected_status": 200
         },
         {
-          "token_id": "2101",
+          "token_id": "1994",
           "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "1990",
+          "token_id": "1993",
           "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
