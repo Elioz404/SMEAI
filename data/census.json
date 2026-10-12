@@ -1,75 +1,71 @@
 {
-  "generated_at": "2026-10-11T15:55:08.603Z",
+  "generated_at": "2026-10-12T20:00:18.790Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 339469,
-        "declares_a2a": 39463,
-        "declares_mcp": 6882
+        "registered": 340228,
+        "declares_a2a": 39605,
+        "declares_mcp": 6996
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          789,
-          2367,
-          4735,
-          7892
+          792,
+          2376,
+          4752,
+          7921
         ],
         "strata_planned": 10,
         "strata_failed": [
-          12628,
-          17363,
-          23677,
-          29991,
-          37489
+          12673,
+          17426,
+          23763,
+          30099,
+          37624
         ],
-        "deepest_offset": 7892,
-        "covers_fraction": 0.2,
+        "deepest_offset": 7921,
+        "covers_fraction": 0.201,
         "per_stratum": 20,
         "with_endpoint": 100,
-        "broken_template": 100,
-        "template_resolves": 100,
-        "distinct_hosts": 1,
+        "broken_template": 98,
+        "template_resolves": 96,
+        "distinct_hosts": 2,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
-            "count": 100
+            "count": 98
+          },
+          {
+            "host": "api.bortagent.xyz",
+            "count": 2
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 98
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 1
-          },
-          {
-            "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 1
+            "count": 96
           }
         ]
       },
       "examples": [
         {
-          "token_id": "371427",
+          "token_id": "372192",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "371426",
+          "token_id": "372191",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "371416",
+          "token_id": "372187",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -80,8 +76,8 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2552,
-        "declares_a2a": 932,
+        "registered": 2566,
+        "declares_a2a": 945,
         "declares_mcp": 91
       },
       "sample": {
@@ -89,82 +85,88 @@
         "strata": [
           0,
           18,
-          55,
-          111,
-          186,
-          298,
-          410,
-          559,
-          708,
-          885
+          56,
+          113,
+          189,
+          302,
+          415,
+          567,
+          718,
+          897
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 885,
-        "covers_fraction": 0.971,
+        "deepest_offset": 897,
+        "covers_fraction": 0.97,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 55,
-        "template_resolves": 52,
-        "distinct_hosts": 58,
+        "broken_template": 45,
+        "template_resolves": 44,
+        "distinct_hosts": 48,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
-            "count": 42
+            "count": 37
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 19
-          },
-          {
-            "host": "localhost",
-            "count": 16
-          },
-          {
-            "host": "bedrock-agentcore.us-east-1.amazonaws.com",
-            "count": 10
-          },
-          {
-            "host": "platform-backend-bnb8183-self.dev.termix.live",
-            "count": 10
+            "count": 18
           },
           {
             "host": "www.testnet.app.bitagent.io",
-            "count": 9
+            "count": 17
           },
           {
-            "host": "api.agentsouk.xyz",
-            "count": 5
+            "host": "bedrock-agentcore.us-east-1.amazonaws.com",
+            "count": 14
+          },
+          {
+            "host": "localhost",
+            "count": 13
           },
           {
             "host": "marque.trade",
-            "count": 5
+            "count": 8
           },
           {
             "host": "sidekick.example",
+            "count": 7
+          },
+          {
+            "host": "platform-backend-bnb8183-self.dev.termix.live",
+            "count": 7
+          },
+          {
+            "host": "aethra-five-beta.vercel.app",
             "count": 5
           },
           {
-            "host": "orchestrator",
+            "host": "testnet-api.bitagent.io",
             "count": 5
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 41
+            "count": 33
           },
           {
             "status": "UNBOUND/offline/endpoint:si/skills:0",
-            "count": 10
+            "count": 7
           },
           {
             "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 1
+            "count": 4
           }
         ]
       },
       "examples": [
+        {
+          "token_id": "2602",
+          "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
+          "registered_status": 404,
+          "corrected_status": 200
+        },
         {
           "token_id": "2580",
           "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
@@ -173,12 +175,6 @@
         },
         {
           "token_id": "2579",
-          "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": 404,
-          "corrected_status": 200
-        },
-        {
-          "token_id": "2576",
           "registered_url": "https://platform-backend.dev.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
