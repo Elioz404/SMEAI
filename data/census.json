@@ -1,74 +1,74 @@
 {
-  "generated_at": "2026-10-14T15:56:48.225Z",
+  "generated_at": "2026-10-15T12:49:50.772Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 341956,
-        "declares_a2a": 39656,
-        "declares_mcp": 8068
+        "registered": 342319,
+        "declares_a2a": 39756,
+        "declares_mcp": 8087
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          793,
-          2379,
-          4758,
-          7931
+          795,
+          2385,
+          4770,
+          7951
         ],
         "strata_planned": 10,
         "strata_failed": [
-          12689,
-          17448,
-          23793,
-          30138,
-          37673
+          12721,
+          17492,
+          23853,
+          30214,
+          37768
         ],
-        "deepest_offset": 7931,
+        "deepest_offset": 7951,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
-        "broken_template": 100,
-        "template_resolves": 88,
-        "distinct_hosts": 1,
+        "broken_template": 99,
+        "template_resolves": 91,
+        "distinct_hosts": 2,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
-            "count": 100
+            "count": 99
+          },
+          {
+            "host": "tare-keeper.onrender.com",
+            "count": 1
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 87
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 1
+            "count": 91
           }
         ]
       },
       "examples": [
         {
-          "token_id": "373933",
+          "token_id": "374310",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": 404,
-          "corrected_status": 200
-        },
-        {
-          "token_id": "373910",
-          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": 404,
-          "corrected_status": 200
-        },
-        {
-          "token_id": "373909",
-          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": 404,
+          "registered_status": "timeout",
           "corrected_status": "timeout"
+        },
+        {
+          "token_id": "374309",
+          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
+          "registered_status": 404,
+          "corrected_status": 200
+        },
+        {
+          "token_id": "374303",
+          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
+          "registered_status": 404,
+          "corrected_status": 200
         }
       ]
     },
@@ -76,73 +76,73 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2576,
-        "declares_a2a": 948,
+        "registered": 2583,
+        "declares_a2a": 955,
         "declares_mcp": 92
       },
       "sample": {
         "size": 200,
         "strata": [
           0,
-          18,
-          56,
-          113,
-          189,
-          303,
-          417,
-          568,
-          720,
-          900
+          19,
+          57,
+          114,
+          191,
+          305,
+          420,
+          573,
+          725,
+          907
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 900,
-        "covers_fraction": 0.97,
+        "deepest_offset": 907,
+        "covers_fraction": 0.971,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 46,
-        "template_resolves": 45,
-        "distinct_hosts": 46,
+        "broken_template": 45,
+        "template_resolves": 42,
+        "distinct_hosts": 49,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
             "count": 40
           },
           {
-            "host": "bnbagent-api.bnbchain.world",
-            "count": 18
-          },
-          {
             "host": "www.testnet.app.bitagent.io",
             "count": 17
           },
           {
-            "host": "localhost",
-            "count": 12
+            "host": "bnbagent-api.bnbchain.world",
+            "count": 16
           },
           {
-            "host": "bedrock-agentcore.us-east-1.amazonaws.com",
+            "host": "localhost",
+            "count": 14
+          },
+          {
+            "host": "api.agentsouk.xyz",
             "count": 11
           },
           {
-            "host": "marque.trade",
-            "count": 8
+            "host": "pokter.xyz",
+            "count": 9
           },
           {
-            "host": "sidekick.example",
-            "count": 8
+            "host": "bedrock-agentcore.us-east-1.amazonaws.com",
+            "count": 7
           },
           {
             "host": "aethra-five-beta.vercel.app",
             "count": 7
           },
           {
-            "host": "www.mandatemarkets.com",
-            "count": 6
+            "host": "example.com",
+            "count": 5
           },
           {
-            "host": "api.agentsouk.xyz",
-            "count": 6
+            "host": "sidekick.example",
+            "count": 5
           }
         ],
         "platform_status": [
@@ -156,7 +156,7 @@
           },
           {
             "status": "UNBOUND/offline/endpoint:si/skills:0",
-            "count": 5
+            "count": 2
           }
         ]
       },
