@@ -1,79 +1,79 @@
 {
-  "generated_at": "2026-10-18T08:19:11.431Z",
+  "generated_at": "2026-10-19T09:19:31.585Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 343942,
-        "declares_a2a": 39844,
-        "declares_mcp": 8115
+        "registered": 344360,
+        "declares_a2a": 39869,
+        "declares_mcp": 8133
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          796,
-          2390,
-          4781,
-          7968
+          797,
+          2392,
+          4784,
+          7973
         ],
         "strata_planned": 10,
         "strata_failed": [
-          12750,
-          17531,
-          23906,
-          30281,
-          37851
+          12758,
+          17542,
+          23921,
+          30300,
+          37875
         ],
-        "deepest_offset": 7968,
+        "deepest_offset": 7973,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
-        "broken_template": 98,
-        "template_resolves": 91,
-        "distinct_hosts": 3,
+        "broken_template": 95,
+        "template_resolves": 82,
+        "distinct_hosts": 4,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
-            "count": 98
+            "count": 95
           },
           {
-            "host": "www.oracleinsight.xyz",
-            "count": 1
+            "host": "api.bortagent.xyz",
+            "count": 2
           },
           {
-            "host": "x402.n9t2.com",
+            "host": "agentdiet-72343955726.us-central1.run.app",
+            "count": 2
+          },
+          {
+            "host": "fual-treasury-agent.phamphuanloc.chatgpt.site",
             "count": 1
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 88
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 3
+            "count": 82
           }
         ]
       },
       "examples": [
         {
-          "token_id": "375925",
+          "token_id": "376372",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "375874",
+          "token_id": "376349",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "375859",
+          "token_id": "376343",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
