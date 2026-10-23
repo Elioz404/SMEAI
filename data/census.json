@@ -1,71 +1,75 @@
 {
-  "generated_at": "2026-10-22T05:14:31.439Z",
+  "generated_at": "2026-10-23T01:18:09.485Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 346270,
-        "declares_a2a": 40221,
-        "declares_mcp": 8626
+        "registered": 346814,
+        "declares_a2a": 40544,
+        "declares_mcp": 8630
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          804,
-          2413,
-          4826,
-          8044
+          810,
+          2432,
+          4865,
+          8108
         ],
         "strata_planned": 10,
         "strata_failed": [
-          12870,
-          17697,
-          24132,
-          30567,
-          38209
+          12974,
+          17839,
+          24326,
+          30813,
+          38516
         ],
-        "deepest_offset": 8044,
+        "deepest_offset": 8108,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
-        "broken_template": 99,
-        "template_resolves": 89,
+        "broken_template": 76,
+        "template_resolves": 71,
         "distinct_hosts": 2,
         "hosts": [
           {
             "host": "platform-backend.prod.termix.live",
-            "count": 99
+            "count": 76
           },
           {
-            "host": "wei.example.com",
-            "count": 1
+            "host": "www.app.bitagent.io",
+            "count": 24
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 89
+            "count": 70
+          },
+          {
+            "status": "ONLINE/online/endpoint:no/skills:0",
+            "count": 1
           }
         ]
       },
       "examples": [
         {
-          "token_id": "378758",
+          "token_id": "379306",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "378756",
+          "token_id": "379290",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "378754",
+          "token_id": "379289",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -76,8 +80,8 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2613,
-        "declares_a2a": 980,
+        "registered": 2616,
+        "declares_a2a": 981,
         "declares_mcp": 92
       },
       "sample": {
@@ -91,18 +95,18 @@
           313,
           431,
           588,
-          744,
+          745,
           931
         ],
         "strata_planned": 10,
         "strata_failed": [],
         "deepest_offset": 931,
-        "covers_fraction": 0.97,
+        "covers_fraction": 0.969,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 47,
+        "broken_template": 46,
         "template_resolves": 44,
-        "distinct_hosts": 55,
+        "distinct_hosts": 53,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
@@ -110,11 +114,11 @@
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 31
+            "count": 32
           },
           {
             "host": "www.testnet.app.bitagent.io",
-            "count": 22
+            "count": 23
           },
           {
             "host": "localhost",
@@ -133,22 +137,22 @@
             "count": 4
           },
           {
-            "host": "desk.rouma.online",
-            "count": 4
-          },
-          {
             "host": "report-generator",
             "count": 4
           },
           {
             "host": "risk-assessor",
             "count": 4
+          },
+          {
+            "host": "data-analyst",
+            "count": 4
           }
         ],
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 39
+            "count": 40
           },
           {
             "status": "OFFLINE/offline/endpoint:no/skills:0",
@@ -156,7 +160,7 @@
           },
           {
             "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 2
+            "count": 1
           }
         ]
       },
