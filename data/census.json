@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-10-24T21:05:33.790Z",
+  "generated_at": "2026-10-25T17:28:43.731Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 350956,
-        "declares_a2a": 41912,
+        "registered": 356973,
+        "declares_a2a": 45204,
         "declares_mcp": 8726
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          838,
-          2514,
-          5029,
-          8382
+          904,
+          2712,
+          5424,
+          9040
         ],
         "strata_planned": 10,
         "strata_failed": [
-          13411,
-          18441,
-          25147,
-          31853,
-          39816
+          14465,
+          19889,
+          27122,
+          34355,
+          42943
         ],
-        "deepest_offset": 8382,
+        "deepest_offset": 9040,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
@@ -43,33 +43,25 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 97
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 2
-          },
-          {
-            "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 1
+            "count": 100
           }
         ]
       },
       "examples": [
         {
-          "token_id": "383613",
+          "token_id": "389688",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "383612",
+          "token_id": "389669",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "383609",
+          "token_id": "389642",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -80,8 +72,8 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2628,
-        "declares_a2a": 987,
+        "registered": 2631,
+        "declares_a2a": 988,
         "declares_mcp": 92
       },
       "sample": {
@@ -92,33 +84,33 @@
           59,
           118,
           197,
-          315,
+          316,
           434,
           592,
           750,
-          937
+          938
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 937,
+        "deepest_offset": 938,
         "covers_fraction": 0.97,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 43,
-        "template_resolves": 40,
-        "distinct_hosts": 55,
+        "broken_template": 41,
+        "template_resolves": 38,
+        "distinct_hosts": 54,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
-            "count": 40
+            "count": 38
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 32
+            "count": 33
           },
           {
             "host": "localhost",
-            "count": 24
+            "count": 25
           },
           {
             "host": "www.testnet.app.bitagent.io",
@@ -126,7 +118,7 @@
           },
           {
             "host": "bedrock-agentcore.us-east-1.amazonaws.com",
-            "count": 6
+            "count": 7
           },
           {
             "host": "pokter.xyz",
@@ -152,7 +144,7 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 36
+            "count": 34
           },
           {
             "status": "OFFLINE/offline/endpoint:no/skills:0",
