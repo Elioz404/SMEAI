@@ -1,33 +1,33 @@
 {
-  "generated_at": "2026-10-27T14:52:05.511Z",
+  "generated_at": "2026-10-28T17:04:51.461Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 360996,
-        "declares_a2a": 45652,
-        "declares_mcp": 8738
+        "registered": 362938,
+        "declares_a2a": 46102,
+        "declares_mcp": 8745
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          913,
-          2739,
-          5478,
-          9130
+          922,
+          2766,
+          5532,
+          9220
         ],
         "strata_planned": 10,
         "strata_failed": [
-          14608,
-          20086,
-          27391,
-          34695,
-          43369
+          14752,
+          20284,
+          27661,
+          35037,
+          43796
         ],
-        "deepest_offset": 9130,
+        "deepest_offset": 9220,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
@@ -49,19 +49,19 @@
       },
       "examples": [
         {
-          "token_id": "393815",
+          "token_id": "395807",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "393814",
+          "token_id": "395804",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "393812",
+          "token_id": "395803",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
@@ -72,9 +72,9 @@
       "chain_id": 97,
       "chain_name": "BSC Testnet",
       "population": {
-        "registered": 2635,
-        "declares_a2a": 990,
-        "declares_mcp": 92
+        "registered": 2638,
+        "declares_a2a": 992,
+        "declares_mcp": 94
       },
       "sample": {
         "size": 200,
@@ -82,39 +82,39 @@
           0,
           19,
           59,
-          118,
+          119,
           198,
-          316,
-          435,
-          594,
-          752,
-          940
+          317,
+          436,
+          595,
+          753,
+          942
         ],
         "strata_planned": 10,
         "strata_failed": [],
-        "deepest_offset": 940,
+        "deepest_offset": 942,
         "covers_fraction": 0.97,
         "per_stratum": 20,
         "with_endpoint": 200,
-        "broken_template": 40,
-        "template_resolves": 37,
-        "distinct_hosts": 55,
+        "broken_template": 38,
+        "template_resolves": 35,
+        "distinct_hosts": 58,
         "hosts": [
           {
             "host": "platform-backend.dev.termix.live",
-            "count": 37
+            "count": 35
           },
           {
             "host": "bnbagent-api.bnbchain.world",
-            "count": 31
-          },
-          {
-            "host": "localhost",
-            "count": 26
+            "count": 34
           },
           {
             "host": "www.testnet.app.bitagent.io",
-            "count": 24
+            "count": 25
+          },
+          {
+            "host": "localhost",
+            "count": 25
           },
           {
             "host": "bedrock-agentcore.us-east-1.amazonaws.com",
@@ -129,7 +129,7 @@
             "count": 4
           },
           {
-            "host": "b8xmarket-repo.vercel.app",
+            "host": "orchestrator",
             "count": 4
           },
           {
@@ -144,11 +144,11 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 33
+            "count": 32
           },
           {
             "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 3
+            "count": 2
           },
           {
             "status": "ONLINE/online/endpoint:no/skills:0",
