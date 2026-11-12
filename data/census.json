@@ -1,38 +1,38 @@
 {
-  "generated_at": "2026-11-11T21:53:49.675Z",
+  "generated_at": "2026-11-12T18:47:07.530Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 383386,
-        "declares_a2a": 48358,
+        "registered": 384308,
+        "declares_a2a": 48627,
         "declares_mcp": 8752
       },
       "sample": {
         "size": 100,
         "strata": [
           0,
-          967,
-          2901,
-          5802,
-          9671
+          972,
+          2917,
+          5835,
+          9725
         ],
         "strata_planned": 10,
         "strata_failed": [
-          15474,
-          21277,
-          29014,
-          36752,
-          45940
+          15560,
+          21395,
+          29176,
+          36956,
+          46195
         ],
-        "deepest_offset": 9671,
+        "deepest_offset": 9725,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
         "broken_template": 100,
-        "template_resolves": 83,
+        "template_resolves": 75,
         "distinct_hosts": 1,
         "hosts": [
           {
@@ -43,36 +43,40 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 79
+            "count": 71
+          },
+          {
+            "status": "ONLINE/online/endpoint:no/skills:0",
+            "count": 2
           },
           {
             "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 3
+            "count": 1
           },
           {
-            "status": "OFFLINE/online/endpoint:no/skills:0",
+            "status": "OFFLINE/recent/endpoint:no/skills:0",
             "count": 1
           }
         ]
       },
       "examples": [
         {
-          "token_id": "416547",
-          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": 404,
-          "corrected_status": 200
-        },
-        {
-          "token_id": "416540",
+          "token_id": "417505",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": "timeout",
           "corrected_status": "timeout"
         },
         {
-          "token_id": "416450",
+          "token_id": "417487",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
-          "corrected_status": "timeout"
+          "corrected_status": 200
+        },
+        {
+          "token_id": "417480",
+          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
+          "registered_status": 404,
+          "corrected_status": 200
         }
       ]
     },
