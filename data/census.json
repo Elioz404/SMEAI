@@ -1,13 +1,13 @@
 {
-  "generated_at": "2026-11-12T18:47:07.530Z",
+  "generated_at": "2026-11-13T14:51:57.833Z",
   "method": "Population figures are exact, read from the registry index. Everything else is a stratified sample: the index does not paginate reliably past a few thousand offsets, so a full enumeration is not available by this route. Every sampled figure carries its sample size.",
   "chains": [
     {
       "chain_id": 56,
       "chain_name": "BSC Mainnet",
       "population": {
-        "registered": 384308,
-        "declares_a2a": 48627,
+        "registered": 384744,
+        "declares_a2a": 48646,
         "declares_mcp": 8752
       },
       "sample": {
@@ -15,24 +15,24 @@
         "strata": [
           0,
           972,
-          2917,
-          5835,
-          9725
+          2918,
+          5837,
+          9729
         ],
         "strata_planned": 10,
         "strata_failed": [
-          15560,
-          21395,
-          29176,
-          36956,
-          46195
+          15566,
+          21404,
+          29187,
+          36970,
+          46213
         ],
-        "deepest_offset": 9725,
+        "deepest_offset": 9729,
         "covers_fraction": 0.2,
         "per_stratum": 20,
         "with_endpoint": 100,
         "broken_template": 100,
-        "template_resolves": 75,
+        "template_resolves": 91,
         "distinct_hosts": 1,
         "hosts": [
           {
@@ -43,37 +43,29 @@
         "platform_status": [
           {
             "status": "UNBOUND/offline/endpoint:no/skills:0",
-            "count": 71
-          },
-          {
-            "status": "ONLINE/online/endpoint:no/skills:0",
-            "count": 2
+            "count": 90
           },
           {
             "status": "OFFLINE/offline/endpoint:no/skills:0",
-            "count": 1
-          },
-          {
-            "status": "OFFLINE/recent/endpoint:no/skills:0",
             "count": 1
           }
         ]
       },
       "examples": [
         {
-          "token_id": "417505",
-          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
-          "registered_status": "timeout",
-          "corrected_status": "timeout"
-        },
-        {
-          "token_id": "417487",
+          "token_id": "417723",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
         },
         {
-          "token_id": "417480",
+          "token_id": "417722",
+          "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
+          "registered_status": 404,
+          "corrected_status": 200
+        },
+        {
+          "token_id": "417718",
           "registered_url": "https://platform-backend.prod.termix.live/api/v1/a2a/agents/{agentId}/card",
           "registered_status": 404,
           "corrected_status": 200
